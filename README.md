@@ -28,6 +28,33 @@ number typed into prose is a claim nobody maintains — which is a rule this boo
 spends an appendix defending, and would be an odd one to break on its own front
 page.
 
+## Reading it
+
+There is no hosted copy yet, and no release, so this section says what works
+today rather than printing a link that does not resolve — which is the rule the
+book itself is built on.
+
+**Build it.** You need a TeX distribution with `tikz`, `tcolorbox`, `xltabular`
+and `environ`, and Python 3.11. Nothing else — no `pip install`, no lock file.
+
+```sh
+git clone https://github.com/konradcinkusz/staff-ai-engineer-preparation-kit
+cd staff-ai-engineer-preparation-kit
+make
+```
+
+**Or take it off a build.** Every push builds the handbook and the five cards
+and attaches them to the run as an artefact, under
+[Actions → Build](https://github.com/konradcinkusz/staff-ai-engineer-preparation-kit/actions/workflows/build.yml).
+You need a GitHub account to download one, and they expire after fourteen days.
+
+Two better routes exist in the repository and neither is switched on:
+`pages.yml` publishes a permanent copy and needs an admin to choose
+**Settings → Pages → Source → GitHub Actions** once — creating a Pages site is
+an administrative action no workflow token can perform. `release.yml` attaches
+the PDFs to a `v*` tag, and no tag has been pushed. **This paragraph is deleted
+the day either happens.**
+
 ## What it refuses to do
 
 **No figures it cannot source.** No salary bands, no premiums, no pass rates.
@@ -54,7 +81,7 @@ Every chapter ends with **what this chapter does not claim**.
 ## Build
 
 ```sh
-make            # gates, then the book, then the cards, then read the log
+make            # generate, gate, build, then read the log
 make gates      # every check that does not need a PDF — run this while writing
 make mutations  # prove the gates can fail
 make help       # the rest
