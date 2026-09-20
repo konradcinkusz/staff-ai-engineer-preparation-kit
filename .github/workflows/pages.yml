@@ -1,0 +1,101 @@
+# The kit needs an address.
+#
+# Without this the only way to read the book is to clone the repository and
+# install a TeX distribution, which is a high price for deciding whether it is
+# worth reading. This compiles and publishes on every push to main.
+#
+# It duplicates the compile steps from build.yml on purpose, and reads its own
+# log with checklog.py rather than trusting another workflow's: Pages must
+# never publish a PDF that did not build.
+#
+# NOTE FOR A FIRST DEPLOYMENT: creating a repository's Pages site for the first
+# time is an administrative action, and `administration` is not a scope a
+# workflow's own token can be granted. No value of `enablement` reaches it. A
+# repository admin has to visit Settings -> Pages -> Build and deployment ->
+# Source and choose "GitHub Actions", once. Every push after that deploys with
+# nothing further needed here.
+
+name: Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      # Same reason as build.yml: nothing derived is committed, so a fresh
+      # checkout has to generate before anything can be gated or compiled.
+      - name: Generate what is derived from the manifests
+        run: make generate
+
+      - name: The gates, before anything is published
+        run: make gates
+
+      - name: Build the handbook
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: main.tex
+          args: -pdf -interaction=nonstopmode -file-line-error
+
+      - name: Build the cards
+        uses: xu-cheng/latex-action@v3
+        with:
+          working_directory: onepagers
+          root_file: |
+            run-sheet-card.tex
+            decision-method-card.tex
+            failure-tree-card.tex
+            pre-call-briefing-card.tex
+            banned-claims-card.tex
+          args: -pdf -interaction=nonstopmode -file-line-error
+
+      - name: Read the logs properly
+        run: python3 tools/checklog.py main.log onepagers/*.log
+
+      - name: Assemble the site
+        run: |
+          mkdir -p _site/cards
+          cp docs/index.html _site/
+          cp main.pdf _site/staff-ai-engineer-preparation-kit.pdf
+          cp onepagers/*.pdf _site/cards/
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deploy
+        uses: actions/deploy-pages@v4
+
+      - name: If configure-pages failed
+        if: failure()
+        run: |
+          {
+            echo '## If this failed at configure-pages'
+            echo
+            echo 'Creating a repository Pages site for the first time is an'
+            echo 'administrative action and no workflow token can do it.'
+            echo 'Settings -> Pages -> Build and deployment -> Source ->'
+            echo '"GitHub Actions", once, by an admin.'
+          } >> "$GITHUB_STEP_SUMMARY"

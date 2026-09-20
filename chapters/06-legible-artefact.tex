@@ -1,0 +1,134 @@
+\chapter{What makes an artefact legible}
+\label{ch:legible}
+
+\section*{What this chapter is for}
+
+Most portfolio work fails on readability rather than on substance. A reader
+gives it somewhere between five and twenty minutes, decides whether it
+demonstrates judgement, and moves on. This chapter is about the properties that
+survive that, and they are not the properties that feel important while you are
+building.
+
+\section{Five properties}
+
+\subsection*{One thesis}
+
+The artefact argues one thing. A reader should be able to state it in a
+sentence after the README, and that sentence should be a claim somebody could
+disagree with.
+
+\emph{``A retrieval system''} is not a thesis. \emph{``Grading the execution
+trace rather than the reply text is what makes an evaluation suite survive a
+prompt rewrite''} is a thesis: it is specific, it is arguable, and everything
+in the repository can then be read as evidence for it.
+
+\judgement{The single most common defect in portfolio work is that it
+demonstrates competence at assembling components and takes no position at all.
+Competence at assembly is assumed at this level; it is not what is being
+looked for.}
+
+\subsection*{Readable in twenty minutes}
+
+Not small \dash{} \emph{readable}. A large repository with an entry point, a
+map, and one file that is obviously the point is readable. A small one with
+five equally plausible starting places is not.
+
+Practically: the README says what it is, what it claims, and which two files to
+open. \judgement{Naming the two files is the highest-value sentence in a
+portfolio README and almost nobody writes it.}
+
+\subsection*{Gated, and the gates watched failing}
+
+An artefact that claims correctness and has no checks is asking to be trusted,
+which is what the artefact existed to avoid. An artefact with checks that have
+never failed is worse, because it looks rigorous.
+
+The discipline worth importing, and it is the estate's own: \emph{a check nobody
+has watched fail is not known to be checking anything}. Introduce the defect,
+watch the check refuse it, then keep the check. If you can say in an interview
+that you deliberately broke your own system to confirm the suite noticed, and
+that one of the breakages \emph{survived}, you have said something no
+certificate says.
+
+\subsection*{Deployed, or honest about not being}
+
+\reported{Deployed and clickable beats a notebook.}{field-guide-get-hired} A URL
+removes an entire category of doubt about whether the thing runs outside the
+author's machine.
+
+Where deployment is genuinely not worth it, say so and say what that leaves
+untested. That is not an apology; it is the property in the next section.
+
+\subsection*{It states what it does not do}
+
+This is the one that separates a portfolio from a product demo, and it is
+important enough to have its own chapter (Chapter~\ref{ch:ledger}).
+
+\section{The README, as a structure}
+
+\begin{kitmethod}
+\textbf{One sentence: what this is.} Not the stack. The thesis.
+
+\textbf{One paragraph: why it exists.} The problem it is a response to.
+
+\textbf{What it does not do,} with a pointer to the register where the full list
+lives. Near the top, not buried at the bottom.
+
+\textbf{The two files to read,} named, with one line each on why those two.
+
+\textbf{How to run it,} in commands that work in a fresh clone.
+
+\textbf{What the checks check,} and \dash{} if you have them \dash{} what they
+have caught.
+\end{kitmethod}
+
+Everything else is optional. \judgement{A badge row is worth exactly one line
+and only if the badges are live; a dead badge is a claim that has stopped being
+true in the most visible place on the page, which is a poor first impression in
+a portfolio about rigour.}
+
+\section{What makes an artefact read as junior}
+
+Worth naming, because each of these is a default rather than a decision.
+
+\begin{kittable}{@{}lX@{}}
+\textbf{Signal} & \textbf{What a reader infers} \\
+\midrule
+A notebook as the entry point & this was explored, not built \\
+No tests, or tests that assert nothing & the author has not been hurt by this yet \\
+Every option configurable & no decisions were made \\
+A README of screenshots & the artefact is the demo, not the reasoning \\
+Generated boilerplate left in & the author did not read their own repository \\
+A claim in the README the code does not support & everything else in the README is now unverified \\
+\end{kittable}
+
+The last row compounds. \judgement{One stale claim does not cost you one claim;
+it costs you the reader's willingness to take the others on trust, which was
+the entire asset.} Chapter~\ref{ch:claims} is the routine that prevents it.
+
+\section{The defence is part of the artefact}
+
+You will be asked about it, and \reported{in take-home assessments the defence
+round is reported to matter more than the code
+alone}{field-guide-take-home}.
+
+So the artefact includes the answers to: why this and not the obvious
+alternative; what you would do differently with a week; what in it you are least
+confident about; and what it would take to run it at a hundred times the scale.
+That last one is a Staff question wearing a systems costume \dash{} it is asking
+whether you know which part breaks first.
+
+\begin{drill}
+Give somebody your artefact's README and twenty minutes, and ask them for three
+things: what it claims, which two files they would open, and one thing they do
+not believe. If they cannot answer the first two, the defect is the README. If
+they have nothing for the third, the artefact is probably not claiming anything.
+\end{drill}
+
+\section*{What this chapter does not claim}
+
+The five properties are a considered position, not a measured one. What is
+reported is narrower: that deployed systems are preferred to notebooks, and
+that the defence round carries weight. The rest is the author's judgement about
+why some portfolio work reads as senior and most does not, and you should weigh
+it as that.

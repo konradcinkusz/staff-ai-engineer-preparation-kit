@@ -1,0 +1,143 @@
+\chapter{Safety}
+\label{ch:safety}
+
+\section*{What this chapter is for}
+
+\reported{Safety questions are moderately common and role-dependent, and appear
+more often as a named failure mode than as a dedicated
+round.}{field-guide} Where they do appear, they are usually the same question
+in different clothes: what can this system be made to do that you did not
+intend?
+
+\section*{The questions}
+
+\begin{bankq}{What is prompt injection, and why is it worse in an agent?}
+\qasked
+Sometimes named directly, more often reached through a scenario about a
+system that did something it should not have.
+
+\qtested
+Whether you locate the problem at the data boundary or treat it as a
+prompt-writing problem.
+
+\qstaff
+The system cannot distinguish instructions from data, because both are text in
+the same channel. Anything that reaches the context can be read as an
+instruction, and that includes content the system fetched itself \dash{} a
+retrieved document, a tool result, a web page, a file.
+
+That last part is what makes it different from a user typing something
+adversarial, and it is the part people miss: the attack does not have to come
+from the person talking to the system. \reported{The amplification in agentic
+systems is that the model can act, so a successful injection is no longer a
+matter of what it says but of what it does with the tools it
+holds.}{agentic-injection}
+
+The answer is the same one as Chapter~\ref{ch:agents}: controls live at the
+tool boundary. An injected instruction that persuades the model to call a write
+tool still meets a tool that refuses without an approval bound to what a person
+saw. \judgement{Filtering inputs for suspicious phrasing is worth doing and is
+not a control \dash{} it is a filter with an unknown false-negative rate
+protecting something that should not have needed protecting.}
+
+There is a second-order point worth making if there is room: a system that
+refuses to function whenever it sees something suspicious has been
+denial-of-serviced by its own defences. The requirement is to keep working
+\emph{and} not act.
+
+\qsenior
+A correct description of a user injecting instructions, answered with input
+filtering and a firmer system prompt. It defends the channel that is easiest to
+defend and leaves the retrieved-content channel open.
+
+\qcontested
+Whether the problem is solvable at the model layer. \judgement{The defensible
+position is that it is not, currently, and that architectures should assume
+injection succeeds and be designed so that succeeding is not
+useful.}\source{mcp-prompt-injection}
+
+\qdrill
+For a system you know, list every path by which text you do not control reaches
+the context. Most people find one more than they expected.
+\end{bankq}
+
+\begin{bankq}{What is the worst thing this system can do without a person?}
+\qasked
+A design question, and one of the few in this book that is better asked of
+yourself than waited for.
+
+\qtested
+Whether you can state a blast radius. It is a Staff question in a safety
+costume: it is really about whether you know what you built.
+
+\qstaff
+Answer it literally, as one sentence, then say what bounds it. The bound is
+the union of what every tool can do with the credentials it holds \dash{} not
+what the model is likely to do, which is a different and unanswerable question.
+
+Then the reductions, in order of effectiveness: fewer tools that write; write
+tools that require an approval bound to a specific action; credentials scoped
+per tool rather than one capable credential shared; and anything irreversible
+either behind a person or made reversible.
+
+\judgement{The question is a good one to ask yourself about anything you have
+built, and being unable to answer it in a sentence is itself the answer.}
+
+\qsenior
+Discussion of guardrails, content filtering and monitoring. Those are about
+what the model produces; the question was about what the system can do.
+
+\qcontested
+How much autonomy is acceptable for reversible actions varies entirely by
+domain, and no general answer exists.
+
+\qdrill
+Write the sentence for a system you have built. If it takes more than one
+sentence, the tools are too capable.
+\end{bankq}
+
+\begin{bankq}{How do you stop it leaking things it should not?}
+\qasked
+Usually framed around a specific worry the team already has, such as one
+user seeing another user's documents.
+
+\qtested
+Whether you think of this as an output problem or an input problem.
+
+\qstaff
+Mostly it is an input problem. Data that never entered the context cannot be
+returned from it, so the first control is retrieval that respects the asking
+user's permissions \dash{} filtering at query time rather than filtering the
+answer afterwards.
+
+Then the output side, which catches what the first misses: internal
+identifiers, system details and permission names should not appear in
+user-facing text. That last one is easy to miss \dash{} a refusal saying
+\emph{you lack the inventory-write permission} satisfies a naive check for
+refusing and leaks the shape of your authorisation model in the same sentence.
+
+And separately: keep credentials and remote error text out of traces. A trace
+goes to a collector and is read by people who did not need to see either.
+
+\qsenior
+Output filtering and redaction. Necessary, and it is the last line rather than
+the first.
+
+\qcontested
+Little in principle. In practice, whether permission-aware retrieval is
+feasible depends on whether the corpus carries usable permissions, and
+frequently it does not.
+
+\qdrill
+Take a refusal message from a system you know and check whether it names
+anything internal. It very often does.
+\end{bankq}
+
+\section*{What this chapter does not claim}
+
+The frequency claim comes from one corpus. The injection material is consistent
+with published practitioner writing on agentic amplification and tool blast
+radius, cited where used.
+
+The position that injection is not currently solvable at the model layer is a
+judgement, and it is one on which reasonable people differ.

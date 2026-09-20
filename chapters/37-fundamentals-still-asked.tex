@@ -1,0 +1,168 @@
+\chapter{Fundamentals still asked}
+\label{ch:fundamentals}
+
+\section*{What this chapter is for}
+
+A build round in this domain is still a build round. The questions that decide
+it are frequently ordinary engineering questions, and a candidate who has spent
+a month on retrieval and cannot say what happens when two people buy the last
+item has prepared the wrong half.
+
+This chapter is a reminder rather than a course. \judgement{If you are senior
+in backend or platform work you know all of it; the value is in having answered
+each one recently, out loud, because fluency decays and these are asked under
+time pressure.}
+
+\section*{The questions}
+
+\begin{bankq}{Two people try to buy the last one. What happens?}
+\qasked
+A scenario, and one of the most reliably asked questions in any build round
+that touches inventory, booking or capacity.
+
+\qtested
+Whether you reach for a lock, a transaction, or a conditional write, and
+whether you know why.
+
+\qstaff
+The failure is read-then-write: both read one remaining, both decide it is
+available, both write zero, and two orders exist against one item. A
+transaction alone does not fix it \dash{} at the isolation level most databases
+default to, both transactions read the same value and both commit happily.
+
+Three real answers, and knowing which you are giving is the point. A
+conditional update \dash{} decrement \emph{where} the quantity is still
+sufficient \dash{} which makes the check and the write one atomic operation and
+lets the caller detect losing by finding no rows affected. A version column,
+where the write requires the version you read and fails if it moved. Or raising
+the isolation level, which pushes the problem into the database and produces
+serialisation failures the application still has to handle.
+
+\judgement{The conditional update is the boring default and should be said
+first. It needs no extra column, no retry loop in the common case, and it
+degrades to a clean failure. The version column earns its place when the
+conflict is over an aggregate rather than a counter.}
+
+And the constraint underneath it: a check that the quantity cannot be negative,
+so the invariant survives a bug in any of the three.
+
+\qsenior
+``Wrap it in a transaction'' \dash{} the most common answer and insufficient at
+the default isolation level, which is the specific thing being probed.
+
+\qcontested
+Optimistic against pessimistic, which is a real fork decided by contention
+rather than by preference.
+
+\qdrill
+Write the conditional update, as SQL, from memory. Then say how the caller
+knows it lost.
+\end{bankq}
+
+\begin{bankq}{This query is slow. What do you do?}
+\qasked
+Usually a follow-up once a data model is on the board.
+
+\qtested
+Whether you have an order, and whether you know what an index costs.
+
+\qstaff
+Look at the plan before changing anything \dash{} the fix depends on whether it
+is a scan, a bad join order, or a correct plan over too much data.
+
+Then: an index on the columns actually filtered, in an order that matches how
+they are filtered; covering the selected columns where that removes a lookup;
+and an awareness that every index is paid for on every write, so an index
+nobody's query uses is a pure cost.
+
+\judgement{The answer that reads as senior is the last sentence, because it
+treats an index as a trade rather than a fix, and because it implies you have
+been on the wrong side of it.}
+
+\qsenior
+``Add an index'', correct in most cases, offered without looking at the plan or
+mentioning the write cost.
+
+\qcontested
+Little at this level.
+
+\qdrill
+For a query you know, say which index you would add and name the query that
+would then be slower.
+\end{bankq}
+
+\begin{bankq}{How would you change this API without breaking its callers?}
+\qasked
+Asked of any interface with consumers you do not control, which at this level
+is most of them.
+
+\qtested
+Whether you know expand-and-contract, and whether you know who controls the
+timing.
+
+\qstaff
+Expand, migrate, contract. Add the new form alongside the old; write to both or
+translate between them; move callers; only then remove the old one \dash{} and
+the removal happens when the last caller has moved, which is a fact you need
+evidence for rather than a date you choose.
+
+The part that separates levels is the last clause. You do not control your
+callers' release cycles, so ``we will remove it in the next version'' is a plan
+that depends on other people's calendars. Instrumenting the old path to find
+out whether anyone still uses it is the difference between a migration and a
+hope.
+
+\qsenior
+Versioning the endpoint. It works and it defers the problem: you now maintain
+two implementations and the question of when the old one dies is unanswered.
+
+\qcontested
+Whether to version at all, and where. A real and long-running disagreement.
+
+\qdrill
+Say how you would know that nobody is calling the old form any more.
+\end{bankq}
+
+\begin{bankq}{What breaks first if this gets ten times the traffic?}
+\qasked
+Nearly universal in a design round, and the same probe as the scale question
+in the project deep-dive.
+
+\qtested
+Whether you have an order of attack. This is the same question as
+Chapter~\ref{ch:deep-dive}'s probe about scale, and it is asked in almost every
+design round.
+
+\qstaff
+Answer in order rather than listing. The database connection pool is usually
+first and is usually the cheapest to fix. Then the database itself \dash{} and
+which part: write throughput, read throughput, or lock contention on one row,
+which are three different problems with three different fixes. Then anything
+that holds state in a process, which is the point at which horizontal scaling
+stops being free. Then any external dependency with its own limit, where your
+capacity is somebody else's rate limit. Then, usually last, the thing everyone
+names first, which is the application's own processing.
+
+\judgement{Naming the order, and saying what evidence would change it, is the
+answer. Listing the components is not, and the difference is audible.}
+
+\qsenior
+A correct list of components that could become bottlenecks, unordered.
+
+\qcontested
+Nothing general \dash{} the order is a property of the system, and saying so is
+part of the answer.
+
+\qdrill
+For a system you have operated, say what actually broke first the last time
+load went up. It is frequently not what you would have predicted, and that
+story is worth more in an interview than the general answer.
+\end{bankq}
+
+\section*{What this chapter does not claim}
+
+No claim is made about how often these appear relative to the domain-specific
+surfaces. The reason they are here is structural: a build round involves data,
+concurrency and an interface, so these questions are reachable from any
+exercise, and the observation that candidates under-prepare them is the
+author's.

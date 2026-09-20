@@ -1,0 +1,15 @@
+The prose of this book — everything under chapters/, frontmatter/, templates/,
+drills/ and onepagers/ — is licensed under the Creative Commons
+Attribution-NonCommercial-ShareAlike 4.0 International Licence.
+
+    https://creativecommons.org/licenses/by-nc-sa/4.0/
+
+You are free to share and adapt it, for non-commercial purposes, with
+attribution, under the same licence.
+
+The tooling, the LaTeX macros, the build and everything under tools/, .github/,
+preamble.tex and the Makefile are licensed under the MIT Licence, in LICENSE.
+
+The split is deliberate. The machinery is worth reusing in any repository that
+wants gates of this kind, and it should carry as few conditions as possible.
+The prose is a position somebody took, and it should travel with attribution.

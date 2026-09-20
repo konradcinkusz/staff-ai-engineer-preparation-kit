@@ -1,0 +1,45 @@
+name: Something is missing
+description: A surface that gets asked and is not covered, or a stage the process part does not describe.
+title: "gap: "
+labels: ["gap"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Part V is ordered by how often each surface is reported to be asked, so
+        adding to it is a claim about frequency rather than about importance.
+        Appendix C already names several topics that are absent on purpose —
+        please check there first.
+
+  - type: textarea
+    id: what
+    attributes:
+      label: What is missing
+    validations:
+      required: true
+
+  - type: textarea
+    id: asked
+    attributes:
+      label: Where you saw it asked
+      description: >
+        A posting, a published loop, a write-up. "It came up in my interview" is
+        a real data point and is worth reporting — say so plainly and it will be
+        marked as one source rather than quietly promoted.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: placement
+    attributes:
+      label: Where you think it goes
+      options:
+        - Part V, the bank
+        - Part IV, the build rounds
+        - Part III, the process
+        - Part II, the evidence
+        - Part I, the map
+        - Appendix C, because it is noise and should be named as such
+        - Not sure
+    validations:
+      required: true

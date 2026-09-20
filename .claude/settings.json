@@ -1,0 +1,20 @@
+{
+  "$comment": [
+    "This repository is expected to conform to konradcinkusz/architecture-standards,",
+    "so it declares that in a committed file rather than in somebody's memory.",
+    "A standard enforced only by remembering to attach the reference repository",
+    "is not enforced (REPO-BASELINE.md §7)."
+  ],
+  "extraKnownMarketplaces": {
+    "architecture-standards": {
+      "source": {
+        "source": "github",
+        "repo": "konradcinkusz/architecture-standards"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "architecture-core@architecture-standards": true,
+    "quality-and-process@architecture-standards": true
+  }
+}

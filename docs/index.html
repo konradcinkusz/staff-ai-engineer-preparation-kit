@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<!--
+  The landing page Pages publishes. Deliberately one file with nothing fetched
+  from anywhere: a page whose job is to hand over a PDF should not need a CDN to
+  be up, and a reader on a train should not be waiting for a font.
+
+  It states no counts. Every number about this book is in the book's own ledger
+  appendix, which is generated from the tree; a figure typed here would be a
+  second copy of it, and the second copy is the one that goes stale.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Staff AI Engineer Preparation Kit</title>
+<meta name="description" content="A handbook, fill-in artefacts and five printable cards for an experienced engineer who is not an AI Engineer by title and is aiming at Staff level.">
+<style>
+  :root {
+    --bg: #fbfaf8;
+    --fg: #23201c;
+    --muted: #6b645c;
+    --rule: #ddd6cc;
+    --accent: #7a4b2a;
+    --card: #ffffff;
+  }
+  /* Flat rather than nested. CSS nesting is widely supported now and this page
+     has one job -- handing over a PDF -- so it is not the place to find out
+     which browser is the exception. */
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #17150f;
+      --fg: #ebe6dd;
+      --muted: #9b948a;
+      --rule: #34302a;
+      --accent: #d9a273;
+      --card: #201d16;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font: 17px/1.62 Georgia, "Iowan Old Style", "Times New Roman", serif;
+    -webkit-text-size-adjust: 100%;
+  }
+  .wrap { max-width: 42rem; margin: 0 auto; padding: 3rem 16px 5rem; }
+  h1 { font-size: 1.9rem; line-height: 1.22; margin: 0 0 .4rem; letter-spacing: -.01em; }
+  h2 {
+    font-size: .78rem; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--muted); font-family: ui-sans-serif, system-ui, sans-serif;
+    margin: 2.8rem 0 .9rem; padding-bottom: .4rem; border-bottom: 1px solid var(--rule);
+  }
+  .lede { font-size: 1.12rem; color: var(--muted); margin: 0 0 2rem; }
+  p { margin: 0 0 1rem; }
+  a { color: var(--accent); }
+  strong { font-weight: 600; }
+  em { font-style: italic; }
+
+  .get { display: flex; flex-wrap: wrap; gap: .7rem; margin: 0 0 1.4rem; }
+  .btn {
+    display: inline-block; text-decoration: none; border: 1px solid var(--rule);
+    background: var(--card); border-radius: 7px; padding: .62rem 1.05rem;
+    font-family: ui-sans-serif, system-ui, sans-serif; font-size: .92rem;
+    color: var(--fg);
+  }
+  .btn.primary { border-color: var(--accent); color: var(--accent); font-weight: 600; }
+  .note { font-size: .88rem; color: var(--muted); font-family: ui-sans-serif, system-ui, sans-serif; }
+
+  ul.parts { list-style: none; padding: 0; margin: 0; }
+  ul.parts li { padding: .62rem 0; border-bottom: 1px solid var(--rule); }
+  ul.parts li:last-child { border-bottom: 0; }
+  ul.parts b { display: block; font-size: .78rem; letter-spacing: .07em;
+    text-transform: uppercase; color: var(--muted);
+    font-family: ui-sans-serif, system-ui, sans-serif; font-weight: 600; }
+
+  ul.cards { list-style: none; padding: 0; margin: 0; }
+  ul.cards li { padding: .34rem 0; }
+  ul.cards span { color: var(--muted); }
+
+  footer { margin-top: 3.4rem; padding-top: 1.2rem; border-top: 1px solid var(--rule);
+    font-size: .88rem; color: var(--muted);
+    font-family: ui-sans-serif, system-ui, sans-serif; }
+</style>
+</head>
+<body>
+<main class="wrap">
+
+  <h1>Staff AI Engineer Preparation Kit</h1>
+  <p class="lede">
+    A handbook you read once, artefacts you fill in per company, and five cards
+    you print before a call &mdash; for an experienced engineer who is
+    <em>not</em> an AI Engineer by title and is aiming at Staff level.
+  </p>
+
+  <div class="get">
+    <a class="btn primary" href="staff-ai-engineer-preparation-kit.pdf">The handbook (PDF)</a>
+    <a class="btn" href="https://github.com/konradcinkusz/staff-ai-engineer-preparation-kit">Source, templates and drills</a>
+  </div>
+  <p class="note">
+    Built from source on every push. The templates and the rehearsal drills are
+    in the repository rather than in the PDF, because you fill them in.
+  </p>
+
+  <h2>What is in it</h2>
+  <ul class="parts">
+    <li><b>Part I &middot; The map</b>
+      What the job is, what transfers from the work you already do, and what the
+      word <em>Staff</em> is doing in the ladder.</li>
+    <li><b>Part II &middot; The evidence</b>
+      What you build before applying, when your CV does not say the title, and
+      the limit of what an artefact can substitute for.</li>
+    <li><b>Part III &middot; The process</b>
+      The loop, what each stage measures, and the go/no-go you run before you
+      apply rather than after four rounds.</li>
+    <li><b>Part IV &middot; The build rounds</b>
+      Three formats &mdash; AI-assisted, take-home, and the AI-free round that
+      has not gone away &mdash; and the craft each one needs.</li>
+    <li><b>Part V &middot; The bank</b>
+      Questions ordered by how often each surface is reported to be asked, so
+      the order is itself the advice about what to study first.</li>
+  </ul>
+
+  <h2>The cards</h2>
+  <p class="note">
+    One A4 side each, checked by the build. Meant to be on the desk, not on a
+    screen.
+  </p>
+  <ul class="cards">
+    <li><a href="cards/run-sheet-card.pdf">Run sheet</a> <span>&mdash; checkpoints with times, and what survives each block</span></li>
+    <li><a href="cards/decision-method-card.pdf">Decision method</a> <span>&mdash; the four questions, for answering anything</span></li>
+    <li><a href="cards/failure-tree-card.pdf">Failure tree</a> <span>&mdash; when it breaks, with a time budget per branch</span></li>
+    <li><a href="cards/pre-call-briefing-card.pdf">Pre-call briefing</a> <span>&mdash; what you read in the ten minutes before</span></li>
+    <li><a href="cards/banned-claims-card.pdf">Banned claims</a> <span>&mdash; what your artefacts cannot support, and the recovery line</span></li>
+  </ul>
+
+  <h2>What it refuses to do</h2>
+  <p>
+    <strong>No figures it cannot source.</strong> No salary bands, no premiums,
+    no pass rates. Those are regional, stale within two quarters, and mostly
+    unsourced where they circulate. What is here instead is the method for
+    measuring your own market.
+  </p>
+  <p>
+    <strong>No company, and no case study.</strong> A build gate refuses any
+    named employer, any individual and any currency figure, so the kit cannot
+    drift back towards the one process it came out of. The method is general or
+    it is not worth having.
+  </p>
+  <p>
+    <strong>No claims it could not trace.</strong> Almost nothing in this
+    subject can be measured, so the kind of every claim is marked on the page: a
+    superscript number means it is reported and the source is in the register,
+    with the date it was checked and how good it is. A claim resting on one
+    source says so in the sentence. A diamond means the author's judgement, and
+    you are invited to disagree. Every chapter ends with
+    <em>what this chapter does not claim</em>, and an appendix names the figures
+    every competing resource repeats and says why each one is not here.
+  </p>
+
+  <footer>
+    Prose under CC BY-NC-SA 4.0; the tooling under MIT.
+    Built with LaTeX; the gates are Python with no dependencies.
+  </footer>
+
+</main>
+</body>
+</html>

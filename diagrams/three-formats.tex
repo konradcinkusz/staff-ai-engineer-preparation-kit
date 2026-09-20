@@ -1,0 +1,25 @@
+% Chapter 19. One question in the screen decides which column you are in.
+\begin{tikzpicture}[node distance=7mm]
+  \node[kitbox, minimum width=52mm] (ask)
+    {\textbf{Ask in the screen}\\{\scriptsize live or take-home? \dash{} is AI permitted?}};
+
+  \node[kitbox, minimum width=34mm, below=10mm of ask, xshift=-40mm] (live)
+    {\textbf{Live, AI permitted}\\{\scriptsize how you use it is scored}};
+  \node[kitbox, minimum width=34mm, below=10mm of ask] (home)
+    {\textbf{Take-home}\\{\scriptsize nobody is watching}};
+  \node[kitbox, minimum width=34mm, below=10mm of ask, xshift=40mm] (free)
+    {\textbf{AI not permitted}\\{\scriptsize fluency without it}};
+
+  \draw[kitarrow] (ask) -- (live);
+  \draw[kitarrow] (ask) -- (home);
+  \draw[kitarrow] (ask) -- (free);
+
+  \node[kitsoft, minimum width=112mm, below=9mm of home] (shared)
+    {discovery \dash{} design \dash{} time-boxing \dash{} vertical slices \dash{} failure handling};
+
+  \draw[kitarrow, draw=kitgrey] (live) -- (live |- shared.north);
+  \draw[kitarrow, draw=kitgrey] (home) -- (shared);
+  \draw[kitarrow, draw=kitgrey] (free) -- (free |- shared.north);
+
+  \node[kitlabel, below=2mm of shared] {shared by all three \dash{} which is why preparing for all three is cheap};
+\end{tikzpicture}

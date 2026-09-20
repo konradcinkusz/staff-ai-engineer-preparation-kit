@@ -1,0 +1,128 @@
+\chapter{Decomposition}
+\label{ch:decomposition}
+
+\section*{What this chapter is for}
+
+How to cut a build into pieces small enough that each can be handed to somebody
+\dash{} or something \dash{} that never saw the conversation. It is the skill
+that makes parallel work possible, it is the skill that assisted building
+actually requires, and it is measurable in advance.
+
+\section{The atomicity test}
+
+A task is atomic when all five hold. Fewer than five and it will come back
+wrong or block something else.
+
+\begin{kitmethod}
+\textbf{1. One area of the problem.} Not one layer \dash{} one area. A task
+spanning two areas has two reasons to change and two people with opinions.
+
+\textbf{2. It owns its files.} No file is written by two tasks running at the
+same time. This is the condition that creates parallelism and the one most
+often violated.
+
+\textbf{3. One acceptance criterion, with a check.} If you cannot say what
+proves it done, it is not a task.
+
+\textbf{4. Green in, green out.} It starts from a working state and ends in
+one. A task that leaves the build broken cannot be handed to anybody.
+
+\textbf{5. Self-sufficient from its own text.} Everything needed is in the
+task description. ``From the conversation earlier'' is a defect, not an
+inconvenience \dash{} it means the task cannot be given to a fresh session, and
+a fresh session is exactly what you will give it to.
+\end{kitmethod}
+
+\section{File ownership is the whole mechanism}
+
+Condition two deserves its own section because everything about parallel work
+follows from it.
+
+Three files in almost any project want to be touched by every task: the
+composition root or entry point, the data-context or schema definition, and the
+migration or configuration directory. If two tasks both add a line to the entry
+point, they conflict, and the conflict is guaranteed rather than unlucky.
+
+\begin{kitmethod}
+\textbf{Those files belong to the join, not to any task.}
+
+Practically: declare everything they need \emph{up front}, in one task, before
+any parallel work starts. Every entity, every registration, every route group.
+It costs a few extra minutes in the first task and removes every conflict
+afterwards.
+
+A parallel task never edits a shared file. It exposes something in its own file
+\dash{} a function, a module, a registration helper \dash{} and you add the one
+line at the join.
+\end{kitmethod}
+
+\judgement{This is the single most useful thing in this chapter for assisted
+building, because a model given two tasks that both touch the entry point will
+cheerfully produce two incompatible versions of it and neither will look
+wrong.}
+
+\section{Width and depth}
+
+Two numbers, computed before you start, that tell you whether the build fits.
+
+\textbf{Width} is the sum of all the task estimates: total work.
+
+\textbf{Depth} is the longest chain of tasks that must happen in order: the
+critical path.
+
+Depth is the one that binds. A build that is 140 minutes wide and 35 minutes
+deep fits in an hour if you can run things in parallel, and does not fit at all
+if you cannot. A build that is 60 minutes wide and 55 deep does not benefit
+from any parallelism at all.
+
+\begin{kitnote}
+Computing these takes five minutes with the task list in front of you, and it
+converts ``I think this fits'' into a statement with two numbers in it. It also
+tells you which task to start first: the one at the head of the longest chain,
+regardless of how appealing the others look.
+\end{kitnote}
+
+\section{What you never hand off}
+
+Some work is yours whatever the assistance available.
+
+\begin{itemize}
+  \item Discovery. It is the thing being assessed.
+  \item The design. Same reason.
+  \item The hardest slice \dash{} the conflict case, the irreversible
+        operation. Chapter~\ref{ch:ai-visibly} covers why.
+  \item Its check.
+  \item The demonstration.
+\end{itemize}
+
+\judgement{Notice that this list is close to the published assessment criteria
+for a build round. That is not a coincidence: the work you must not delegate is
+the work being assessed, and the work that is safe to delegate is the work that
+is safe precisely because nobody is grading it.}
+
+\section{The task text}
+
+A task handed to a fresh session needs, in its own words: what to build, which
+files it owns, what proves it done, and what it may assume already exists.
+
+Three things it must \emph{not} contain: a copy of your general working
+procedure, which will drift from the original; absolute paths from your
+machine; and any credential, ever \dash{} name the variable, never its value.
+
+\begin{drill}
+Take a small system you could build in two hours and decompose it on paper:
+tasks, owned files, dependencies. Compute width and depth. Then check condition
+two across the whole list and count the violations \dash{} there are almost
+always two or three, and they are almost always the entry point and the schema.
+\end{drill}
+
+\section*{What this chapter does not claim}
+
+None of this is measured. It is a working method, and the width-and-depth
+calculation in particular is a rough instrument \dash{} estimates at this
+granularity are not accurate, and the value is in the ratio rather than in
+either number.
+
+It does not claim parallel work is always worth it. Below a certain size the
+coordination costs more than it saves, and in a session short enough the
+correct number of parallel tasks is zero.

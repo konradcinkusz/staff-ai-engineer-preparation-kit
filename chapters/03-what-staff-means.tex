@@ -1,0 +1,129 @@
+\chapter{What Staff means}
+\label{ch:staff}
+
+\section*{What this chapter is for}
+
+Staff is not Senior with more years on it, and a candidate who prepares as a
+very good Senior will be assessed as a very good Senior. The difference is
+legible in published ladders, it is specific, and it changes what you should
+choose to talk about.
+
+\section{One word does most of the work}
+
+Published engineering ladders are worth reading precisely because they are
+published: the wording can be quoted rather than paraphrased. The most cited of
+them describes Staff engineers as taking the lead on directing and implementing
+solutions to significantly complex, \reported{\textbf{unscoped}
+problems}{etsy-ladder}, whose work extends across many parts of a domain and
+may begin to influence a whole department.
+
+\emph{Unscoped} is the load-bearing word.
+
+\begin{kitnote}
+A Senior engineer is given a problem and is excellent at solving it. A Staff
+engineer decides which problem is worth solving, and is then accountable for
+having chosen it.
+
+Everything else in this chapter follows from that sentence. The scope question,
+the influence question, the ambiguity question and the project deep-dive are
+four ways of asking it.
+\end{kitnote}
+
+Read more than one ladder before you use any of them; several companies publish
+theirs and an aggregator collects them.\source{progression-fyi} They disagree in
+detail and agree on this.
+
+\section{Scope, not effort}
+
+The most common way to be doing Staff-shaped work and not get credit for it is
+to be doing the coordination that makes a team function \dash{} the following-up,
+the documentation, the unblocking, the noticing \dash{} and to have none of it
+written into any ladder. That failure mode has a canonical
+treatment,\source{being-glue} and its finding is uncomfortable and correct: the
+work is necessary, it is invisible to promotion, and if you only do it you only
+get better at doing it.
+
+For an interview this converts into a rule about what to say.
+
+\begin{kittable}{@{}XX@{}}
+\textbf{Describes effort} & \textbf{Describes scope} \\
+\midrule
+``I kept three teams aligned'' & ``I decided the integration contract the three teams built against'' \\
+``I wrote a lot of the migration'' & ``I chose expand-and-contract over a cutover, and said what would have changed my mind'' \\
+``I mentored several engineers'' & ``Two engineers now review this area without me, and here is what I had to write down for that to be true'' \\
+``I fixed a lot of incidents'' & ``I changed the thing that generated the class of incident'' \\
+\end{kittable}
+
+The left column is true, sympathetic, and gets assessed at the level below.
+\judgement{This is the single highest-leverage editing pass to run over
+everything you plan to say: for each sentence, ask whether it describes what
+you did or what changed because you did it.}
+
+\section{The archetypes, and the published disagreement}
+
+There is a widely-used taxonomy of Staff roles \dash{} the technical lead, the
+architect, the solver, the right hand \dash{} and it is genuinely useful
+vocabulary.\source{staff-archetypes}
+
+It is also publicly disputed by practitioners, on grounds worth knowing.
+\reported{One argument is that targeting an archetype is bad practical advice,
+because influence accumulates from being useful over time and cannot be aimed
+at directly, and that the defining trait is accepting accountability for
+outcomes you do not fully control.}{archetypes-rebuttal-goedecke} \reported{A
+second argues the archetypes function as anti-patterns when treated as
+goals.}{archetypes-rebuttal-ewerlof}
+
+\begin{kitmethod}
+The usable position, which both sides support:
+
+\textbf{Use the archetypes as vocabulary for describing what you already did},
+not as a target to grow into. Saying ``that piece of work was solver-shaped:
+nobody owned the problem, it had been open for two quarters, and I was given no
+authority over the teams whose code it was'' is a precise, checkable sentence.
+Saying ``I am an architect archetype'' is a claim about identity that an
+interviewer cannot verify and did not ask for.
+\end{kitmethod}
+
+\section{Influence without authority is the assessed skill}
+
+At this level you will be asked, in some form, about a time you needed somebody
+who did not report to you, and had no lever, and needed them to change
+direction anyway.
+
+The answers that land have a shape. They name what the other person was
+optimising for, which is almost always reasonable from where they stood; they
+name what you changed about the problem rather than about the person \dash{} a
+measurement produced, a cost made visible, a smaller first step proposed; and
+they say honestly whether it worked. \judgement{An answer in which you were
+right, they were wrong, and they eventually came round is the weakest version
+of this story, because it describes persistence rather than influence.}
+
+\section{What this means for a transition candidate}
+
+You are asking to be assessed at Staff in a domain where you have no title.
+That combination has one honest consequence and it is better to say it than to
+have it found.
+
+Your Staff evidence comes from the work you have actually done, whatever domain
+it was in, because scope, ambiguity and influence do not belong to a
+technology. Your AI-engineering evidence comes from artefacts, because you have
+no job history to point at. These are two separate claims resting on two
+separate bodies of evidence, and Part~\ref{part:evidence} is about assembling
+the second without weakening the first.
+
+\begin{drill}
+Take the three pieces of work you are most likely to be asked about. For each,
+write one sentence answering ``who decided this was the problem?''. If the
+answer is somebody else for all three, you have found what to work on, and it
+is not an interview problem.
+\end{drill}
+
+\section*{What this chapter does not claim}
+
+It does not claim the archetype taxonomy is wrong. It claims the disagreement
+about how to use it is real and published, and that presenting one side as
+settled would be the kind of confident summary this book is trying to avoid.
+
+It does not offer a figure for how many engineers reach Staff, or what the level
+is worth relative to Senior. Both figures circulate widely and both trace only
+to recruiting content; they are named and refused in Appendix~\ref{app:refused}.

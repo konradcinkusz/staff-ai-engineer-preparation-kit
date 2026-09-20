@@ -1,0 +1,49 @@
+# LaTeX build artefacts. Nothing generated is committed.
+*.aux
+*.log
+*.toc
+*.out
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.lof
+*.lot
+*.lol
+*.bbl
+*.blg
+*.run.xml
+*-blx.aux
+*.nav
+*.snm
+*.vrb
+*.idx
+*.ind
+*.ilg
+*.glo
+*.gls
+*.ist
+*.xdv
+
+# The PDFs are build output. They are published by CI, attached to releases,
+# and never committed -- a committed PDF is a copy that disagrees with its
+# source the first time somebody edits a chapter and does not rebuild.
+*.pdf
+
+build/
+.latexmk/
+
+# Python
+__pycache__/
+*.pyc
+
+# Your own filled-in copies of the templates. The originals in templates/ stay
+# clean and committed; what you write about a specific company does not belong
+# in a public repository.
+applications/
+
+# Generated from manifest.json and sources.json by tools/. The README says
+# these are not committed, and a README that says so while the files sit in the
+# tree is a claim the repository itself falsifies. Run `make generate`.
+/structure.tex
+/sources.tex
+/ledger.tex

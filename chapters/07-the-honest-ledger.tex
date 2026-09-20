@@ -1,0 +1,127 @@
+\chapter{The honest ledger}
+\label{ch:ledger}
+
+\section*{What this chapter is for}
+
+The most counter-intuitive move available in a portfolio is to write down, in
+the repository, a dated list of everything it does not do. It costs an hour, it
+reads as seniority rather than as weakness, and it has a second effect that
+matters more: it stops you saying something in an interview that your own work
+cannot support.
+
+\section{The register}
+
+A deviations register is a file at a known path listing, for each thing the
+artefact does not do or does not do properly:
+
+\begin{itemize}
+  \item what it is,
+  \item why it is that way,
+  \item the date the decision was taken,
+  \item and \textbf{what would close it}.
+\end{itemize}
+
+The fourth field does the work. Without it the file is a list of excuses; with
+it, every row is a decision with an exit condition, which is what an engineering
+decision looks like when somebody is being serious.
+
+\begin{kitnote}
+\textbf{An acknowledged deviation is a decision. An unacknowledged one is
+drift.}
+
+That sentence is the whole discipline. It also gives you the rule for
+maintaining the file: when a row is fixed, \emph{delete} it. Do not mark it
+resolved. A register that only grows is a register nobody reads, and a row that
+stays open indefinitely teaches the reader that the principle it violates was
+optional.
+\end{kitnote}
+
+\section{Why it reads as seniority}
+
+Three reasons, and the third is the one that decides interviews.
+
+\textbf{It is the difference between a demo and a system.} Anybody can build
+something that works on the path they walked. Knowing which paths you did not
+walk requires having thought about the whole surface.
+
+\textbf{It converts every awkward question into a prepared one.} An interviewer
+finding a hole they think you missed is a bad moment. An interviewer finding a
+hole listed on line 14 with a date and a closing condition is a different
+conversation entirely, and the thing being demonstrated is no longer the hole.
+
+\textbf{It is the only credible way to claim rigour.} A repository that claims
+to be careful and lists nothing undone is making a claim no experienced reader
+believes, because nothing is complete. \judgement{The register is what makes
+the rest of the README credible; without it, the careful language reads as
+marketing.}
+
+\section{What belongs in it}
+
+\begin{kittable}{@{}lX@{}}
+\textbf{Class} & \textbf{Example} \\
+\midrule
+Never run & an integration written against a published specification and never executed against a live one \\
+Run once & a path exercised manually and not covered by a check \\
+Untested by construction & behaviour that cannot be tested without a credential you do not have \\
+Deliberately out of scope & something a real version needs and this one does not attempt \\
+A standard you did not meet & where you knowingly departed from your own convention and why \\
+Blocked on something outside the work & a platform feature, an account, an approval \\
+\end{kittable}
+
+The first and third are the valuable ones, because they are the ones a reader
+cannot discover from the code. A module that has never been executed against
+the real thing compiles, passes its unit tests, and is an unverified claim.
+
+\section{The pattern this generalises}
+
+Once you have written one of these, you will notice it applies to more than a
+repository.
+
+\begin{kitmethod}
+\textbf{The artefact} gets a deviations register.
+
+\textbf{Your application documents} get a claim inventory
+(Chapter~\ref{ch:claims}) \dash{} the same idea, applied to sentences instead of
+code.
+
+\textbf{You, before a call,} get a banned-claims list: the things your evidence
+does not support, written down so you do not say them under pressure.
+
+\textbf{This book} gets Appendix~\ref{app:refused}, which names the figures it
+refuses to repeat and why.
+\end{kitmethod}
+
+\judgement{These are one habit, not four. The habit is that a claim you have
+not checked is tracked as an open item rather than quietly carried, and the
+reason it transfers so well into hiring is that a hiring process is almost
+entirely an exchange of claims.}
+
+\section{The failure mode}
+
+A register can be maintained by not looking. A short list is the goal; an empty
+one achieved by never auditing is a different thing wearing the same clothes.
+
+So the file carries the date it was last checked against the repository, and the
+check is a re-read, not a memory. \judgement{If you cannot remember the last
+time you opened it, the dates in it are decorations.}
+
+\begin{drill}
+Take the artefact you would send to an employer today. Set a timer for forty
+minutes and write its register: every integration you never ran live, every
+path you tested by hand, every standard of your own you did not meet. Put a
+date on it.
+
+Then read the list and find the row you would least like to be asked about.
+That row is the first thing to fix, and until it is fixed it is the first thing
+to say out loud.
+\end{drill}
+
+\section*{What this chapter does not claim}
+
+It does not claim every interviewer will read the register or reward it. Some
+will not open the repository at all. The claim is that the register is cheap,
+that it changes what you are able to say honestly, and that the second effect
+is worth the hour even in the loops where nobody reads the file.
+
+The specific position that honesty about gaps reads as seniority is a
+judgement, and it is the author's. It is stated as one.

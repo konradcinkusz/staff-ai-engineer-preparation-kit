@@ -1,0 +1,37 @@
+name: Something here is not generic
+description: A passage only makes sense for one company, one country, or one kind of employer.
+title: "generic: "
+labels: ["genericity"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        The kit is company-independent by construction, and a build gate refuses
+        named employers, individuals, posting ids and currency figures. The gate
+        can only refuse the terms somebody thought of, so it cannot see a passage
+        that is *implicitly* about one market — which is what this form is for.
+
+  - type: input
+    id: where
+    attributes:
+      label: Where
+    validations:
+      required: true
+
+  - type: textarea
+    id: what
+    attributes:
+      label: What makes it specific
+      description: >
+        Name the assumption. "This assumes a loop with a take-home", "this
+        assumes a published ladder", "this assumes remote is on the table".
+    validations:
+      required: true
+
+  - type: textarea
+    id: elsewhere
+    attributes:
+      label: What it looks like where you are
+      description: Optional, and the most useful thing you can add.
+    validations:
+      required: false

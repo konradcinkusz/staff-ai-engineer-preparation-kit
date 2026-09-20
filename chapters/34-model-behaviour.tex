@@ -1,0 +1,127 @@
+\chapter{Model behaviour fundamentals}
+\label{ch:model}
+
+\section*{What this chapter is for}
+
+The universal baseline. \reported{These are asked everywhere and they are not
+where anybody is differentiated}{field-guide} \dash{} getting one wrong is
+expensive and getting them all right earns nothing. Treat this chapter as
+hygiene.
+
+\section*{The questions}
+
+\begin{bankq}{What does temperature actually do, and when would you change it?}
+\qasked
+Almost always asked, and almost always early. It is a warm-up, which means
+getting it wrong is expensive and getting it right earns nothing.
+
+\qtested
+Whether you can describe a sampling parameter without reaching for
+metaphor. \emph{Creativity} is the word to avoid.
+
+\qstaff
+The model produces a distribution over next tokens; temperature reshapes it
+before sampling. Low values concentrate the mass on the most likely tokens;
+high values flatten it. At zero it is effectively taking the most likely token
+each time, which makes runs repeatable in practice while not being a guarantee
+across providers, versions or hardware.
+
+When to change it is the useful half, and it is a property of the task rather
+than of the product. Extraction, classification, anything feeding a parser:
+low, because you want the same answer twice. Anything where several answers
+are acceptable and variety is the point: higher. \judgement{A single global
+temperature for a system doing both is a mistake people make because it is a
+configuration value rather than a per-call decision.}
+
+\qsenior
+Low for deterministic tasks, high for creative ones \dash{} correct, and framed
+as a product setting rather than a per-call one.
+
+\qcontested
+Whether temperature zero gives reproducibility. \judgement{Treat it as reducing
+variance rather than removing it; anything that depends on exact
+reproducibility needs a check rather than a setting.}
+
+\qdrill
+Name three calls in one system that should have different temperatures, and
+say why for each.
+\end{bankq}
+
+\begin{bankq}{How do you get structured output reliably?}
+\qasked
+Usually arrives as a practical complaint rather than a question: \emph{we get
+JSON back and sometimes it does not parse}.
+
+\qtested
+Whether you have shipped something that parses model output. There is a
+characteristic set of scars.
+
+\qstaff
+Use the provider's constrained mode where it exists \dash{} schema-enforced
+output, or a tool call whose parameters are the structure you want. It removes
+a whole class of failure rather than reducing it.
+
+Where it does not exist, the order is: ask for the structure explicitly, parse
+strictly, and on a parse failure retry with the error rather than with the same
+prompt. And validate semantically after parsing \dash{} well-formed and correct
+are different, and a schema will happily accept a date in the wrong century.
+
+\judgement{The thing to say that marks experience: never repair the output with
+string manipulation. Trimming stray text around a payload works until the day
+the stray text is inside it, and by then the repair is load-bearing and
+undocumented.}
+
+\qsenior
+Ask for it in the prompt, parse it, retry on failure. Works, and skips
+constrained decoding, which is the actual answer where it is available.
+
+\qcontested
+Little.
+
+\qdrill
+Describe what your system does when the third retry also fails to parse. Most
+do not have an answer, and that is the finding.
+\end{bankq}
+
+\begin{bankq}{What happens as the conversation gets long?}
+\qasked
+Asked as a design question about a chat product, or as a debugging question
+about one that got slow and expensive.
+
+\qtested
+Whether you know the window is a budget you spend rather than a limit you hit.
+
+\qstaff
+Three things, and only the first is widely known. You approach the limit, and
+have to do something \dash{} truncate, summarise, or retrieve. You pay for the
+whole history on every turn, so cost grows with the square of the conversation
+length unless you intervene. And quality changes with position: material in the
+middle of a long context is used less reliably than material at either end,
+which means \emph{what} you drop matters less than \emph{where} you put what
+you keep.
+
+The practical consequence: put the instruction and the most relevant material
+where it will be attended to, and decide the truncation policy deliberately
+rather than letting it be whatever the library does.
+
+\qsenior
+Naming the limit and summarisation as the fix. Correct on the first of the
+three.
+
+\qcontested
+How strong the position effect is, and whether it holds across current models,
+is disputed and the evidence moves. \judgement{Design as though it holds; the
+cost of doing so is close to zero.}
+
+\qdrill
+For a system you know, say what happens on the turn where the history no longer
+fits. If the answer is ``the library handles it'', find out how.
+\end{bankq}
+
+\section*{What this chapter does not claim}
+
+These answers describe common behaviour across providers at the time of
+writing. Specific behaviours \dash{} constrained decoding support, how
+temperature is implemented, position effects \dash{} vary by provider and
+version, and this chapter deliberately names none, because a claim about a
+provider's behaviour is a claim about a version.

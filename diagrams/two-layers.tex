@@ -1,0 +1,27 @@
+% Chapter 32. The two layers answer different questions and only one of them
+% can gate a change.
+\begin{tikzpicture}[node distance=6mm]
+  \node[kitbox, minimum width=42mm, minimum height=13mm] (trace)
+    {\textbf{One captured trace}\\{\scriptsize tool calls \dash{} arguments \dash{} events \dash{} outcome}};
+
+  \node[kitbox, minimum width=44mm, minimum height=16mm, below left=10mm and -22mm of trace] (det)
+    {\textbf{Deterministic}\\{\scriptsize structure and absence}\\{\scriptsize no model, no credential}};
+  \node[kitsoft, minimum width=44mm, minimum height=16mm, below right=10mm and -22mm of trace] (judge)
+    {\textbf{Judged}\\{\scriptsize anchored rubric, calibrated}\\{\scriptsize pinned and hashed}};
+
+  \draw[kitarrow] (trace) -- (det);
+  \draw[kitarrow] (trace) -- (judge);
+
+  \node[kitbox, draw=kitink, minimum width=44mm, below=6mm of det]
+    (gate) {\textbf{Gates every change}};
+  \node[kitsoft, minimum width=44mm, below=6mm of judge]
+    (rep) {\textbf{Reports on a schedule}};
+
+  \draw[kitarrow] (det) -- (gate);
+  \draw[kitarrow, draw=kitgrey] (judge) -- (rep);
+
+  \node[kitlabel, anchor=north, text width=46mm] at ($(gate.south)+(0,-1mm)$)
+    {\emph{is it still doing the right things?}};
+  \node[kitlabel, anchor=north, text width=46mm] at ($(rep.south)+(0,-1mm)$)
+    {\emph{is it still as good as it was?}};
+\end{tikzpicture}

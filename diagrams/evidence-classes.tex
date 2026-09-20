@@ -1,0 +1,22 @@
+% Chapter 13. The line is the content: above it, preparation converts into
+% evidence inside a hiring process; below it, it does not.
+\begin{tikzpicture}[node distance=3pt]
+  \node[kitbox, minimum width=34mm] (know) {Knowledge\\{\scriptsize study \dash{} days}};
+  \node[kitbox, minimum width=34mm, right=of know] (reh) {Rehearsal\\{\scriptsize practice \dash{} days}};
+  \node[kitbox, minimum width=34mm, right=of reh] (art) {Artefacts\\{\scriptsize building \dash{} weeks}};
+  \node[kitbox, minimum width=34mm, below=of know] (res) {Research\\{\scriptsize reading \dash{} hours}};
+  \node[kitbox, minimum width=34mm, below=of reh] (con) {Consistency\\{\scriptsize discipline \dash{} hours}};
+  \node[kitsoft, minimum width=34mm, below=of art] (gap) {\itshape a week of work\\\itshape moves all five};
+
+  \coordinate (l) at ($(res.south west)+(0,-6mm)$);
+  \draw[kitwarn, line width=1pt, dashed] ($(res.south west)+(-2mm,-6mm)$) -- ($(gap.south east)+(2mm,-6mm)$);
+  \node[kitlabel, text=kitwarn, anchor=west] at ($(res.south west)+(-2mm,-3.2mm)$)
+    {preparation reaches this far};
+
+  \node[kitwarnbox, minimum width=34mm, below=13mm of res] (scope)
+    {Demonstrated scope\\{\scriptsize doing the job \dash{} months}};
+  \node[kitwarnbox, minimum width=34mm, below=13mm of con] (ten)
+    {Tenure pattern\\{\scriptsize staying \dash{} years}};
+  \node[kitwarnbox, minimum width=34mm, below=13mm of gap] (fit)
+    {Structural fit\\{\scriptsize nothing moves it}};
+\end{tikzpicture}

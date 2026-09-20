@@ -1,0 +1,152 @@
+\chapter{What transfers, what is new, what is noise}
+\label{ch:gap-map}
+
+\section*{What this chapter is for}
+
+You are not starting from zero and you are not starting from where you think.
+Most of what a senior backend or platform engineer already knows transfers
+directly, under different names. A smaller set of things is genuinely new. A
+third set looks essential, is studied first by almost everybody making this
+move, and is very unlikely to be asked about at all.
+
+This chapter is the map of those three sets. It is the first thing to read and
+the thing most likely to save you a month.
+
+\section{What transfers, and what it is called now}
+
+The useful form of this is a mapping rather than a list, because the point is
+not that your skills are \emph{adjacent} to the new ones. In several cases they
+are the same skill with a different noun.
+
+\begin{kittable}{@{}XX@{}}
+\textbf{What you already do} & \textbf{What it is called here} \\
+\midrule
+Designing an API for a caller you do not control & Designing a tool schema for a model you do not control \\
+Integration and regression tests & Evals \\
+Rate limits, retries, circuit breakers, fallbacks & Gateway resilience across model providers \\
+Logs, metrics, traces & Token, cost and latency tracing \\
+Input validation at a trust boundary & Treating model output, and retrieved documents, as untrusted \\
+Capacity planning & Context budgeting \\
+Schema migration under live traffic & Prompt and model version migration under live traffic \\
+\end{kittable}
+
+The right-hand column is not a translation exercise. The engineering underneath
+is the engineering you have: \reported{Python or TypeScript, API design, testing
+and continuous integration, deployment and monitoring all transfer directly, and
+the engineering foundation is the asset.}{field-guide-backend}
+
+\judgement{The row worth dwelling on is the second. If you have ever argued
+that a test suite which has never failed is not evidence, you already hold the
+central idea of evaluation, and you hold it more firmly than someone who
+arrived at it through a library's documentation.}
+
+\section{What is genuinely new}
+
+Four things, and only the last is hard.
+
+\textbf{Calling a model well.} Structured output, function calling, the
+difference between a system instruction and a user turn, what a context window
+costs. A week, unhurried.
+
+\textbf{Prompting as an engineering discipline.} Not writing clever prompts:
+versioning them, testing them, and treating a change to one as a change to
+behaviour that requires the same review a code change does.
+
+\textbf{Retrieval.} What it is for, how it fails, and when it is the wrong
+answer.
+
+\textbf{Non-determinism, and what it does to everything you know about
+testing.} The clearest statement of the gap is a question rather than a topic,
+and it was put by a backend engineer making this exact move: \emph{how do you
+even know something is broken when the output is different every
+time?}\source{field-guide-backend}
+
+That question is the whole of the fourth item. Every familiar instrument
+assumes repeatability. A failing assertion tells you something changed. A green
+suite tells you nothing changed. Neither statement survives here, and the
+machinery that replaces them \dash{} baselines, absence assertions, anchored
+rubrics, statistical gates \dash{} is the subject of Chapter~\ref{ch:evals}.
+
+\reported{Evaluation is reported as the steepest part of the curve for
+engineers arriving from backend work, and as the thing they do not
+have.}{field-guide-backend} \judgement{It is also the thing that, once you have
+it, distinguishes you most sharply from a candidate who arrived from data
+science, because they tend to have the statistics and not the instinct that a
+check nobody has watched fail is not known to be checking anything.}
+
+\section{What is noise}
+
+This list is the reason to read this chapter before starting to study.
+
+\begin{kittable}{@{}lXl@{}}
+\textbf{Topic} & \textbf{Why it looks essential} & \textbf{Reality} \\
+\midrule
+Fine-tuning, LoRA, PEFT & every course leads with it & niche\source{field-guide} \\
+Transformer internals & it is what \emph{AI} means to most people & research-adjacent only\source{field-guide} \\
+Attention arithmetic, KV cache & it is teachable and feels rigorous & rarely asked\source{field-guide} \\
+Mixture-of-experts, quantisation & it is in the news & rarely asked\source{field-guide} \\
+\end{kittable}
+
+The corpus states the rule plainly: \reported{if the posting does not mention
+fine-tuning, you are unlikely to be asked about it.}{field-guide} The same holds
+for the rest of the list.
+
+\begin{kittrap}
+The trap is not that this material is worthless. It is that it is the only part
+of the subject with a settled curriculum, so it is the part that has courses,
+and a course is what an engineer reaches for when starting something new. You
+can spend a month becoming able to derive scaled dot-product attention and walk
+into a room where the first question is what happens to your retrieval quality
+when a document is longer than the chunk size.
+\end{kittrap}
+
+There is a second kind of noise: material that is genuinely useful but has been
+renamed, so it looks like a new subject to learn. Several currently-promoted
+topics turn out, on inspection, to be retrieval, prompt design and evaluation
+under a newer word. Chapter~\ref{ch:noise} names the ones that were traceable
+when this was written, and says how to test a new one yourself.
+
+\section{Where to put the time}
+
+\begin{kitmethod}
+In order, and stop when you run out of weeks rather than reordering:
+
+\textbf{1.} Build one small thing end to end that calls a model, uses a tool,
+and is deployed somewhere with a URL. A day or two. It converts every abstract
+question into a concrete one.
+
+\textbf{2.} Put an evaluation harness on it \dash{} however small. This is the
+highest-yield week available to you, for reasons Chapter~\ref{ch:portfolio}
+gives.
+
+\textbf{3.} Learn retrieval properly, including its failure modes, because it
+is the single most-asked surface.
+
+\textbf{4.} Do the cost and latency arithmetic on the thing you built, out
+loud, on paper.
+
+\textbf{5.} Only then read about anything in the noise table, and only if a
+posting you are actually pursuing mentions it.
+\end{kitmethod}
+
+\begin{drill}
+Write down, in one page, the architecture of a system you have shipped. Now
+annotate it with the right-hand column of the transfer table: mark every place
+where you already solved the problem that the new vocabulary is about. Keep the
+page. It is the raw material for the project deep-dive in
+Chapter~\ref{ch:deep-dive}, and it is the fastest way to stop feeling like a
+beginner in a field where you are not one.
+\end{drill}
+
+\section*{What this chapter does not claim}
+
+It does not claim the noise table is permanent. A posting that asks for
+fine-tuning means the role does fine-tuning, and then it is not noise for that
+role \dash{} the table is about the default, not about every case. Re-check it
+against the postings in front of you rather than against this page.
+
+It does not claim that two to three months is enough to make the transition.
+That figure circulates and traces to a single source; it is refused in
+Appendix~\ref{app:refused} along with the rest of that family. What this chapter
+claims is narrower: that the order above is better than the order almost
+everybody uses, which is to start with the mathematics.

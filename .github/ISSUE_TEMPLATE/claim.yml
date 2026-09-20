@@ -1,0 +1,55 @@
+name: A claim is wrong, stale, or unsupported
+description: A sourced claim no longer holds, or a source no longer says what it is cited for.
+title: "claim: "
+labels: ["claim"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This is the most valuable kind of report this repository can get. Almost
+        nothing in this subject can be measured, so the kit's whole defence is
+        that every claim carries its provenance — and a provenance nobody checks
+        is decoration.
+
+  - type: input
+    id: where
+    attributes:
+      label: Where
+      description: Chapter and, if you have it, the sentence.
+      placeholder: "Chapter 32, the paragraph on judge calibration"
+    validations:
+      required: true
+
+  - type: textarea
+    id: claim
+    attributes:
+      label: What the page says
+      description: Quote it, so there is no argument about what is being disputed.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What is wrong with it
+      options:
+        - The source does not say this
+        - The source says this but the source is wrong
+        - The source has changed since it was checked
+        - The link is dead
+        - It is stated as reported and it is really an opinion
+        - It is stated as an opinion and there is a source for it
+        - Something else
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: What you checked against
+      description: >
+        A URL, and what it actually says. A correction with no source behind it
+        cannot replace a claim with a source behind it, however wrong the claim
+        is — the most that can happen then is the claim gets downgraded.
+    validations:
+      required: true

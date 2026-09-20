@@ -1,0 +1,128 @@
+\chapter{The claim inventory and the banned claims}
+\label{ch:claims}
+
+\section*{What this chapter is for}
+
+By the time you apply you will have written the same facts in four places: a
+curriculum vitae, a covering letter, a set of form answers, and the README of
+whatever you built. They will not agree, because they were written on different
+days for different purposes, and the disagreements are the cheapest thing in
+your application for somebody to find.
+
+This chapter is two routines. One makes the four documents agree. The other
+stops you saying, out loud and under pressure, something your own work does not
+support.
+
+\section{The claim inventory}
+
+Every sentence in an application that could be checked is a claim. Collect them
+into one table.
+
+\begin{kittable}{@{}lXl@{}}
+\textbf{Column} & \textbf{Holds} & \textbf{Why} \\
+\midrule
+Claim & the sentence, as written & the thing that will be read \\
+Where & every document it appears in & one edit has to reach all of them \\
+Backed by & the file, commit, measurement or person & if this is blank it is not a claim, it is a hope \\
+Strength & measured / observed / reported / judgement & tells you which sentence to soften \\
+Last checked & a date & an unchecked claim is a stale claim waiting \\
+\end{kittable}
+
+\code{templates/claim-inventory.md} is this table. Filling it the first time
+takes about an hour and reliably finds three things: a number that appears at
+two different precisions in two documents, a claim whose backing turns out to
+be a memory, and a capability described more strongly in the covering letter
+than in the repository it refers to.
+
+\begin{kitnote}
+The \emph{strength} column is the one that changes what you write. A claim
+backed by a measurement can be stated flatly. One backed by an observation on
+one occasion needs the occasion in the sentence. One backed by judgement needs
+to be marked as judgement \dash{} which is exactly the distinction this book
+makes on its own pages, for the same reason.
+\end{kitnote}
+
+\section{Why inconsistency costs more than it should}
+
+A reader who finds one discrepancy does not discount one claim. They lose their
+basis for accepting any of the others without checking, and they cannot check
+most of them.
+
+\judgement{This is why consistency is worth an hour even though no single
+inconsistency is serious. You are not defending each sentence; you are
+defending the reader's willingness to take the unverifiable ones on trust, and
+that is a single asset that fails all at once.}
+
+The corollary is practical: a claim you cannot back should be \emph{removed},
+not softened. A softened unbacked claim is still unbacked and now reads as
+evasive.
+
+\section{The banned-claims list}
+
+The inverse document, and the one that matters most in the room.
+
+Before any conversation, write down the sentences you must not say: the things
+that would be convenient, that you half-believe, and that your evidence does
+not actually support. Keep it to one page. Read it before the call.
+
+Typical entries, and each is a real shape rather than a hypothetical:
+
+\begin{itemize}
+  \item A capability your integration has never exercised against the live
+        thing \dash{} you built it against a specification and it has not run.
+  \item A count you cannot reproduce on the day: how many tests, how many
+        scenarios, how much something improved.
+  \item An outcome you contributed to and did not own, stated as though you
+        owned it.
+  \item A superlative \dash{} only, first, every time, always. These are the
+        most dangerous entries on the list, because the interviewer needs one
+        counterexample and often has one.
+  \item Work by somebody else that you were near.
+\end{itemize}
+
+\begin{kittrap}
+The single most expensive sentence available to you is a superlative about your
+own checks. ``It caught every one'' is a sentence people say about their own
+test suites because it is what they remember, and it is very often false by one
+case. If one of your deliberately broken variants survived, that is a better
+story than the one you were about to tell: it is the story of an instrument
+being tested and found imperfect, which is what rigour looks like from the
+outside.
+\end{kittrap}
+
+\section{The recovery line}
+
+Somebody will eventually find something in your repository that has stopped
+being true, or ask for a number you cannot produce from memory. Prepare the
+sentence now, because the unprepared version is worse than the problem.
+
+\begin{kitmethod}
+\textbf{For a stale claim:} name it as stale, say when it was true, and say what
+it is now if you know \dash{} or say that you will check rather than guess. Do
+not defend it and do not apologise at length. One sentence, then continue.
+
+\textbf{For a number you cannot reproduce:} say that you will not give it from
+memory, name the file it is in, and give the shape instead \dash{} the order of
+magnitude, or the direction. \judgement{Refusing to produce a number you are
+not sure of is read as discipline, every time, by anybody who has been burnt by
+somebody who did not refuse.}
+\end{kitmethod}
+
+\begin{drill}
+Take the artefact you would send today and read its README against the
+repository, line by line, with the inventory table open. Note every sentence
+that has stopped being exactly true.
+
+Then write the banned-claims page. The first entry is usually the most
+impressive-sounding sentence you have been using, and finding that out on a
+Tuesday is considerably cheaper than finding it out in the room.
+\end{drill}
+
+\section*{What this chapter does not claim}
+
+It does not claim interviewers routinely audit portfolios against applications.
+Most do not have time. The claim is that the cost of being caught once is
+disproportionate, and the cost of prevention is an hour.
+
+The recovery lines are the author's judgement about what reads well under
+pressure. They are stated as judgement and they are not measured.

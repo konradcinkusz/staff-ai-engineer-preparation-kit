@@ -1,0 +1,125 @@
+\chapter{Building on a public surface}
+\label{ch:surface}
+
+\section*{What this chapter is for}
+
+There is one decision that changes an artefact's value more than anything else
+in it, and it is made before any code is written: what the artefact is built
+\emph{against}.
+
+\section{The move}
+
+Most portfolio work is built against something invented. A fictional domain, a
+sample dataset, an imagined API. It demonstrates the technique and nothing
+else, and the reader has to take on trust that it would survive contact with
+something real.
+
+The alternative is to build against a surface that is already published and
+that you do not control: a documented API, an open protocol, a public data
+feed, an open-source project's extension points. You become an external
+consumer of somebody's published work, and then you publish what happened.
+
+\begin{kitnote}
+The surface has to be genuinely public and genuinely outside your control. That
+is what supplies the property: a published interface has constraints you did
+not choose, documentation that is occasionally wrong, errors that are not the
+ones you would have designed, and a shape you have to accommodate rather than
+negotiate. Every one of those is a thing an invented surface cannot give you.
+\end{kitnote}
+
+\section{What it buys that an invented surface cannot}
+
+\textbf{The findings are real.} You will discover that the documentation and
+the behaviour disagree somewhere, that an error case is undocumented, or that
+the obvious mapping loses information. Those discoveries are the content.
+Nobody can produce them against a surface they designed.
+
+\textbf{It is checkable.} A reader can go and look at the same published
+surface. That removes the residual doubt that the interesting part was arranged.
+
+\textbf{It demonstrates the actual job.} Chapter~\ref{ch:three-jobs} put
+integration, evaluation and operation at the centre of this role. Building
+against something you did not design is that job in miniature.
+
+\textbf{It gives the conversation somewhere to go.} ``What surprised you?'' is
+answerable with something specific, and specificity is most of what separates a
+good technical conversation from a recital.
+
+\section{Choosing one}
+
+\begin{kitmethod}
+\textbf{1. Prefer a surface in the segment you chose} in Chapter~\ref{ch:segment}.
+An integration against a developer tool reads differently in an infrastructure
+loop than in a product one.
+
+\textbf{2. Prefer documented over popular.} You want a specification to read and
+compare against behaviour. Popularity gives you tutorials, which is the
+opposite of what you need \dash{} a surface with thirty existing write-ups has
+had its interesting findings taken.
+
+\textbf{3. Prefer one with an unglamorous edge.} Pagination, partial failure,
+rate limiting, an inconsistent identifier scheme. The finding lives at the edge,
+not in the happy path.
+
+\textbf{4. Check you can access it without a commercial relationship.} If a
+credential requires a contract, you will end up with the third register class
+from Chapter~\ref{ch:ledger} \dash{} an integration that has never run \dash{}
+and you should know that going in rather than discovering it in week two.
+
+\textbf{5. Write the thesis before the code.} ``What breaks when you put a model
+behind an API that was designed for a person'' is a thesis. ``An integration
+with a public API'' is not.
+\end{kitmethod}
+
+\section{If you target a company's own surface}
+
+Where the company you are applying to publishes something \dash{} an API, a
+protocol implementation, an open-source library \dash{} building against it
+before applying is the strongest version of this move, for a reason that has
+nothing to do with flattery: you arrive as a user of their work with findings,
+rather than as an applicant with a portfolio.
+
+Three cautions, in order of how expensive they are to get wrong.
+
+\textbf{Findings are findings, not criticism.} ``This behaviour is not in the
+documentation'' is a gift. ``Your API is badly designed'' is an opinion about
+work whose constraints you do not know, delivered to the people who made it.
+\judgement{The register from Chapter~\ref{ch:ledger} is what keeps you on the
+right side of this: a finding stated with what you did not check is a finding;
+the same sentence without it is a verdict.}
+
+\textbf{The artefact must stand up without the company.} If it only makes sense
+as an application, it is an application. Write it so it would be worth
+publishing if you never applied, and it will be worth more when you do.
+
+\textbf{Publish before you apply, not after.} The sequence is the substance of
+the claim. Something published afterwards is a response to a process;
+something published before is what you were doing anyway.
+
+\begin{kittrap}
+Do not build against a surface you cannot actually reach, and then write it up
+as though you had. An integration written against a published specification and
+never executed is a legitimate artefact \emph{if the register says so} and a
+serious problem if it does not \dash{} because the first specific question will
+be about behaviour you have never observed, and there is no recovery from
+having implied otherwise.
+\end{kittrap}
+
+\begin{drill}
+List three public surfaces you could build against, in your chosen segment.
+For each, write the one-sentence thesis and the one edge case you expect to be
+interesting. Then spend thirty minutes actually calling one of them. The list
+usually reorders itself completely once one of the three turns out to need a
+commercial agreement and another turns out to be better documented than it
+looked.
+\end{drill}
+
+\section*{What this chapter does not claim}
+
+It does not claim this produces interviews. It claims the artefact is worth more
+per hour spent than the same work against an invented surface, because the
+findings are real and checkable.
+
+It makes no claim about how any particular company responds to somebody building
+on their published work. That depends entirely on the company and on the tone,
+which is why two of the three cautions above are about tone.

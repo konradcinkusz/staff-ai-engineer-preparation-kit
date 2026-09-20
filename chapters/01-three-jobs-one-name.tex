@@ -1,0 +1,128 @@
+\chapter{Three jobs with one name}
+\label{ch:three-jobs}
+
+\section*{What this chapter is for}
+
+Three different jobs are advertised under titles that contain the letters
+\emph{AI}, and they want different people. Preparing for the wrong one of the
+three is the most expensive mistake available before you have spoken to
+anybody, because it is invisible: you study hard, you study well, and you study
+the wrong surface.
+
+This chapter draws the line between them, says which signals in a posting are
+reliable and which are not, and gives you a way to classify a role in about ten
+minutes.
+
+\section{The line that actually separates them}
+
+The cleanest statement of the boundary is about ownership of weights.
+\reported{Machine-learning engineers own model weights; AI engineers use
+third-party models through an API.}{field-guide} The same split is drawn from
+the other end in the standard text on the subject: \reported{AI engineering
+starts from an available model and prototypes early, and only considers
+training a custom one much later, where classical machine learning starts from
+data annotation, feature engineering and training.}{aie-book}
+
+That single distinction predicts most of the rest.
+
+\begin{kittable}{@{}lXX@{}}
+ & \textbf{AI Engineer} & \textbf{ML Engineer / Research} \\
+\midrule
+Starts from & a model that exists & data that exists \\
+Owns & prompts, retrieval, tools, evals, budgets & weights, training pipelines, features \\
+First artefact & a working path end to end & a dataset and a baseline \\
+Fails by & the system being wrong in production & the model being wrong on held-out data \\
+Is asked about & how you build, evaluate and operate it & how the method works \\
+\end{kittable}
+
+The corpus behind the first row of that table summarises its own finding in one
+sentence: \reported{interviewers care more about how you build, evaluate and
+operate AI systems than about transformer internals.}{field-guide}
+
+\section{What each job owns}
+
+Read these as lists of things you will be held responsible for, not as topics.
+
+\textbf{An AI Engineer owns} prompt design and, more to the point, prompt
+\emph{versioning}; the evaluation harness and the datasets it runs on;
+retrieval quality and the debugging of it when it is poor; the schema of the
+tools a model is allowed to call; production monitoring, logging and the
+feedback loop back into the evals; and a cost and latency budget per
+request.\source{field-guide}
+
+\textbf{A machine-learning engineer or researcher owns} model weights, the
+training and fine-tuning pipeline, feature engineering, dataset curation for
+training, and architecture work.\source{field-guide}
+
+There is a third job, thinly advertised and worth naming: the platform role
+that builds the gateway, the tracing, the spend controls and the evaluation
+infrastructure that the first job consumes. It is scored much more like a
+conventional distributed-systems role with one unfamiliar dependency.
+\judgement{If your background is platform or infrastructure rather than product
+engineering, this is frequently the role you are strongest for and the one you
+are least likely to have applied to, because its postings tend to use the
+vocabulary of the first job.}
+
+\section{The posting is not the job}
+
+The gap between what postings advertise and what the work turns out to be is
+reported bluntly. One hiring manager quoted in the same corpus describes the
+role as \reported{eighty per cent prompt engineering, glue code and
+monitoring}{field-guide-reality}, against postings that lead on retrieval
+architecture and embeddings. The same source records that the daily work is
+writing code that \emph{generates} prompts dynamically rather than hand-writing
+them, and building systems that run against several providers with fallbacks
+between them.
+
+\begin{kitnote}
+This is not a complaint about dishonest postings. A posting is written to
+attract, and the parts of a job that attract are not the parts that fill the
+day. It matters here for one reason only: it tells you which of your existing
+experience is relevant. Glue code, monitoring and multi-provider fallback are
+things a senior backend engineer has done for a decade under other names.
+\end{kitnote}
+
+\section{Classifying a role in ten minutes}
+
+The title is the least reliable signal on the page. Use the verbs.
+
+\begin{kitmethod}
+\textbf{1. Find the verbs in the responsibilities section.} \emph{Train},
+\emph{fine-tune}, \emph{curate}, \emph{label}, \emph{benchmark against a test
+set} point at the second job. \emph{Integrate}, \emph{evaluate}, \emph{ship},
+\emph{instrument}, \emph{reduce latency}, \emph{control cost} point at the
+first.
+
+\textbf{2. Find out what they would have you touch on day one.} A role that
+starts at a dataset is not the same role as one that starts at an endpoint.
+
+\textbf{3. Read the stack.} A posting listing a vector store, an orchestration
+library and an observability product is describing the first job whatever the
+title says. One listing a training framework and an experiment tracker is
+describing the second.
+
+\textbf{4. Check whether evaluation is mentioned at all.} Its presence is a
+strong signal the team has shipped something and been hurt by it. Its absence
+is not proof of the opposite, but it changes what you should ask in the screen.
+\end{kitmethod}
+
+\begin{drill}
+Take three current postings that you would plausibly apply to. For each, write
+one sentence naming which of the three jobs it is, and one sentence naming the
+evidence in the posting that decides it. If you cannot find the evidence, that
+is the finding: the posting is ambiguous, and the ambiguity is a question for
+the screening call rather than something to resolve by guessing.
+\end{drill}
+
+\section*{What this chapter does not claim}
+
+It does not claim the three jobs are cleanly separated in practice. Small teams
+collapse all three into one person, and plenty of people with \emph{ML
+Engineer} on a badge spend their week on retrieval quality. The boundary is a
+tool for deciding what to study and what to ask, not a description of how
+anybody's organisation is actually arranged.
+
+It also makes no claim about which job pays better, is more secure, or is more
+interesting. Those are questions about a specific company and a specific team,
+and Chapter~\ref{ch:company} is about answering them for the one in front of
+you rather than in general.

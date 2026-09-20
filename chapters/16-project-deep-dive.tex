@@ -1,0 +1,140 @@
+\chapter{The project deep-dive}
+\label{ch:deep-dive}
+
+\section*{What this chapter is for}
+
+There is one round where the Staff decision is actually made, and it is not the
+system design round. It is the conversation about something you have already
+built \dash{} and its criteria are published, specific, and almost entirely
+about scope rather than about technology.
+
+\section{What it is scored on}
+
+\reported{The criteria reported for this round are: whether you drove the
+architectural decisions or executed somebody else's plan; whether you can
+explain \emph{why}, over the alternatives; whether you can go several levels
+deep when probed; and whether you assess your own work
+honestly.}{field-guide-deep-dive}
+
+And one more, about how the story is told: \reported{strong candidates frame
+around impact \dash{} a number, a consequence \dash{} rather than around
+technology names.}{field-guide-deep-dive}
+
+\begin{kitnote}
+Read that list against Chapter~\ref{ch:staff} and it is the same list. \emph{Did
+you drive the decisions} is the unscoped-problem test. \emph{Why, over the
+alternatives} is the judgement test. \emph{Several levels deep} is the
+did-you-really-own-it test. \emph{Honest self-assessment} is the one nobody
+prepares for and it is the one that separates people.
+
+This is why the round decides the level. Everything else in the loop can be
+passed by a very good Senior engineer.
+\end{kitnote}
+
+\section{Choosing the project}
+
+Not the most impressive one. The one where you decided the most.
+
+\begin{kittable}{@{}lXX@{}}
+& \textbf{Weak choice} & \textbf{Strong choice} \\
+\midrule
+Scope & you built a well-specified component & you decided what the problem was \\
+Alternatives & one obvious approach & a real fork with a real cost either way \\
+Depth & you know your layer & you know why the layer below behaved as it did \\
+Outcome & it shipped & something measurable changed, or it did not and you know why \\
+Age & last month, still unresolved & finished, with consequences you have seen \\
+\end{kittable}
+
+\judgement{A moderately sized project you owned end to end beats a large one
+where you owned a component, every time, and candidates reliably choose the
+large one because it sounds better. The large one produces an answer to ``who
+decided that?'' which is somebody else's name, and that answer is the end of
+the Staff conversation.}
+
+The project does not have to be from this domain. Scope, ambiguity and
+influence do not belong to a technology, and an unscoped problem you solved in
+a previous life is better evidence than a well-specified one you solved last
+week.
+
+\section{The structure that survives probing}
+
+\begin{kitmethod}
+\textbf{The situation, in two sentences.} What was wrong, and for whom. Not the
+architecture.
+
+\textbf{Why it was your problem.} How it came to you, and how much of the
+scoping was yours. If somebody handed you a specification, say so \dash{} and
+then say what you decided inside it, because there is always something.
+
+\textbf{The fork.} The one decision that mattered, both options, the cost of
+each, and \emph{what you knew at the time}. The last part is what makes it a
+decision rather than a retelling.
+
+\textbf{What would have changed your mind.} Prepare this sentence. It is the
+strongest single thing you can say in this round, and it is the one that
+distinguishes somebody who decided from somebody who preferred.
+
+\textbf{What happened.} With a number if you have one.
+
+\textbf{What you got wrong.} Genuinely wrong, with what you would do
+differently. This is the honest-self-assessment criterion and it is being
+scored.
+\end{kitmethod}
+
+\section{Going several levels deep}
+
+You will be probed downwards until you stop being able to answer. That is the
+instrument, and it is fine to reach the bottom \dash{} what is being measured is
+where it is and how you behave when you get there.
+
+So: know the layer below the one you worked in. If you built on a database,
+know why the query planner did what it did. If you built on a queue, know its
+delivery guarantee and what you relied on. If you built on a model provider,
+know what you assumed about its behaviour under load.
+
+And when you reach the bottom, say so plainly. \judgement{``I do not know, and
+here is how I would find out'' is a strong answer at Staff and a weak one at
+Junior, which is worth knowing, because the instinct built up through earlier
+interviews is to keep talking.}
+
+\section{The honesty criterion}
+
+The published criteria name honest self-assessment explicitly, and it is the
+least-prepared item on the list.
+
+What it looks like in practice: naming the part of the design you are least
+confident about, without being asked; distinguishing what you measured from
+what you believe; saying which of the outcomes you can attribute to your
+decision and which you cannot; and not claiming an improvement that had three
+causes as though it had one.
+
+\begin{kittrap}
+The failure mode is not dishonesty. It is the accumulated smoothing that
+happens when a story has been told a dozen times: the alternatives get
+simplified, the uncertainty falls away, and the outcome attaches itself to your
+decision. Nobody decides to do this.
+
+The remedy is to go back to the source \dash{} the design document, the
+tickets, the messages from the time \dash{} before you tell the story to an
+interviewer. You will usually find that the decision was less clean and more
+interesting than the version you have been telling.
+\end{kittrap}
+
+\begin{drill}
+Fill in \code{templates/project-deep-dive.md} for your strongest project,
+against the six-part structure. Then have somebody ask you ``why?'' five times
+in a row, each time about your previous answer. Note where you run out. That
+point is where you need to go and read something, and it is almost always one
+layer below where you expected.
+\end{drill}
+
+\section*{What this chapter does not claim}
+
+The criteria are reported from one corpus of disclosed processes. They are
+consistent with what published ladders say the level means, which is corroboration
+of a sort and not independent evidence.
+
+The claim that this round decides the level more than the system design round
+does is the author's judgement. The argument for it is in the note above: the
+other rounds can be passed by a very good Senior engineer, and this one is the
+one that asks the question the ladder actually turns on.

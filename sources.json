@@ -1,0 +1,290 @@
+{
+  "$comment": [
+    "Every \\source{key} in the book resolves here, and tools/check_sources.py",
+    "fails the build when one does not.",
+    "",
+    "The `quality` field is the load-bearing part, not the URL. A claim about",
+    "what the market does is only as good as the thing it rests on, and this",
+    "field is what lets check_sources.py refuse a confident sentence built on",
+    "one person's blog post.",
+    "",
+    "  strong         several independent sources, or a dataset with a stated method",
+    "  moderate       one good source, corroborated in outline elsewhere",
+    "  single-source  one source only; a \\reported{} citing this must say so",
+    "  unverified     traced only to content-marketing; may be used ONLY in",
+    "                 Appendix C, as an example of a claim this kit refuses",
+    "",
+    "`read` records whether the claim was checked against the source itself or",
+    "through a second hand. That distinction is not decoration: several primary",
+    "sources below were unreachable from the machine this kit was written on,",
+    "and a summary of a source is not the source.",
+    "",
+    "  primary        the source itself was read",
+    "  secondary      read through coverage or search summaries only",
+    "",
+    "`accessed` is the date the entry was last checked. An entry with no date",
+    "is a claim nobody has dated, which is the shape of every stale fact.",
+    "--- Entries below exist ONLY so Appendix C can name what it refuses. ---",
+    "A \\reported{} may not cite these. check_sources.py enforces it."
+  ],
+  "field-guide": {
+    "title": "AI Engineering Field Guide",
+    "author": "Alexey Grigorev",
+    "url": "https://github.com/alexeygrigorev/ai-engineering-field-guide",
+    "accessed": "2026-09-20",
+    "quality": "strong",
+    "read": "primary",
+    "method": "Aggregated from roughly 6,964 scraped job descriptions across six regions, 51 companies with a disclosed interview process, and more than 100 take-home repositories. One author's methodology, so a figure appearing only here is one measurement rather than a consensus - but it is a stated method over a named corpus, which is more than anything else in this space offers."
+  },
+  "field-guide-process": {
+    "title": "The interview process",
+    "parent": "field-guide",
+    "url": "https://github.com/alexeygrigorev/ai-engineering-field-guide/blob/main/interview/01-interview-process.md",
+    "accessed": "2026-09-20",
+    "quality": "strong",
+    "read": "primary"
+  },
+  "field-guide-trends": {
+    "title": "Trends",
+    "parent": "field-guide",
+    "url": "https://github.com/alexeygrigorev/ai-engineering-field-guide/blob/main/interview/05-trends.md",
+    "accessed": "2026-09-20",
+    "quality": "strong",
+    "read": "primary"
+  },
+  "field-guide-deep-dive": {
+    "title": "Project deep dive",
+    "parent": "field-guide",
+    "url": "https://github.com/alexeygrigorev/ai-engineering-field-guide/blob/main/interview/questions/03-project-deep-dive.md",
+    "accessed": "2026-09-20",
+    "quality": "strong",
+    "read": "primary"
+  },
+  "field-guide-take-home": {
+    "title": "Home assignments",
+    "parent": "field-guide",
+    "url": "https://github.com/alexeygrigorev/ai-engineering-field-guide/blob/main/interview/questions/06-home-assignments.md",
+    "accessed": "2026-09-20",
+    "quality": "strong",
+    "read": "primary"
+  },
+  "field-guide-get-hired": {
+    "title": "Get hired",
+    "parent": "field-guide",
+    "url": "https://github.com/alexeygrigorev/ai-engineering-field-guide/blob/main/interview/03-get-hired.md",
+    "accessed": "2026-09-20",
+    "quality": "strong",
+    "read": "primary"
+  },
+  "field-guide-reality": {
+    "title": "Reality versus postings",
+    "parent": "field-guide",
+    "url": "https://github.com/alexeygrigorev/ai-engineering-field-guide/blob/main/role/05-reality-vs-postings.md",
+    "accessed": "2026-09-20",
+    "quality": "strong",
+    "read": "primary"
+  },
+  "field-guide-backend": {
+    "title": "Learning path: from backend engineer",
+    "parent": "field-guide",
+    "url": "https://github.com/alexeygrigorev/ai-engineering-field-guide/blob/main/learning-paths/from-backend-engineer.md",
+    "accessed": "2026-09-20",
+    "quality": "strong",
+    "read": "primary"
+  },
+  "field-guide-system-design": {
+    "title": "AI system design questions",
+    "parent": "field-guide",
+    "url": "https://github.com/alexeygrigorev/ai-engineering-field-guide/blob/main/interview/questions/04-ai-system-design.md",
+    "accessed": "2026-09-20",
+    "quality": "moderate",
+    "read": "primary",
+    "note": "This file and the get-hired file disagree about whether observability is a featured interview topic. The disagreement is inside one corpus and is reported in chapter 36 rather than resolved."
+  },
+  "aie-book": {
+    "title": "AI Engineering",
+    "author": "Chip Huyen",
+    "url": "https://github.com/chiphuyen/aie-book",
+    "accessed": "2026-09-20",
+    "quality": "strong",
+    "read": "primary",
+    "note": "Used for the boundary between AI engineering and classical machine learning: AI engineering starts from available models and prototypes early; classical ML starts from data, features and training."
+  },
+  "coderpad-hiring-2026": {
+    "title": "State of Tech Hiring 2026",
+    "publisher": "CoderPad",
+    "url": "https://coderpad.io/survey-reports/coderpad-state-of-tech-hiring-2026/",
+    "accessed": "2026-09-20",
+    "quality": "moderate",
+    "read": "secondary",
+    "note": "A vendor's own survey of hiring leaders, and the sample size was not retrieved. Used only for the coarse split - roughly half permit AI in technical rounds, a fifth decide case by case, and the rest do not - and the sentence that cites it says it is one survey."
+  },
+  "canva-ai-interviews": {
+    "title": "Yes, You Can Use AI in Our Interviews. In fact, we insist",
+    "publisher": "Canva Engineering",
+    "url": "https://www.canva.dev/blog/engineering/yes-you-can-use-ai-in-our-interviews/",
+    "accessed": "2026-09-20",
+    "quality": "moderate",
+    "read": "secondary",
+    "note": "The company's own post, so the claim about its own practice is primary in principle - but it was unreachable from this machine and is corroborated only through trade coverage."
+  },
+  "sierra-ai-native-interview": {
+    "title": "The AI-native interview",
+    "publisher": "Sierra",
+    "url": "https://sierra.ai/blog/the-ai-native-interview",
+    "accessed": "2026-09-20",
+    "quality": "moderate",
+    "read": "secondary",
+    "note": "The clearest published description of a two-hour AI-assisted build round with a plan phase before it and a review phase after. Unreachable from this machine; reconstructed from search summaries and the author's own social post."
+  },
+  "etsy-ladder": {
+    "title": "Engineering Career Ladder",
+    "publisher": "Etsy",
+    "url": "https://etsy.github.io/Etsy-Engineering-Career-Ladder/",
+    "accessed": "2026-09-20",
+    "quality": "strong",
+    "read": "secondary",
+    "note": "A published ladder, which is what makes it usable: the wording can be quoted rather than paraphrased. The load-bearing word for Staff is \"unscoped\"."
+  },
+  "progression-fyi": {
+    "title": "progression.fyi",
+    "url": "https://progression.fyi/",
+    "accessed": "2026-09-20",
+    "quality": "strong",
+    "read": "primary",
+    "note": "An aggregator of open engineering ladders. Use it to read several rather than trusting one."
+  },
+  "staff-archetypes": {
+    "title": "Staff archetypes",
+    "author": "Will Larson",
+    "url": "https://staffeng.com/guides/staff-archetypes/",
+    "accessed": "2026-09-20",
+    "quality": "strong",
+    "read": "secondary"
+  },
+  "archetypes-rebuttal-goedecke": {
+    "title": "Why I don't like the staff engineer archetypes",
+    "author": "Sean Goedecke",
+    "url": "https://www.seangoedecke.com/staff-engineer-archetypes/",
+    "accessed": "2026-09-20",
+    "quality": "moderate",
+    "read": "primary",
+    "note": "The published disagreement matters more than either position. Chapter 03 carries both."
+  },
+  "archetypes-rebuttal-ewerlof": {
+    "title": "Staff archetypes can be anti-patterns",
+    "author": "Alex Ewerlof",
+    "url": "https://blog.alexewerlof.com/p/staff-archetypes-are-anti-patterns",
+    "accessed": "2026-09-20",
+    "quality": "moderate",
+    "read": "primary"
+  },
+  "being-glue": {
+    "title": "Being Glue",
+    "author": "Tanya Reilly",
+    "url": "https://noidea.dog/glue",
+    "accessed": "2026-09-20",
+    "quality": "strong",
+    "read": "secondary",
+    "note": "The canonical treatment of work that is necessary, invisible to the ladder, and not promotable."
+  },
+  "meta-ai-enabled-coding": {
+    "title": "Meta's AI-enabled coding interview",
+    "publisher": "Hello Interview",
+    "url": "https://www.hellointerview.com/blog/meta-ai-enabled-coding",
+    "accessed": "2026-09-20",
+    "quality": "single-source",
+    "read": "secondary",
+    "note": "Two prep sites describe this round and both trace to the same leaked internal note, so it is one source wearing two hats. It is also the most decision-relevant claim in the research - that at the more senior levels the AI-assisted round replaces the AI-free one rather than joining it. Any sentence citing this must say it is one source."
+  },
+  "google-code-comprehension": {
+    "title": "Google's AI-assisted coding interview",
+    "publisher": "Exponent",
+    "url": "https://www.tryexponent.com/blog/google-ai-coding-interview",
+    "accessed": "2026-09-20",
+    "quality": "single-source",
+    "read": "primary",
+    "note": "A prep vendor, but it quotes a named executive on the record, which is more than the rest of that genre offers."
+  },
+  "hamel-evals-faq": {
+    "title": "AI Evals FAQ",
+    "author": "Hamel Husain",
+    "url": "https://hamel.dev/blog/posts/evals-faq/",
+    "accessed": "2026-09-20",
+    "quality": "strong",
+    "read": "secondary"
+  },
+  "hamel-llm-judge": {
+    "title": "Creating a LLM-as-a-Judge that drives business results",
+    "author": "Hamel Husain",
+    "url": "https://hamel.dev/blog/posts/llm-judge/",
+    "accessed": "2026-09-20",
+    "quality": "strong",
+    "read": "secondary"
+  },
+  "anthropic-agent-evals": {
+    "title": "Demystifying evals for AI agents",
+    "publisher": "Anthropic",
+    "url": "https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents",
+    "accessed": "2026-09-20",
+    "quality": "strong",
+    "read": "secondary"
+  },
+  "kalra-transition": {
+    "title": "From software engineer to AI engineer",
+    "author": "Janvi Kalra",
+    "url": "https://newsletter.pragmaticengineer.com/p/from-software-engineer-to-ai-engineer",
+    "accessed": "2026-09-20",
+    "quality": "single-source",
+    "read": "secondary",
+    "note": "One engineer's account of roughly 46 interviews over six months. The segmentation into product, infrastructure and model companies is the most actionable idea in it; the frequently-quoted figure about how many senior loops contain no algorithmic coding is one observer's sample and is refused in Appendix C."
+  },
+  "mcp-prompt-injection": {
+    "title": "Prompt injection in MCP: tool poisoning and blast radius",
+    "publisher": "Aptible",
+    "url": "https://www.aptible.com/mcp-security/mcp-prompt-injection",
+    "accessed": "2026-09-20",
+    "quality": "moderate",
+    "read": "secondary"
+  },
+  "agentic-injection": {
+    "title": "From LLM to agentic AI: prompt injection got worse",
+    "author": "Christian Schneider",
+    "url": "https://christian-schneider.net/blog/prompt-injection-agentic-amplification/",
+    "accessed": "2026-09-20",
+    "quality": "moderate",
+    "read": "secondary"
+  },
+  "refused-comp-premium": {
+    "title": "AI engineering roles command a 25-40 per cent premium",
+    "url": "(a single blog post, no method stated)",
+    "accessed": "2026-09-20",
+    "quality": "unverified",
+    "read": "secondary",
+    "refused_because": "One post, no methodology, no corpus, no date range. Widely repeated, never sourced."
+  },
+  "refused-no-algorithms": {
+    "title": "Around seventy per cent of senior loops contain no algorithmic coding",
+    "url": "(traced to one engineer's account of her own interviews)",
+    "accessed": "2026-09-20",
+    "quality": "unverified",
+    "read": "secondary",
+    "refused_because": "One observer, a self-selected set of companies, one point in time. It is quoted as a base rate and is not one."
+  },
+  "refused-staff-proportion": {
+    "title": "Fewer than ten per cent of engineers reach Staff",
+    "url": "(recruiter blogs only)",
+    "accessed": "2026-09-20",
+    "quality": "unverified",
+    "read": "secondary",
+    "refused_because": "No population, no ladder, no counting method."
+  },
+  "refused-named-loops": {
+    "title": "Named frontier labs' interview loops, stage by stage",
+    "url": "(prep vendors citing unnamed candidate reports)",
+    "accessed": "2026-09-20",
+    "quality": "unverified",
+    "read": "secondary",
+    "refused_because": "Every version found was a vendor page citing anonymous reports. Some of it is plausibly fabricated, and a candidate who prepares against a fabricated loop prepares for nothing."
+  }
+}

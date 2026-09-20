@@ -1,0 +1,49 @@
+\input{card}
+\begin{document}
+\cardtitle{Run sheet}{Fill in the absolute times before the session. Keep this in view.}
+
+Session length \rule{20mm}{0.4pt}\quad Starts \rule{20mm}{0.4pt}\quad
+Format: live-AI / take-home / AI-free
+
+\vspace{3pt}
+\small
+\begin{tabularx}{\linewidth}{@{}llXX@{}}
+\toprule
+\textbf{Clock} & \textbf{Elapsed} & \textbf{Checkpoint} & \textbf{If behind} \\
+\midrule
+\rule{14mm}{0.4pt} & 0--8\% & brief restated in my words, aloud & continue \\
+\rule{14mm}{0.4pt} & 8--20\% & scope written down, agreed & \warn{close it aloud}, state assumptions \\
+\rule{14mm}{0.4pt} & 20--30\% & drawing done, I have stopped & stop drawing \\
+\rule{14mm}{0.4pt} & 30--35\% & it runs, empty, I have seen it & \warn{emergency} -- failure tree \\
+\rule{14mm}{0.4pt} & 35--60\% & slice one, end to end & cut scope, not completeness \\
+\rule{14mm}{0.4pt} & 60--80\% & slice two, or harden one & \warn{do not start it} -- harden one \\
+\rule{14mm}{0.4pt} & 80--90\% & demonstrated, in the product & \warn{not negotiable} -- stop building \\
+\rule{14mm}{0.4pt} & 90--100\% & the account & \\
+\bottomrule
+\end{tabularx}
+\normalsize
+
+\section{The first slice}
+The one path that must work \dash\ through every layer \dash\ containing
+the \warn{hardest thing} \dash\ demonstrable. May skip auth, validation,
+styling, config, every other entity. \warn{May not skip its assertion.}
+
+\section{Compress the procedure, never the criterion}
+Fewer questions, less drawing, less narration. But if the slice was going to
+prove the conflict case, it still has to prove it. Cutting it silently is
+worse than saying you cut it.
+
+\section{The closing block is not spare}
+\begin{enumerate}[nosep]
+  \item Show it working \dash\ \textbf{in the product}, not the API explorer.
+  \item What I cut, against the agreed out-of-scope line.
+  \item What I would do next, and what worries me.
+\end{enumerate}
+
+\section{Prepared / not prepared}
+\textbf{May:} method, questions, vocabulary, tooling, skeleton, this card.\\
+\textbf{May not:} entities, relationships, endpoints, acceptance criteria.
+\warn{A prepared data model destroys the first scored criterion.}
+
+\cardfoot{Staff AI Engineer Preparation Kit -- Chapter 22. Print with the failure-tree card.}
+\end{document}

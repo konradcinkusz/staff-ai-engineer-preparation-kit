@@ -1,0 +1,133 @@
+\chapter{Using AI visibly}
+\label{ch:ai-visibly}
+
+\section*{What this chapter is for}
+
+In a round where assistance is permitted, how you use it is assessed. This is
+the one chapter in Part~\ref{part:build} that applies to only one of the three
+formats, and it is the one where the assessment criteria are least familiar.
+
+\section{What is actually scored}
+
+Where criteria are published or reported, they converge on three things.
+
+\textbf{Prompt quality, output validation, debugging.}
+\reported[single]{At least one large employer's assisted round names exactly
+these three.}{google-code-comprehension} Note what is absent: speed, and volume
+of code produced.
+
+\textbf{Catching the model's mistakes.} \reported[single]{Reporting on another
+employer's assisted round suggests that finding and fixing what the assistant
+got wrong is among the strongest positive
+signals.}{meta-ai-enabled-coding}
+
+\textbf{Iterative use rather than one large prompt.} \reported{Employers with
+published policies make the same point \dash{} that dumping the whole problem
+in and pasting the answer back is the behaviour they are watching for \dash{}
+and interviewers are reported to be watching for reasoning rather than
+copying.}{field-guide-trends}
+
+\begin{kitnote}
+Read those three together and the round is not measuring whether you can use
+the tool. It is measuring whether you remain the engineer while using it. Every
+one of the three is about your relationship to the output rather than about the
+output.
+\end{kitnote}
+
+\section{Six habits}
+
+\begin{kitmethod}
+\textbf{1. Say what you are about to ask for, before you ask.} One sentence:
+``I am going to ask it for the conflict-safe version of this update, because
+that is the part I want to get right by hand rather than by memory.'' The
+interviewer now knows what to watch for, and your intent is on the record
+independently of what comes back.
+
+\textbf{2. Ask for one thing.} A prompt that requests a feature produces
+something you have to read for three minutes. A prompt that requests a function
+produces something you can check in twenty seconds. The second is faster in
+total and it is visibly under control.
+
+\textbf{3. Read it out loud, at least once.} Not all of it, and not every time.
+Once, on the part that matters, pointing at the screen. It is the clearest
+possible demonstration of the validation criterion.
+
+\textbf{4. Reject something, audibly.} This is the highest-value habit in the
+chapter. When the output is wrong, or right but unsuitable, say why and
+discard it. If nothing needs rejecting in a whole session, either you are
+asking for things too small to be wrong, or you are not reading closely enough.
+
+\textbf{5. Write the hard thing yourself.} The conflict case, the assertion,
+the thing the design identified as the risk. Not out of pride \dash{} because
+it is where your judgement is on display, and because it is the part you will
+be asked about afterwards.
+
+\textbf{6. Never paste what you cannot explain.} If it arrives and you do not
+follow it, either work it out on screen or discard it. Accepting code you
+cannot explain is the failure this round exists to detect, and it is detected
+by one follow-up question.
+\end{kitmethod}
+
+\section{The Staff-level version}
+
+Everything above is good practice at any level. One thing is specific to this
+one.
+
+\reported{Knowing when the model is the wrong tool is itself the signal, and a
+borderline senior candidate is recorded as receiving a negative assessment for
+repeatedly proposing model-based solutions to a problem that did not need
+one.}{field-guide-trends}
+
+\judgement{So the sentence with the most upside in the whole round is a refusal:
+``I could do this part with the model and I am not going to, because it is
+twenty lines of arithmetic that I want to be exactly right and I would rather
+read it than review it.'' It demonstrates the judgement the level is being
+assessed on, and it costs nothing.}
+
+\section{Standards as a brake, not a plan}
+
+If you work to conventions \dash{} your own or an employer's \dash{} bring them
+as something the work is checked against, not as something to install.
+
+A standard used as a brake is: writing a slice, then pausing to check it
+against one rule, and saying which rule. A standard used as a plan is: spending
+the first twenty minutes setting up the scaffolding it implies. The first is
+judgement; the second is ceremony with a clock running, and it is the more
+common failure among candidates who have prepared thoroughly.
+
+\begin{kittrap}
+The specific version of this failure: arriving with a project template and
+spending ten minutes installing it before anything exists. The template is
+usually a genuine asset and the ten minutes are usually fatal, because they are
+the ten minutes in which discovery should have been turning into a running
+skeleton.
+
+Bring the template already set up if you can. If you cannot, bring a smaller
+one.
+\end{kittrap}
+
+\section{When assistance is not permitted}
+
+Then none of this applies, and one thing is worth saying: practise without it.
+If your recent working habit is model-assisted, an unassisted round will be
+slower than you expect in a way that is hard to predict from the inside, and
+the rehearsal in Chapter~\ref{ch:rehearsal} should be run in whichever mode the
+round will be.
+
+\begin{drill}
+Record yourself building something small with assistance, for thirty minutes.
+Watch it back and count three things: prompts where you said in advance what
+you wanted, outputs you read before accepting, and outputs you rejected. If the
+third count is zero, that is the habit to work on, and it is the one being
+scored most heavily.
+\end{drill}
+
+\section*{What this chapter does not claim}
+
+Two of the three published criteria rest on single sources and are marked as
+such in the text. The third is better supported, coming from several employers'
+stated policies.
+
+The six habits are the author's, assembled from what those criteria imply. They
+have not been measured against outcomes, and a round that scores differently
+from the published descriptions would reward different behaviour.

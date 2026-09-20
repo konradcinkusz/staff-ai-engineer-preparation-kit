@@ -1,0 +1,91 @@
+\chapter{This kit's own deviations and ledger}
+\label{app:ledger}
+
+Chapter~\ref{ch:ledger} argues that an artefact should carry a dated list of
+what it does not do. This appendix is that list, for the book you are holding.
+
+\judgement{It is here for two reasons. The honest one: this book makes claims
+and you should be able to see which of them it cannot support. The
+demonstrative one: a chapter telling you to publish your gaps, in a repository
+that publishes none, would be advice nobody should take.}
+
+\section{The ledger}
+
+Measured from the repository rather than typed. \code{tools/ledger.py} writes
+these values and the build fails if they are stale, which is the same
+discipline Chapter~\ref{ch:claims} asks of your application documents.
+
+\begin{kittable}{@{}Xl@{}}
+Parts & \val{parts} \\
+Chapters & \val{chapters} \\
+\quad of which bank chapters & \val{bankchapters} \\
+Appendices & \val{appendices} \\
+Bank questions & \val{questions} \\
+Drills & \val{drills} \\
+Words of chapter prose & \val{words} \\
+\midrule
+Reported claims & \val{reported} \\
+\quad resting on one source, marked as such & \val{reportedsingle} \\
+Statements marked as the author's judgement & \val{judgements} \\
+\midrule
+Sources & \val{sources} \\
+\quad strong & \val{srcstrong} \\
+\quad moderate & \val{srcmoderate} \\
+\quad single-source & \val{srcsingle} \\
+\quad recorded only to be refused & \val{srcrefused} \\
+\midrule
+Templates & \val{templates} \\
+Role briefs & \val{rolebriefs} \\
+Printable cards & \val{cards} \\
+\end{kittable}
+
+Two rows are worth reading against each other. There are \val{judgements}
+marked judgements and \val{reported} sourced claims, which is roughly two
+opinions for every reported fact.
+
+\judgement{That ratio is not a defect and it is not hidden. This subject has
+very little that can be measured, and a book on it that produced a citation for
+every sentence would be citing content-marketing to do it \dash{}
+Appendix~\ref{app:refused} is what that alternative looks like when examined.
+What the ratio does mean is that a reader who disagrees with the author will
+find a great deal to disagree with, and the marking is there so they can.}
+
+\section{What this book has not done}
+
+Each row is dated, carries a reason, and says what would close it \dash{}
+because a list of gaps without closing conditions is a list of excuses.
+
+\begin{kittable}{@{}lXX@{}}
+\textbf{\#} & \textbf{What} & \textbf{What would close it} \\
+\midrule
+D-1 & No reader has used this to prepare for a process and reported back. The method's components are evidenced; the book as a whole is not. & Two or three people running a process with it and saying what was wrong \\
+D-2 & Several primary sources were read through coverage rather than directly, because they were unreachable from the machine this was written on. \code{sources.json} marks each one. & Reading them, and re-checking what rests on them \\
+D-3 & Appendix~\ref{app:reading} is seeded rather than complete & A pass whose whole purpose is the reading list \\
+D-4 & Bank chapters \ref{ch:model} to \ref{ch:fundamentals} carry fewer questions and shorter contested sections than \ref{ch:retrieval} to \ref{ch:cost} & A second pass over Part~V, question by question \\
+D-5 & The diagrams are few, and several chapters that would be clearer with one do not have one & A figure pass, with the widths measured rather than assumed \\
+D-6 & No Polish edition, though the estate's other book has one. Bilingual is taken all the way \dash{} one body, a language file, a parity gate class \dash{} or not at all & Somebody wanting it enough to build the parity machinery \\
+D-7 & Every page count and layout measurement was taken on a bare TeX installation with neither of the usual font packages. Line breaks, and therefore page counts, differ on a fuller one & Nothing. It is recorded so no page figure is quoted as a fact about both \\
+\end{kittable}
+
+\section{The one claim that stays open}
+
+\textbf{This method is not validated end to end.}
+
+Its components are evidenced to different degrees, and the book says which
+throughout: the loop shape and the topic ordering rest on a corpus with a
+stated method; the level definitions rest on published ladders; the evaluation
+practice rests on practitioner writing. The assembly of those into a method,
+and the claim that following it improves anything, rests on nothing measured.
+
+\judgement{That is the same standing as the 80/80 claim in the estate's other
+book, and it is recorded the same way: printed, dated, and not quietly dropped.
+It will stop being true when several people have used this and said what went
+wrong, and until then it is the first thing an honest reader should hold
+against it.}
+
+\section{Where the register lives}
+
+\code{DEVIATIONS.md}, in the repository, with dates. This appendix is printed
+from the same reasoning but it is not generated from that file \dash{} which is
+itself a deviation, of exactly the kind Chapter~\ref{ch:ledger} warns about,
+and it is D-8 in the file rather than being left for a reader to notice.

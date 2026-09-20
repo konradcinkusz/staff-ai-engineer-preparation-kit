@@ -1,0 +1,33 @@
+# One formatting contract for every editor, so a change never arrives as a
+# diff of invisible characters.
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 2
+
+[*.tex]
+# 79 is the measure the prose in this book is written to. It is not enforced by
+# a gate -- Polish-style long compounds and URLs legitimately exceed it -- but
+# it is what the files look like, and a chapter rewrapped to a different width
+# turns a one-sentence change into an unreadable diff.
+max_line_length = 79
+
+[*.py]
+indent_size = 4
+max_line_length = 100
+
+[*.md]
+# Trailing whitespace is a line break in Markdown, so trimming it silently
+# changes rendering.
+trim_trailing_whitespace = false
+
+[Makefile]
+indent_style = tab
+
+[*.{json,yml,yaml}]
+indent_size = 2

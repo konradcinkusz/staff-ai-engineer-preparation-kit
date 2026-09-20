@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+# Refuse a commit that carries a secret, and refuse it BEFORE it reaches the
+# history -- once it is committed, removing it in the next commit does not
+# remove it, and the remedy stops being a fix and becomes a rotation.
+#
+# It FAILS rather than warns when no scanner is present. A protection that
+# quietly turns itself off on the machine without the tool is not a protection;
+# it is a note in a document nobody reads. If you genuinely cannot install
+# gitleaks, `git commit --no-verify` is the deliberate, visible way past it.
+set -euo pipefail
+
+root="$(git rev-parse --show-toplevel)"
+
+if ! command -v gitleaks >/dev/null 2>&1; then
+  cat >&2 <<'MSG'
+pre-commit: gitleaks is not installed, so this commit cannot be checked.
+
+  Install it:  https://github.com/gitleaks/gitleaks
+  Or commit deliberately without the check:  git commit --no-verify
+
+Refusing rather than warning, because a check that skips itself is not a check.
+MSG
+  exit 1
+fi
+
+if ! gitleaks protect --staged --config "$root/.gitleaks.toml" --redact --no-banner; then
+  cat >&2 <<'MSG'
+
+pre-commit: a staged change looks like a secret.
+
+If it is a real credential: ROTATE IT FIRST, then remove it. Scrubbing the
+working tree without rotating leaves a live secret that is merely harder to
+find.
+
+If it is a false positive: add a narrow rule to .gitleaks.toml -- by file, not
+by directory. A directory allowlist turns the scanner off for every file
+nobody has written yet, which is the file somebody will paste a token into.
+MSG
+  exit 1
+fi

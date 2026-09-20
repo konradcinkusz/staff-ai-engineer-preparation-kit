@@ -1,0 +1,25 @@
+# This repository has no package manifest: the book is LaTeX, the gates are the
+# Python standard library, and that is a deliberate property rather than an
+# accident -- a kit that needs a dependency resolution to build is a kit that
+# stops building.
+#
+# What it does have is pinned actions, and a pinned action is a dependency
+# whether or not anything calls it one. An action that goes unmaintained, or is
+# compromised, runs with this repository's token.
+
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 3
+    commit-message:
+      prefix: "ci"
+    groups:
+      # One PR rather than four. These move together and reviewing them apart
+      # teaches nothing.
+      actions:
+        patterns:
+          - "*"

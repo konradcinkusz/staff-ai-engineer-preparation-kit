@@ -1,0 +1,110 @@
+\chapter{Choosing a segment, reading a posting}
+\label{ch:segment}
+
+\section*{What this chapter is for}
+
+Before you write a line of an application, two decisions narrow everything that
+follows: which kind of company you are aiming at, and what the specific posting
+in front of you is actually going to score. Both are cheap. Neither is usually
+made deliberately.
+
+\section{Three segments, wanting three different people}
+
+The most useful piece of targeting advice found while assembling this book came
+from an engineer who interviewed at a few dozen companies in one stretch and
+concluded the market divides into three: \reported[single]{companies building
+products on top of models, companies building the infrastructure that serves
+them, and companies building the models themselves \dash{} and that you should
+pick one.}{kalra-transition}
+
+They want genuinely different things.
+
+\begin{kittable}{@{}lXX@{}}
+\textbf{Segment} & \textbf{What they are buying} & \textbf{What they will test} \\
+\midrule
+Product & judgement about users, speed to a working thing, taste about when the model is the wrong tool & discovery, a build round, product sense \\
+Infrastructure & distributed systems, reliability, cost control, APIs consumed by people you cannot talk to & system design, failure modes, throughput and tail latency \\
+Model & research proximity, evaluation depth, comfort with the parts of the stack this book calls noise & the parts of the stack this book calls noise \\
+\end{kittable}
+
+\judgement{For an engineer arriving from backend or platform work, the
+infrastructure segment is usually the strongest fit and the least applied to.
+Its postings often use product vocabulary, and its interviews turn out to be
+the distributed-systems interviews you have been passing for years with one
+unfamiliar dependency in the middle.}
+
+Picking a segment is not a life decision. It decides which artefacts you build
+in Part~\ref{part:evidence}, which of the bank's chapters you study first, and
+which half of your existing experience you lead with.
+
+\section{Reading a posting as a rubric}
+
+A posting is a marketing document with a rubric inside it. The rubric is
+recoverable, and recovering it takes about twenty minutes.
+
+\begin{kitmethod}
+\textbf{1. Separate the three sections.} Almost every posting has responsibilities
+(what you will do), requirements (what they will check), and culture (what they
+will check without telling you). They are scored by different people.
+
+\textbf{2. Extract the verbs from responsibilities.} These map to interview
+rounds more reliably than anything else on the page. \emph{Design}, \emph{own},
+\emph{define} imply a design round and a scope conversation. \emph{Integrate},
+\emph{ship} imply a build round. \emph{Mentor}, \emph{raise the bar},
+\emph{influence} imply a behavioural round with the Staff questions in it.
+
+\textbf{3. Count the repeats.} A word that appears three times in one posting is
+a word somebody argued about. It will appear again in the interview, and using
+it back is not flattery, it is speaking the language the rubric was written in.
+
+\textbf{4. Find the level definition.} If the company publishes a ladder, the
+posting's band maps to a row in it. That row is the rubric, stated by them,
+which is better than any inference you can make from the advert.
+
+\textbf{5. Write the rubric down as rows.} Each responsibility becomes a row:
+what they said, which round will test it, what evidence you have, and how
+strong that evidence is. \code{templates/role-rubric.md} is that table.
+\end{kitmethod}
+
+The output is a page that tells you where you are weak \emph{before} the first
+call, which is the only point at which the information is still actionable.
+
+\section{The things a posting tells you that are not about the work}
+
+\textbf{The band, where it is published.} Some jurisdictions require a range.
+Where you have one, it is a fact about the level and not an invitation, and
+Chapter~\ref{ch:company} covers what to do with it.
+
+\textbf{The location and work model, stated in the posting's own metadata
+rather than its prose.} Prose says \emph{flexible}. The metadata field says
+\emph{on-site}. Chapter~\ref{ch:fit} is about taking the metadata seriously
+before spending a week.
+
+\textbf{Whether the role is advertised in several cities at once.} That usually
+means a team assignment rather than a remote role, whatever the body text says.
+
+\textbf{Whether evaluation, observability or cost appear anywhere.} Their
+presence means somebody has operated one of these systems and been hurt.
+\judgement{It is the strongest single signal in a posting that the team is past
+the demo stage, and it is worth more than the stack list.}
+
+\begin{drill}
+Take the posting you are most serious about. Fill in
+\code{templates/role-rubric.md} completely, including the evidence-strength
+column, and do not skip a row because you know the answer. Then count the rows
+where your evidence is weak. If it is most of them, the useful conclusion is
+not that you should prepare harder; it is that you should read
+Chapter~\ref{ch:fit} before you apply.
+\end{drill}
+
+\section*{What this chapter does not claim}
+
+The three-segment split rests on one engineer's account of one stretch of
+interviewing, which is why the sentence that introduces it says so. It is used
+here because it is a useful way to organise a decision you have to make anyway,
+not because it has been measured.
+
+This chapter also does not claim that postings are written carefully. Many are
+assembled from a template and a previous role, and a requirement can be there
+because nobody deleted it. That is a reason to weight repeats and verbs over
+individual bullet points \dash{} not a reason to ignore the document.

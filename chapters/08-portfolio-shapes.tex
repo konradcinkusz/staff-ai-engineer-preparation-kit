@@ -1,0 +1,134 @@
+\chapter{Portfolio shapes that are reported to work}
+\label{ch:portfolio}
+
+\section*{What this chapter is for}
+
+Four shapes, what each one proves, what each costs, and which to build first.
+The ordering is not arbitrary: one of the four is repeatedly singled out in
+reports of what separates candidates, and it is not the one most people build.
+
+\section{The eval harness}
+
+\textbf{What it is.} A small system that decides, mechanically, whether a
+model-driven behaviour is still correct, and that can say what it would take to
+make it fail.
+
+\textbf{Why it is first.} It is the differentiating artefact. \reported{Some
+companies ask for portfolio evidence of a retrieval system \emph{with} an
+evaluation harness specifically to separate people who have built something
+from people who have followed a
+tutorial.}{field-guide-get-hired} In take-home
+assessments, \reported{not starting with evaluation is reported as a red
+flag.}{field-guide-take-home}
+
+\textbf{What it proves.} That you have been hurt by a non-deterministic system
+and did something structural about it. That is the domain doubt and the
+judgement doubt closed at once.
+
+\textbf{What it costs.} A week, if the thing being evaluated already exists.
+Much less if you evaluate something small.
+
+\begin{kitnote}
+It does not have to be large. A harness with a dozen scenarios, a fixed set of
+assertions, a recorded baseline, and two deliberately broken variants that the
+suite catches is enough to have the conversation. Chapter~\ref{ch:evals} is the
+content; this is about the fact that it exists and is yours.
+\end{kitnote}
+
+\section{Cost arithmetic, done out loud}
+
+\textbf{What it is.} A written analysis of what a system costs per request and
+in aggregate, with the arithmetic on the page, and \dash{} if you have it
+\dash{} a before-and-after from a change you made.
+
+\textbf{Why it works.} Cost and latency are \reported{among the most frequently
+asked topics}{field-guide}, and almost nobody arrives able to do the
+multiplication in front of an interviewer. A written version means you have
+done it once slowly.
+
+\textbf{What it proves.} That you think about the thing that decides whether a
+feature ships. \judgement{It is also the single clearest way to sound like
+somebody who has operated a system rather than built one, which is most of what
+Staff assessment is looking for.}
+
+\textbf{What it costs.} An afternoon. It is the cheapest item in this chapter by
+a wide margin and the most under-used.
+
+\section{A written opinion}
+
+\textbf{What it is.} One or two pages taking a position on something contested
+in this field, with the reasoning and the conditions under which you would
+change your mind.
+
+\textbf{Why it works.} \reported{At least one employer asks candidates directly
+for their view on where organisations go wrong with this technology, in the form
+of a short essay.}{field-guide-get-hired} More generally, judgement is what is
+being hired at this level and an essay is the only artefact that demonstrates it
+directly rather than as a by-product.
+
+\textbf{What it proves.} That you have a position, that you can hold it under
+scrutiny, and \dash{} if you write the last paragraph properly \dash{} that you
+know what would falsify it.
+
+\textbf{What it costs.} A day. \judgement{It is also the artefact most likely to
+be read, because it is the only one that can be read on a phone.}
+
+\section{A deployed integration}
+
+\textbf{What it is.} A working system, at a URL, that does one real thing with
+a model and a tool.
+
+\textbf{Why it works.} \reported{Deployed and clickable beats a
+notebook}{field-guide-get-hired}, and a URL answers the question of whether it
+runs anywhere other than your machine without anybody having to ask it.
+
+\textbf{What it proves.} Currency and the ability to finish. Both matter for a
+candidate whose job history is in another domain.
+
+\textbf{What it costs.} Two or three days, most of it deployment rather than
+the interesting part. Chapter~\ref{ch:surface} is about choosing \emph{what} to
+integrate with, which is the decision that makes this shape worth more than the
+effort it takes.
+
+\section{Choosing}
+
+\begin{kittable}{@{}lllX@{}}
+\textbf{Shape} & \textbf{Cost} & \textbf{Closes} & \textbf{Build it when} \\
+\midrule
+Eval harness & a week & domain, judgement & always; build it first \\
+Cost analysis & an afternoon & operating instinct & always; it is nearly free \\
+Written opinion & a day & judgement, communication & you have a position worth defending \\
+Deployed integration & 2--3 days & currency, finishing & you have nothing running anywhere \\
+\end{kittable}
+
+\judgement{If you have one week in total, build a small deployed thing and put
+an evaluation harness on it, then spend the last afternoon on the cost
+arithmetic for what you built. That combination closes every doubt an artefact
+can close, and it is one artefact rather than three.}
+
+\begin{kittrap}
+The shape most people build first is a retrieval demonstration with a chat
+interface. It is the most tutorialised thing in the field, which means a reader
+has seen thirty of them and cannot distinguish yours from a weekend's work
+following a guide. The demonstration is not the problem; the absence of
+evaluation, cost analysis or a stated position is. The same repository with a
+harness and a register attached is a completely different document.
+\end{kittrap}
+
+\begin{drill}
+Write the one-sentence thesis for each of the four shapes as you would build
+them, before building anything. If a thesis is ``it demonstrates that I can use
+a vector database'', that shape is not worth your week. Keep going until at
+least two of the four produce a sentence somebody could disagree with.
+\end{drill}
+
+\section*{What this chapter does not claim}
+
+The reports behind the first and fourth shapes describe what some employers ask
+for and what some candidates found worked. They do not establish how common
+either is, and single striking outcomes \dash{} offers arriving within days of
+publishing something \dash{} are individual anecdotes and are refused as
+evidence in Appendix~\ref{app:refused}.
+
+The ordering of the four, and the recommendation about what to do with one
+week, are the author's judgement rather than a measured result.
