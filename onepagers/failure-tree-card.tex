@@ -1,0 +1,49 @@
+\input{card}
+\begin{document}
+\cardtitle{When it breaks}{Budgets are decided now. When one runs out, take the fallback.}
+
+\warn{``I am nearly there''} is true about half the time. You cannot tell which
+from the inside. That is why the budget is set in advance.
+
+\vspace{3pt}
+\small
+\begin{tabularx}{\linewidth}{@{}llXX@{}}
+\toprule
+\textbf{Broke} & \textbf{Budget} & \textbf{Fallback} & \textbf{Say} \\
+\midrule
+Tooling will not install & 2 min & go without & ``not worth the time'' \\
+Database will not start & 3 min & in-memory & ``\ldots so this no longer proves anything about concurrency'' \\
+Container will not build & 3 min & run it directly & ``containerising is not what is assessed'' \\
+Dependency is down & 2 min & a stub, named & ``the mapping is now untested'' \\
+Credential missing & 2 min & that path is out of scope & ``here is what it would have proved'' \\
+Library misbehaves & 5 min & do it by hand & ``writing this rather than debugging it'' \\
+Assistant is useless & 2 prompts & write it & ``I will write this one'' \\
+The design is wrong & --- & change it, aloud & ``this boundary does not work, here is why'' \\
+\bottomrule
+\end{tabularx}
+\normalsize
+
+\section{Every fallback has three parts}
+What is not working \dash\ what I am doing instead \dash\ \warn{what that
+costs}. The third is the one people leave out and the one that separates a
+decision from a shortcut.
+
+\section{Do not}
+\begin{itemize}
+  \item Debug in silence. Thirty seconds is fine; two minutes is dead time.
+        Narrate: what I think is wrong, what I am checking, what would confirm it.
+  \item Restart from scratch. It feels clean and it is never right.
+  \item \warn{Disable the check.} The one action that changes their assessment
+        of your judgement rather than your luck.
+  \item Apologise more than once.
+\end{itemize}
+
+\section{Recovering}
+\begin{enumerate}[nosep]
+  \item Say where you are against the plan, once, aloud.
+  \item Re-cut to the \textbf{next checkpoint only} \dash\ not the whole session.
+  \item \warn{Protect the demonstration block.} Last to be given up, not first.
+\end{enumerate}
+
+\cardfoot{Staff AI Engineer Preparation Kit -- Chapter 26. Print with the run sheet.}
+\end{document}

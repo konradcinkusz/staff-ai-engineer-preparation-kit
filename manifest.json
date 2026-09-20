@@ -1,0 +1,338 @@
+{
+  "$comment": [
+    "THE single source of truth for the book's parts and chapters.",
+    "",
+    "structure.tex is GENERATED from this file by tools/gen_structure.py, and",
+    "tools/check_structure.py fails the build when the generated file is stale or",
+    "when chapters/ and this list disagree. Nothing else may carry a second copy",
+    "of the sequence: a list that exists twice disagrees with itself eventually,",
+    "and the disagreement is silent because both copies still compile.",
+    "",
+    "Adding a chapter means adding a row here and creating chapters/<n>-<slug>.tex.",
+    "The gate names whichever half you forgot.",
+    "",
+    "skeletons: every chapter must carry the sections named for its kind, in this",
+    "order. The bank's six-part question shape is what makes its answers",
+    "comparable to each other; a question that drops one of the six stops being",
+    "comparable and nothing but the gate would say so."
+  ],
+  "title": "Staff AI Engineer Preparation Kit",
+  "subtitle": "For engineers moving into AI engineering at Staff level",
+  "pdf_name": "Staff_AI_Engineer_Preparation_Kit",
+  "skeletons": {
+    "prose": [
+      "What this chapter is for",
+      "What this chapter does not claim"
+    ],
+    "bank": [
+      "What this chapter is for",
+      "The questions",
+      "What this chapter does not claim"
+    ],
+    "bank_question": [
+      "As asked",
+      "What is being tested",
+      "The Staff answer",
+      "The Senior answer that falls short",
+      "Where this is contested",
+      "Drill"
+    ]
+  },
+  "parts": [
+    {
+      "id": "I",
+      "title": "The map",
+      "subtitle": "What the job is, and what you are being measured against",
+      "chapters": [
+        {
+          "n": "01",
+          "slug": "three-jobs-one-name",
+          "kind": "prose",
+          "title": "Three jobs with one name"
+        },
+        {
+          "n": "02",
+          "slug": "transfers-new-noise",
+          "kind": "prose",
+          "title": "What transfers, what is new, what is noise"
+        },
+        {
+          "n": "03",
+          "slug": "what-staff-means",
+          "kind": "prose",
+          "title": "What Staff means"
+        },
+        {
+          "n": "04",
+          "slug": "segment-and-posting",
+          "kind": "prose",
+          "title": "Choosing a segment, reading a posting"
+        }
+      ],
+      "label": "map"
+    },
+    {
+      "id": "II",
+      "title": "The evidence",
+      "subtitle": "What you build before you apply",
+      "chapters": [
+        {
+          "n": "05",
+          "slug": "artefact-for-title",
+          "kind": "prose",
+          "title": "Why an artefact substitutes for a title"
+        },
+        {
+          "n": "06",
+          "slug": "legible-artefact",
+          "kind": "prose",
+          "title": "What makes an artefact legible"
+        },
+        {
+          "n": "07",
+          "slug": "the-honest-ledger",
+          "kind": "prose",
+          "title": "The honest ledger"
+        },
+        {
+          "n": "08",
+          "slug": "portfolio-shapes",
+          "kind": "prose",
+          "title": "Portfolio shapes that are reported to work"
+        },
+        {
+          "n": "09",
+          "slug": "public-surface",
+          "kind": "prose",
+          "title": "Building on a public surface"
+        },
+        {
+          "n": "10",
+          "slug": "claims-and-banned-claims",
+          "kind": "prose",
+          "title": "The claim inventory and the banned claims"
+        }
+      ],
+      "label": "evidence"
+    },
+    {
+      "id": "III",
+      "title": "The process",
+      "subtitle": "The loop, and what each stage is measuring",
+      "chapters": [
+        {
+          "n": "11",
+          "slug": "loop-anatomy",
+          "kind": "prose",
+          "title": "Loop anatomy"
+        },
+        {
+          "n": "12",
+          "slug": "the-fit-check",
+          "kind": "prose",
+          "title": "The fit check"
+        },
+        {
+          "n": "13",
+          "slug": "evidence-classes",
+          "kind": "prose",
+          "title": "The evidence classes"
+        },
+        {
+          "n": "14",
+          "slug": "researching-a-company",
+          "kind": "prose",
+          "title": "Researching a company"
+        },
+        {
+          "n": "15",
+          "slug": "researching-a-person",
+          "kind": "prose",
+          "title": "Researching a person"
+        },
+        {
+          "n": "16",
+          "slug": "project-deep-dive",
+          "kind": "prose",
+          "title": "The project deep-dive"
+        },
+        {
+          "n": "17",
+          "slug": "calibration-objections",
+          "kind": "prose",
+          "title": "Calibration and objections"
+        },
+        {
+          "n": "18",
+          "slug": "questions-and-after",
+          "kind": "prose",
+          "title": "Questions, negotiation, retrospective"
+        }
+      ],
+      "label": "process"
+    },
+    {
+      "id": "IV",
+      "title": "The build rounds",
+      "subtitle": "Three formats, and the craft each one needs",
+      "chapters": [
+        {
+          "n": "19",
+          "slug": "three-formats",
+          "kind": "prose",
+          "title": "Three formats, and which you are in"
+        },
+        {
+          "n": "20",
+          "slug": "discovery",
+          "kind": "prose",
+          "title": "Discovery"
+        },
+        {
+          "n": "21",
+          "slug": "design-under-observation",
+          "kind": "prose",
+          "title": "Design under observation"
+        },
+        {
+          "n": "22",
+          "slug": "the-run-sheet",
+          "kind": "prose",
+          "title": "The run sheet"
+        },
+        {
+          "n": "23",
+          "slug": "vertical-slices",
+          "kind": "prose",
+          "title": "Vertical slices"
+        },
+        {
+          "n": "24",
+          "slug": "using-ai-visibly",
+          "kind": "prose",
+          "title": "Using AI visibly"
+        },
+        {
+          "n": "25",
+          "slug": "decomposition",
+          "kind": "prose",
+          "title": "Decomposition"
+        },
+        {
+          "n": "26",
+          "slug": "when-it-breaks",
+          "kind": "prose",
+          "title": "When it breaks"
+        },
+        {
+          "n": "27",
+          "slug": "the-take-home",
+          "kind": "prose",
+          "title": "The take-home"
+        },
+        {
+          "n": "28",
+          "slug": "rehearsal",
+          "kind": "prose",
+          "title": "Rehearsal"
+        }
+      ],
+      "label": "build"
+    },
+    {
+      "id": "V",
+      "title": "The bank",
+      "subtitle": "Ordered by how often each surface is actually asked",
+      "chapters": [
+        {
+          "n": "29",
+          "slug": "how-to-answer-anything",
+          "kind": "prose",
+          "title": "How to answer anything"
+        },
+        {
+          "n": "30",
+          "slug": "retrieval",
+          "kind": "bank",
+          "title": "Retrieval"
+        },
+        {
+          "n": "31",
+          "slug": "agents-and-tools",
+          "kind": "bank",
+          "title": "Agents and tool use"
+        },
+        {
+          "n": "32",
+          "slug": "evals",
+          "kind": "bank",
+          "title": "Evals"
+        },
+        {
+          "n": "33",
+          "slug": "cost-and-latency",
+          "kind": "bank",
+          "title": "Cost and latency"
+        },
+        {
+          "n": "34",
+          "slug": "model-behaviour",
+          "kind": "bank",
+          "title": "Model behaviour fundamentals"
+        },
+        {
+          "n": "35",
+          "slug": "safety",
+          "kind": "bank",
+          "title": "Safety"
+        },
+        {
+          "n": "36",
+          "slug": "operating-it",
+          "kind": "bank",
+          "title": "Operating it"
+        },
+        {
+          "n": "37",
+          "slug": "fundamentals-still-asked",
+          "kind": "bank",
+          "title": "Fundamentals still asked"
+        },
+        {
+          "n": "38",
+          "slug": "what-is-noise",
+          "kind": "prose",
+          "title": "What is noise"
+        }
+      ],
+      "label": "bank"
+    }
+  ],
+  "appendices": [
+    {
+      "id": "A",
+      "slug": "templates",
+      "title": "The templates"
+    },
+    {
+      "id": "B",
+      "slug": "drills",
+      "title": "One-pagers and drills"
+    },
+    {
+      "id": "C",
+      "slug": "refused",
+      "title": "What this kit refuses to claim"
+    },
+    {
+      "id": "D",
+      "slug": "reading",
+      "title": "Reading, graded by source quality"
+    },
+    {
+      "id": "E",
+      "slug": "kit-ledger",
+      "title": "This kit's own deviations and ledger"
+    }
+  ]
+}

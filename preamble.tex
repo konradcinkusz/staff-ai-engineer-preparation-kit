@@ -1,0 +1,397 @@
+% ---------------------------------------------------------------------------
+%  Staff AI Engineer Preparation Kit -- preamble
+%
+%  All machinery lives here. chapters/ carry content and nothing else, so a
+%  chapter file can be read as prose and a change to the look of the book
+%  touches one file.
+%
+%  The three claim macros at the bottom are the part worth understanding
+%  before editing anything: they are what stops this book stating opinion as
+%  fact, and they are written so the wrong form is a build error rather than
+%  something a reviewer has to notice.
+% ---------------------------------------------------------------------------
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+% Optional packages, probed rather than required.
+%
+% This is not politeness. The machine this book was written on carries a bare
+% TeX Live with neither lmodern nor inconsolata; CI carries a fuller one. A
+% preamble that demanded either would build in exactly one of those two places
+% and the failure would arrive as somebody else's problem. Probing means the
+% book sets in both, and the only difference is which fonts it sets in --
+% which moves line breaks and therefore page counts. Do not quote a page count
+% from one installation as a fact about the other.
+\IfFileExists{lmodern.sty}{\usepackage{lmodern}}{}
+\IfFileExists{inconsolata.sty}{\usepackage[varqu]{inconsolata}}{%
+  \IfFileExists{courier.sty}{\usepackage{courier}}{}}
+% expansion=false is not a preference. Font expansion needs a scalable font,
+% and a TeX Live without lmodern falls back to bitmap Computer Modern, where
+% pdfTeX refuses outright: "auto expansion is only possible with scalable
+% fonts", fatal, no PDF. Protrusion alone works everywhere and is most of the
+% benefit. Turning expansion on would build on the fuller installation and die
+% on the barer one, which is the same defect as any other unprobed dependency.
+\IfFileExists{microtype.sty}{\usepackage[expansion=false]{microtype}}{}
+
+\usepackage[a4paper,
+            top=25mm, bottom=28mm,
+            inner=30mm, outer=25mm,
+            headsep=8mm, footskip=14mm,
+            head=15pt]{geometry}
+
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{xltabular}
+\usepackage{environ}
+\usepackage{enumitem}
+\usepackage{needspace}
+\usepackage[most]{tcolorbox}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{amsmath}
+\usepackage{url}
+
+% Figures are drawn in TikZ and compiled with the book.
+%
+% The estate's other knowledge bases render diagrams from committed Mermaid
+% sources through a browser and a package registry, and a check keeps the two
+% copies byte-identical. That is the right shape for a book with three hundred
+% diagrams. This one has four, and the pipeline would make them buildable only
+% where npm resolves and a headless browser starts -- so a reader cloning this
+% repository could not rebuild the book. Recorded as D-9 in DEVIATIONS.md with
+% the condition that would reverse it.
+\usepackage{tikz}
+\usetikzlibrary{positioning, arrows.meta, fit, backgrounds, calc}
+
+\tikzset{
+  kitbox/.style={
+    draw=kitink, fill=white, line width=0.6pt, rounded corners=1pt,
+    inner sep=4pt, align=center, font=\small},
+  kitsoft/.style={
+    draw=kitgrey, fill=kitgrey!8, line width=0.5pt, rounded corners=1pt,
+    inner sep=4pt, align=center, font=\small},
+  kitwarnbox/.style={
+    draw=kitwarn, fill=white, line width=0.7pt, rounded corners=1pt,
+    inner sep=4pt, align=center, font=\small},
+  kitarrow/.style={-{Stealth[length=4pt]}, draw=kitink, line width=0.6pt},
+  kitlabel/.style={font=\scriptsize\itshape, text=kitgrey},
+}
+
+% One figure environment, so every figure in the book has the same caption
+% treatment and the same placement rules.
+\newcommand{\kitfig}[3]{%
+  \begin{figure}[htbp]
+  \centering
+  #2
+  \caption{#3}
+  \label{fig:#1}
+  \end{figure}}
+
+% upquote makes ' an ASCII apostrophe whatever the typewriter font is. Without
+% it a straight quote in a code fragment sets as a right single quotation mark,
+% and the line stops being code you can paste. It is font-dependent, which is
+% why it ships as a defect rather than as a visible mistake.
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+
+\usepackage[hidelinks]{hyperref}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=kitink,
+  urlcolor=kitlink,
+  citecolor=kitink,
+  pdftitle={Staff AI Engineer Preparation Kit},
+  pdfsubject={Preparing for a Staff-level AI engineering hiring process},
+  pdfkeywords={ai engineering, staff engineer, interview preparation, evals},
+  pdflang={en-GB}
+}
+
+% ---------------------------------------------------------------------------
+%  Palette
+%
+%  Four colours and no more. A fifth would mean the first four are not
+%  carrying meaning.
+% ---------------------------------------------------------------------------
+\definecolor{kitink}{RGB}{31,78,121}     % structure: headings, rules, links
+\definecolor{kitlink}{RGB}{31,78,121}
+\definecolor{kitsaid}{RGB}{21,101,64}    % what the market reports
+\definecolor{kitmine}{RGB}{140,70,20}    % what the author thinks
+\definecolor{kitwarn}{RGB}{150,30,30}    % a trap
+\definecolor{kitgrey}{RGB}{110,110,110}
+
+% ---------------------------------------------------------------------------
+%  Headings and running heads
+%
+%  \raggedright on chapter titles is load-bearing rather than cosmetic: at
+%  this size a justified title on this measure has nowhere to break and sets
+%  an overfull line that no amount of rewording reliably clears.
+% ---------------------------------------------------------------------------
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries\color{kitink}\raggedright}
+  {\normalsize\normalfont\color{kitgrey}\MakeUppercase{\chaptertitlename}\ \thechapter}
+  {8pt}{\Huge\raggedright}
+  [\vspace{2pt}{\color{kitink}\rule{\linewidth}{1.2pt}}]
+
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{kitink}\raggedright}{\thesection}{0.7em}{}
+\titleformat{\subsection}
+  {\normalfont\large\bfseries\raggedright}{\thesubsection}{0.6em}{}
+
+\titlespacing*{\section}{0pt}{2.2ex plus 1ex minus .2ex}{1.1ex plus .2ex}
+\titlespacing*{\subsection}{0pt}{1.8ex plus 1ex minus .2ex}{0.8ex plus .2ex}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{\small\thepage}
+\fancyhead[RE]{\small\itshape\nouppercase{\leftmark}}
+\fancyhead[LO]{\small\itshape\nouppercase{\kitheadcap{\rightmark}}}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% An over-long running head does not overfull. fancyhdr sets an over-wide
+% field at its natural width and prints it on top of the field beside it --
+% no warning, no error, and the page number underneath somebody's chapter
+% title. Measure the box and scale only when it is too wide, reserving room
+% for the folio so the reserve tracks the point size.
+\newlength{\kitheadroom}
+\newcommand{\kitheadcap}[1]{%
+  \setlength{\kitheadroom}{\dimexpr\headwidth-4em\relax}%
+  \sbox0{\small\itshape #1}%
+  \ifdim\wd0>\kitheadroom
+    \resizebox{\kitheadroom}{!}{\usebox{0}}%
+  \else
+    \usebox{0}%
+  \fi}
+
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\renewcommand{\sectionmark}[1]{\markright{#1}}
+
+% A last resort, and a deliberately small one.
+%
+% This book is set at 12pt on a 155mm measure and it carries long technical
+% compounds and file names. Without any emergency stretch TeX produces a tail
+% of small overfull lines that no rewording reliably clears, because the
+% offending word is usually a name. 1em is enough to absorb that tail and small
+% enough that a genuinely unbreakable run still reports.
+%
+% The risk this carries is real and worth naming: emergency stretch hides a
+% wide box by loosening the line instead of fixing it. Which is why it is 1em
+% rather than 3em, and why the build still reports what is left.
+\setlength{\emergencystretch}{1em}
+
+\setlength{\parskip}{0pt}
+\setlength{\parindent}{1.2em}
+\setlist{itemsep=2pt, topsep=4pt, parsep=0pt}
+
+% ---------------------------------------------------------------------------
+%  Boxes -- two treatments, and that is the whole visual grammar
+%
+%  A tinted block with a thick left bar is something the reader may take in
+%  passing. A full rule on white is something they must stop at. A third
+%  treatment would mean the first two are not carrying their meaning.
+%
+%  before skip and after skip are the numbers that matter. tcolorbox defaults
+%  to a couple of points, which is not enough air to read as a separate block,
+%  and every box carrying its own value is how a page ends up looking
+%  arbitrary. One \tcbset, eight boxes, one set of spacing numbers.
+% ---------------------------------------------------------------------------
+\tcbset{
+  kit tinted/.style={
+    enhanced, breakable, sharp corners,
+    colback=#1!6!white, colframe=#1!6!white,
+    borderline west={2.5pt}{0pt}{#1},
+    boxrule=0pt, left=8pt, right=8pt, top=6pt, bottom=6pt,
+    before skip=11pt, after skip=11pt,
+    fonttitle=\bfseries\small, coltitle=#1,
+    attach boxed title to top left={xshift=6pt, yshift=-2pt},
+    boxed title style={colback=white, colframe=white, sharp corners, boxrule=0pt}
+  },
+  kit outlined/.style={
+    enhanced, breakable, sharp corners,
+    colback=white, colframe=#1,
+    boxrule=0.9pt, left=8pt, right=8pt, top=6pt, bottom=6pt,
+    before skip=11pt, after skip=11pt,
+    fonttitle=\bfseries\small, coltitle=#1,
+    attach boxed title to top left={xshift=6pt, yshift*=-2pt},
+    boxed title style={colback=white, colframe=white, sharp corners, boxrule=0pt},
+    overlay first and middle={%
+      \node[anchor=south east, inner sep=2pt, font=\scriptsize\color{#1}]
+        at (frame.south east) {$\triangleright$};}
+  }
+}
+
+\newtcolorbox{kitnote}[1][]{kit tinted=kitink, title={Note}, #1}
+\newtcolorbox{kittrap}[1][]{kit outlined=kitwarn, title={The trap}, #1}
+\newtcolorbox{kitmethod}[1][]{kit outlined=kitink, title={The method}, #1}
+\newtcolorbox{kitrigour}[1][]{kit tinted=kitgrey, title={What this rests on}, #1}
+
+% ---------------------------------------------------------------------------
+%  THE THREE CLAIM MACROS
+%
+%  Almost nothing in this subject can be measured, which is exactly why the
+%  kind of every claim is marked on the page. A reader can then see which
+%  sentences are evidence and which are taste, and disagree with the second
+%  kind without distrusting the first.
+%
+%  \reported{text}{sourcekey}
+%      What the market does. TWO mandatory arguments, so a reported claim
+%      with no source behind it is an "argument missing" error at build time
+%      rather than something tools/check_sources.py has to catch afterwards.
+%      Making the wrong form impossible beats making it detectable.
+%
+%  \reported[single]{text}{sourcekey}
+%      The same, for a source graded single-source in sources.yaml. The
+%      optional argument prints "one source" in the sentence, so the
+%      qualification reaches the reader rather than living in a YAML file
+%      they will never open. check_sources.py requires the optional argument
+%      when the grade demands it AND refuses it when the grade does not, so
+%      the marker cannot be sprinkled on for safety.
+%
+%  \judgement{text}
+%      The author's opinion. Never set as fact, and never carrying a source,
+%      because a citation on an opinion is a borrowed authority.
+% ---------------------------------------------------------------------------
+% A source mark prints a NUMBER, not the key.
+%
+% It printed the key at first, and keys are descriptive: several run to thirty
+% characters, a superscript is one unbreakable run, and two of them in a row
+% produced a 193pt overfull line against a 15pt budget. Measured, not guessed.
+% Numbers come from tools/gen_sources.py, which also generates the register
+% Appendix D prints -- so the list and the numbering cannot come apart.
+%
+% An unknown key prints loudly rather than silently. A citation that renders as
+% nothing is a claim that has quietly lost its evidence.
+\newcommand{\kitsourcenum}[2]{\expandafter\gdef\csname kitsrc@#1\endcsname{#2}}
+\newcommand{\kitsourcemark}[1]{%
+  \textsuperscript{\textcolor{kitsaid}{\scriptsize
+    \ifcsname kitsrc@#1\endcsname
+      \csname kitsrc@#1\endcsname
+    \else
+      \textcolor{kitwarn}{??#1}%
+    \fi}}}
+
+\newcommand{\source}[1]{\kitsourcemark{#1}}
+
+\NewDocumentCommand{\reported}{o m m}{%
+  \IfNoValueTF{#1}{%
+    #2\kitsourcemark{#3}%
+  }{%
+    #2\ \textcolor{kitgrey}{\small(one source)}\kitsourcemark{#3}%
+  }%
+}
+
+\newcommand{\judgement}[1]{%
+  \textcolor{kitmine}{\textbf{\small$\diamond$}}\,\textit{#1}}
+
+% ---------------------------------------------------------------------------
+%  Drills
+%
+%  A drill is something the reader does, not something they read. It is a
+%  distinct treatment because the whole argument of this book is that reading
+%  a preparation guide is not preparation.
+% ---------------------------------------------------------------------------
+\newcounter{kitdrill}[chapter]
+\renewcommand{\thekitdrill}{\thechapter.\arabic{kitdrill}}
+
+\newtcolorbox[use counter=kitdrill]{drill}[1][]{%
+  kit outlined=kitsaid,
+  title={Drill \thekitdrill},
+  #1}
+
+% ---------------------------------------------------------------------------
+%  A bank question
+%
+%  Six fixed parts, in this order, every time. The order is the content: it
+%  forces the answer to separate what is asked from what is tested, and to
+%  name the weaker answer rather than only the better one. A question missing
+%  one of the six stops being comparable with the others, and
+%  tools/check_structure.py refuses it.
+% ---------------------------------------------------------------------------
+\newcommand{\bankpart}[1]{%
+  \par\needspace{2\baselineskip}%
+  \vspace{4pt}\noindent{\bfseries\small\textcolor{kitink}{#1}}\par\nopagebreak\vspace{1pt}}
+
+\newenvironment{bankq}[1]
+  {\needspace{5\baselineskip}%
+   \par\vspace{6pt}%
+   {\color{kitink}\rule{\linewidth}{0.7pt}}\par\vspace{3pt}%
+   \noindent{\large\bfseries #1}\par\vspace{2pt}}
+  {\par\vspace{7pt}}
+
+\newcommand{\qasked}{\bankpart{As asked}}
+\newcommand{\qtested}{\bankpart{What is being tested}}
+\newcommand{\qstaff}{\bankpart{The Staff answer}}
+\newcommand{\qsenior}{\bankpart{The Senior answer that falls short}}
+\newcommand{\qcontested}{\bankpart{Where this is contested}}
+\newcommand{\qdrill}{\bankpart{Drill}}
+
+
+% ---------------------------------------------------------------------------
+%  Computed values
+%
+%  Appendix E prints ledgers about this repository -- how many chapters, how
+%  many drills, how many sources at each grade. Those are facts about the tree
+%  and they change with every pass, so they are NOT typed. tools/ledger.py
+%  measures the tree and writes ledger.tex; the appendix reads it with \val{}.
+%
+%  The point is not convenience. A count typed into prose is a claim nobody
+%  maintains, and this book spends a whole appendix refusing other people's
+%  unmaintained counts. Printing its own from memory would be the same defect
+%  with the author's name on it.
+%
+%  A missing key prints ?? loudly rather than silently, because a value that
+%  quietly renders as nothing is a number that has stopped being true in the
+%  one place nobody looks.
+% ---------------------------------------------------------------------------
+\newcommand{\kitledgerval}[2]{\expandafter\gdef\csname kitval@#1\endcsname{#2}}
+\newcommand{\val}[1]{%
+  \ifcsname kitval@#1\endcsname
+    \csname kitval@#1\endcsname
+  \else
+    \textbf{\textcolor{kitwarn}{??#1??}}%
+  \fi}
+
+% ---------------------------------------------------------------------------
+%  Small conveniences
+% ---------------------------------------------------------------------------
+% \code{} has to be able to break.
+%
+% This book names files constantly, and a path like templates/project-deep-dive.md
+% is thirty characters of \texttt with no break opportunity: TeX either sets a
+% 60pt overfull line or a very loose one. Measured before this fix: the longest
+% such run produced a 66pt box.
+%
+% url's breaking machinery does the job -- it breaks after / . - and _ -- and
+% it is configured here to prefer those points rather than to hyphenate, so a
+% filename never acquires a hyphen that is not in it. Unlike \nolinkurl this
+% takes an ordinary argument, so \code{\_} and \code{$\ldots$} still work.
+\DeclareUrlCommand{\kiturl}{\urlstyle{tt}}
+\newcommand{\code}[1]{\kiturl{#1}}
+\newcommand{\term}[1]{\textit{#1}}
+\newcommand{\dash}{\,---\,}
+
+% A table that fills the measure, and that can break across a page.
+%
+% Two traps here, both measured rather than anticipated.
+%
+% \NewEnviron rather than \newenvironment: tabularx reads its body by scanning
+% the input for a literal \end{tabularx}. Wrapped in an ordinary
+% \newenvironment the source only contains \end{kittable}, so tabularx scans to
+% the end of the file and the run dies with "File ended while scanning use of
+% \TX@get@body" -- an error naming neither the table nor the chapter.
+%
+% xltabular rather than tabularx inside a center: a tabularx cannot break, so
+% a comparison table taller than the room left produced an overfull vbox of
+% 828pt -- a whole page of content with nowhere to go, reported by TeX as a
+% page that came out too tall and naming no file. xltabular is a longtable, so
+% it splits, and the class of defect disappears rather than being tuned.
+\NewEnviron{kittable}[1]{%
+  \par\vspace{4pt}%
+  \begingroup\small
+  \setlength{\LTpre}{0pt}\setlength{\LTpost}{0pt}%
+  \begin{xltabular}{\linewidth}{#1}\toprule
+  \BODY
+  \bottomrule\end{xltabular}%
+  \endgroup\vspace{2pt}}

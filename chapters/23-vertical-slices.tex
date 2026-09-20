@@ -1,0 +1,127 @@
+\chapter{Vertical slices}
+\label{ch:slices}
+
+\section*{What this chapter is for}
+
+How to choose what to build first, and why the instinct most engineers have
+\dash{} build the foundations properly, then build on them \dash{} produces the
+worst possible outcome under a clock.
+
+\section{Horizontal loses}
+
+The horizontal approach builds a layer at a time: the schema, then the data
+access, then the services, then the interface. It is how you would build
+something real, it produces better foundations, and in a timed exercise it
+produces nothing that runs.
+
+The arithmetic is brutal. Four layers, and you are seventy per cent through
+each when the time goes. Seventy per cent of a schema is nothing. Seventy per
+cent of four layers is nothing. There is no demonstration, no account of what
+works, and nothing to talk about except intent.
+
+A vertical slice is the thinnest complete path through every layer at once.
+One entity, one operation, one screen, one assertion. It is ugly, it is
+incomplete, and it \emph{runs}.
+
+\begin{kitnote}
+The property that matters is not that it is smaller. It is that it is
+\emph{complete}. A complete narrow thing tells you that your assumptions about
+every layer were right, which is information you cannot get any other way and
+which you want as early as possible. A wide incomplete thing tells you nothing
+about whether it would have worked.
+\end{kitnote}
+
+\section{Choosing the first slice}
+
+\begin{kitmethod}
+\textbf{It must be the thing discovery said has to work.} Question two of the
+six. If the answer was ``a customer can place an order'', the first slice is a
+customer placing an order, not a catalogue.
+
+\textbf{It must go through every layer.} Store, logic, boundary, whatever the
+user touches. If one layer is missing, you have not proved the path.
+
+\textbf{It must contain the one hard thing.} The conflict case, the external
+dependency, the operation that is irreversible. Chapter~\ref{ch:design} phase
+7. Putting the hard thing in slice one is the whole technique: it is the part
+that can fail in ways you did not predict, and you want it failing at minute
+forty rather than minute ninety.
+
+\textbf{It must be demonstrable.} You can show somebody, in the product, that
+it works.
+\end{kitmethod}
+
+\begin{kittrap}
+The tempting first slice is the one you are confident about \dash{} the
+catalogue, the list view, the read path. It goes quickly, it produces something
+on screen, and it feels like progress.
+
+It defers every risk to the second half of the session, where there is no room
+left. The hard thing does not get easier by being postponed; it gets more
+expensive, because by then it has to fit into decisions you have already made
+around it.
+\end{kittrap}
+
+\section{What a slice is allowed to skip}
+
+It has to be complete through the layers. It does not have to be complete in
+any other sense, and being explicit about that at the time is what keeps it
+from reading as carelessness.
+
+\begin{kittable}{@{}lX@{}}
+\textbf{Allowed to skip} & \textbf{Because} \\
+\midrule
+Authentication & a stub identity, named as a stub, costs one line and proves nothing was skipped by accident \\
+Validation beyond the path & the path is what is being proved \\
+Styling & nobody is assessing it \\
+Configuration & a constant with a comment is a decision; a configuration system is a project \\
+Every entity but one & the second entity is slice two \\
+Error handling beyond the one case & the one case is the one that matters \\
+\end{kittable}
+
+\textbf{Not allowed to skip:} the assertion. A slice that runs but is not
+checked has not proved anything, and in a round where the criteria include how
+you validate your own work, it is the omission that gets noticed.
+
+\judgement{One test on the hard thing is worth more than ten on the easy parts,
+and writing it in front of somebody is one of the highest-value two minutes
+available in the whole session.}
+
+\section{The seam}
+
+Every slice should leave an obvious place for the next thing to attach, and
+saying where that is, out loud, is what turns a narrow slice from a limitation
+into a plan.
+
+``The second entity attaches here, and the only change is another row in this
+mapping'' is a sentence that answers the unasked question \dash{} whether you
+have built something that can grow or something that happens to work.
+
+\section{Slice two, and the decision not to start it}
+
+If slice one finishes early, slice two is either the second-most-important
+thing or the hardening of the first. Both are defensible; choose deliberately
+and say which.
+
+If slice one finishes late, do not start slice two. The run sheet already made
+this decision. \judgement{Two half-finished slices demonstrate less than one
+finished one and cost the demonstration, which is the only artefact the round
+actually produces.}
+
+\begin{drill}
+Take a system you have built and write down what its first vertical slice
+would have been: the one path, through every layer, containing the hardest
+thing. Then check the last part honestly. Most people's first slice avoids the
+hard thing, and finding out that your instinct does that is the point of the
+exercise.
+\end{drill}
+
+\section*{What this chapter does not claim}
+
+Vertical slicing is not novel and is not this book's idea. What is specific
+here is the instruction to put the hardest thing in the first slice, which
+trades a smoother start for earlier information, and is a judgement about where
+risk should sit when the clock is the binding constraint.
+
+Under different constraints \dash{} a week rather than two hours \dash{} the
+horizontal approach is often correct. The claim is about timed exercises.

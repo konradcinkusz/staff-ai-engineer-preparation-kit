@@ -1,0 +1,152 @@
+# Does it still build, and do the gates still hold?
+#
+# Two jobs, and the split is the point: `gates` needs Python and nothing else,
+# so it answers in seconds, and `build` needs a TeX installation and answers in
+# minutes. A convention mistake should cost the first, never the second.
+#
+# The gates job is NOT `continue-on-error`. A gate that cannot fail the build is
+# decoration, and it teaches the next person to stop reading the output.
+
+name: Build
+
+on:
+  push:
+    branches: [main]
+    paths-ignore: ['**.md', 'docs/**']
+  pull_request:
+    paths-ignore: ['**.md', 'docs/**']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  gates:
+    name: Gates
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      # Regenerate first, then check. A stale generated file is a real failure
+      # and has to be reported as one -- but reporting it as "structure.tex is
+      # stale" is more useful than as a compile error two minutes later.
+      - name: Generated files are current
+        run: |
+          python3 tools/gen_structure.py --check
+          python3 tools/gen_sources.py --check
+          python3 tools/ledger.py --check
+
+      - name: The gates
+        run: make gates
+
+      # The mutation pass is what makes the line above mean anything. Without
+      # it, "the gates passed" is compatible with the gates checking nothing.
+      - name: Every gate refuses its planted defect
+        run: make mutations
+
+      - name: Ledger
+        run: |
+          {
+            echo '## Ledger'
+            echo '```'
+            python3 tools/ledger.py
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  build:
+    name: Book and cards
+    needs: gates
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Build the handbook
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: main.tex
+          latexmk_use_lualatex: false
+          args: -pdf -interaction=nonstopmode -file-line-error
+
+      - name: Build the cards
+        uses: xu-cheng/latex-action@v3
+        with:
+          working_directory: onepagers
+          root_file: |
+            run-sheet-card.tex
+            decision-method-card.tex
+            failure-tree-card.tex
+            pre-call-briefing-card.tex
+            banned-claims-card.tex
+          args: -pdf -interaction=nonstopmode -file-line-error
+
+      # Never `grep '^!'`. With -file-line-error an error line begins with a
+      # path, and -interaction=nonstopmode writes a PDF over the top of it, so
+      # the exit code and the PDF both say fine.
+      - name: Read the logs properly
+        run: python3 tools/checklog.py main.log onepagers/*.log
+
+      # A card that runs to two sides is a document, which is not what a desk
+      # needs. Counted from latexmk's own log, because pdfinfo is not assumed.
+      - name: Every card is one A4 side
+        run: |
+          fail=0
+          for log in onepagers/*-card.log; do
+            name=$(basename "$log" .log)
+            pages=$(grep -oE "Output written on ${name}\.pdf \([0-9]+ page" "$log" \
+                    | grep -oE "[0-9]+" | tail -1)
+            if [ "$pages" != "1" ]; then
+              echo "::error file=onepagers/${name}.tex::${name} is ${pages:-unknown} pages, must be 1"
+              fail=1
+            fi
+          done
+          exit $fail
+
+      - name: Summary
+        if: always()
+        run: |
+          pages=$(grep -oE "Output written on main\.pdf \([0-9]+ pages" main.log \
+                  | grep -oE "[0-9]+" | tail -1)
+          bytes=$(stat -c%s main.pdf 2>/dev/null || echo 0)
+          {
+            echo "## Build"
+            echo "| | |"
+            echo "|---|---|"
+            echo "| Pages | ${pages:-unknown} |"
+            echo "| Size | $((bytes / 1024)) KiB |"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pdfs
+          path: |
+            main.pdf
+            onepagers/*.pdf
+          if-no-files-found: error
+          retention-days: 14
+
+      # Keep the log whatever happened. After a log-only failure the one
+      # artefact anybody wants is the one that did not get kept.
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: logs
+          path: |
+            main.log
+            onepagers/*.log
+          if-no-files-found: warn
+          retention-days: 14

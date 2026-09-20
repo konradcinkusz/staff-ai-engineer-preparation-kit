@@ -1,0 +1,132 @@
+\chapter{The run sheet}
+\label{ch:runsheet}
+
+\section*{What this chapter is for}
+
+A timed build needs a plan with times in it and a decision at each one. Not a
+schedule \dash{} a set of checkpoints where you look at the clock and decide
+whether to continue or to cut.
+
+\section{Why a run sheet, rather than a plan}
+
+A plan says what you will do. A run sheet says what you will do \emph{and what
+you will abandon}, at named times, before you are attached to any of it.
+
+That difference matters because the decision to cut is much harder at minute
+seventy than at minute zero. At minute seventy you have written the code, you
+can nearly see it working, and the sunk cost is loud. A decision made in
+advance, written down, is one you can execute without re-litigating it in front
+of an audience.
+
+\judgement{This is the single largest difference between a build round that
+ends with something running and one that ends with an apology, and it has
+nothing to do with how fast anybody types.}
+
+\section{The shape}
+
+Expressed as fractions of the session, so it transfers to any length.
+
+\begin{kittable}{@{}llX@{}}
+\textbf{Elapsed} & \textbf{Block} & \textbf{Hard checkpoint} \\
+\midrule
+0--8\% & orientation & the brief restated in your words, out loud \\
+8--20\% & discovery & the written artefact exists and scope is agreed \\
+20--30\% & design & the drawing is done and you have stopped drawing \\
+30--35\% & skeleton & the project runs, empty, and you have seen it run \\
+35--60\% & slice one & the one path that must work, end to end \\
+60--80\% & slice two & the second thing, or hardening the first \\
+80--90\% & the demonstration & you have shown it working \\
+90--100\% & the account & what you did, what you cut, what you would do next \\
+\end{kittable}
+
+For a two-hour session: discovery closed by minute 25, first line of real code
+by minute 40, something running by minute 70, demonstrating from minute 100.
+
+\section{The checkpoints are decisions}
+
+At each one, you look at the clock and choose. The choices are written now.
+
+\begin{kitmethod}
+\textbf{Discovery checkpoint.} Not closed? Close it anyway, out loud: ``I am
+going to stop asking and start building; I am assuming X and Y, tell me if
+either is wrong.'' Unbounded discovery is the second-worst outcome available.
+
+\textbf{Design checkpoint.} Not finished? Stop drawing. An unfinished drawing
+with a running slice beats a complete drawing and nothing.
+
+\textbf{Skeleton checkpoint.} Not running? This is the emergency. Everything
+after depends on it, and the fallback is to cut infrastructure until something
+runs \dash{} in-memory instead of a database, one process instead of two, no
+container. Chapter~\ref{ch:breaks} has the tree.
+
+\textbf{Slice-one checkpoint.} Not done? Cut its scope, not its completeness.
+A narrower thing that works end to end, not a wider thing that half works.
+
+\textbf{Slice-two checkpoint.} Behind? Do not start it. Harden slice one and
+demonstrate that. One finished thing is a result; two unfinished things are
+not.
+
+\textbf{Demonstration checkpoint.} This one is not negotiable. Stop building
+at the time on the sheet, whatever state the code is in. A session that runs
+out of time mid-edit has no demonstration and no account, and both of those
+were being assessed.
+\end{kitmethod}
+
+\begin{kittrap}
+The commonest failure is not being slow. It is passing a checkpoint without
+noticing, because the work is absorbing and the clock is not.
+
+Put the time on the screen. Not a mental note \dash{} a visible clock, and the
+checkpoint times where you can see them. Somebody who says ``that is my
+twenty-five minute mark, I am closing discovery'' is demonstrating something
+about how they work, in one sentence, for free.
+\end{kittrap}
+
+\kitfig{run-sheet}{\input{diagrams/run-sheet}}{The run sheet as elapsed fractions, so it transfers to any session length. The four marked checkpoints are decisions taken now, in writing, rather than at the moment they are needed.}
+
+\section{Compress the procedure, never the criterion}
+
+When you are behind, the thing to shorten is the ceremony: fewer questions,
+less drawing, fewer commits, less explanation of what you are about to do.
+
+The thing not to shorten is the criterion. If the slice was going to prove that
+two simultaneous operations do not corrupt the state, it still has to prove
+that. A slice that skips its own reason for existing has not been compressed,
+it has been abandoned, and abandoning it silently is worse than saying you have
+cut it.
+
+\judgement{Saying ``I am cutting the second entity; the conflict case still has
+to work because it is the thing that would actually break'' is the sentence of
+somebody making a decision. Quietly dropping both is the sentence of somebody
+running out of time.}
+
+\section{The account at the end}
+
+The last block is not spare. Three things, in order:
+
+\textbf{Show it working} \dash{} in the product, not the API explorer.
+
+\textbf{Say what you cut, and why} \dash{} against the out-of-scope line agreed
+at minute twenty.
+
+\textbf{Say what you would do next, and what worries you} \dash{} which is the
+honest self-assessment criterion from Chapter~\ref{ch:deep-dive} arriving in a
+different round.
+
+\begin{drill}
+Take the table above and write the absolute times for a two-hour session on a
+card. Put it beside your keyboard for the rehearsal in
+Chapter~\ref{ch:rehearsal}. Afterwards, mark which checkpoints you passed
+without noticing \dash{} that count, and not the state of the code, is what the
+rehearsal measured.
+\end{drill}
+
+\section*{What this chapter does not claim}
+
+The percentages are the author's, tuned for a two-hour session with a
+discovery phase. A session with a brief supplied in advance moves the first two
+blocks and everything else shifts left.
+
+No claim is made that a run sheet improves outcomes. The claim is narrower: the
+decisions are easier to make in advance than at the moment they are needed,
+which is a statement about decision-making rather than about interviews.

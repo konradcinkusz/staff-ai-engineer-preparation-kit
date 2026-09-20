@@ -1,0 +1,140 @@
+\chapter{The take-home}
+\label{ch:takehome}
+
+\section*{What this chapter is for}
+
+\reported{A take-home appears in about a third of loops that disclose their
+process, typically at two to three hours, and usually in place of an on-site
+round rather than in addition to
+one.}{field-guide-process} Nobody watches you do
+it, which removes every signal the live round was generating and replaces it
+with what you choose to leave behind.
+
+\section{Start with evaluation}
+
+The single strongest piece of guidance available about these assessments:
+\reported{not starting with evaluation is reported as a red flag, and analysed
+signals name starting with evals before the main logic as the first
+thing.}{field-guide-take-home}
+
+That is worth reading twice, because it inverts the instinct. The instinct is
+to build the thing and then, if time remains, to check it. The reported
+expectation is the reverse: decide what correct means, encode it, then build
+towards it.
+
+\begin{kitmethod}
+\textbf{First half-hour, before the main logic:}
+
+\textbf{1.} Write down what correct output looks like for five or six inputs
+\dash{} by hand, from the brief. These are your golden cases.
+
+\textbf{2.} Write the thing that checks them. It will fail. That is the point:
+you have a target rather than an opinion.
+
+\textbf{3.} Include at least one case that must \emph{not} happen \dash{} a
+tool that must not be called, a field that must not appear, an action that must
+not be taken without confirmation. A check that only looks for the right answer
+misses half of what can go wrong.
+
+\textbf{4.} Then build.
+\end{kitmethod}
+
+\judgement{This costs half an hour of a three-hour budget and it changes what
+the whole submission communicates. A repository whose first commit is a failing
+evaluation says something about the author that no amount of polish in the
+final one does.}
+
+\section{The other signals}
+
+\reported{The analysed evaluation signals for these assessments are: modular
+structure and error handling; production awareness \dash{} caching, monitoring,
+cost, security; edge cases handled even where tests were not requested; and
+documented decisions.}{field-guide-take-home}
+
+Three of those four are things you would do anyway. The fourth is the one that
+needs a deliberate decision, because nobody asks for it.
+
+\textbf{Documented decisions} means a short file \dash{} four or five entries
+\dash{} each naming a decision, the alternative, and why. Not a design
+document. A list of forks with the reason for the turn taken.
+
+And, from Chapter~\ref{ch:ledger}: the register of what you did not do. In a
+take-home it is more valuable than anywhere else, because the reader's default
+assumption about anything missing is that you did not think of it.
+
+\section{Scope, when nobody is stopping you}
+
+The stated budget is the budget. Working eight hours on a three-hour assessment
+is a worse submission, not a better one: it fails the honesty test if you do not
+say so, and if you do say so it reports that you cannot scope yourself.
+
+\begin{kitmethod}
+\textbf{Timebox it in writing, in the repository.} ``Three hours, spent
+roughly: 30 minutes evaluation, 90 minutes the main path, 30 minutes the second
+case, 30 minutes documentation.'' A reader now knows what they are looking at.
+
+\textbf{Cut breadth, never completeness.} Chapter~\ref{ch:slices}, unchanged.
+
+\textbf{List what the next two hours would have gone on.} It costs four lines
+and answers the question the reader is forming anyway.
+\end{kitmethod}
+
+\section{The defence round is the assessment}
+
+\reported{The defence conversation afterwards is reported to matter more than
+the code alone.}{field-guide-take-home}
+
+So the submission is written to be defended. Before you send it, prepare
+answers to five questions \dash{} they are asked nearly every time:
+
+\begin{itemize}
+  \item Why this structure rather than the obvious alternative?
+  \item What is the weakest part?
+  \item What would break first at a hundred times the volume?
+  \item What did you not have time for, and what would you do first?
+  \item How do you know it works?
+\end{itemize}
+
+\judgement{The fifth is the one that separates submissions, and it is why the
+first half-hour went where it did. ``Here is the check, here is what it covers,
+here is what it does not'' is an answer. ``I tested it manually'' is the
+absence of one.}
+
+\section{A video walkthrough}
+
+\reported{Submitting with a short video walkthrough is among the reported
+hygiene practices for these assessments.}{field-guide-get-hired}
+
+Three or four minutes: what it does, the one interesting decision, and what you
+left out. \judgement{It recovers most of the signal the live round would have
+produced \dash{} how you talk about your own work, what you choose to point at,
+whether you volunteer the weakness \dash{} which is the whole thing the format
+gave up by not watching you.}
+
+\begin{kittrap}
+The trap specific to this format is polish. Nobody is watching, the clock is
+soft, and it is easy to spend the last hour on presentation \dash{} formatting,
+a nicer interface, a longer README.
+
+That hour buys almost nothing. The same hour spent on one more golden case, one
+more entry in the decisions file, or one honest paragraph about what is not
+covered changes what the submission is evidence \emph{of}.
+\end{kittrap}
+
+\begin{drill}
+Take any past exercise and redo its first thirty minutes under this
+instruction: write the golden cases and the failing check, and nothing else.
+Notice how much the brief's ambiguity resists being turned into concrete
+expected outputs \dash{} that resistance is the discovery work of
+Chapter~\ref{ch:discovery} arriving in a format where you cannot ask anybody.
+\end{drill}
+
+\section*{What this chapter does not claim}
+
+The reported signals come from an analysis of take-home repositories and the
+feedback attached to them, in one corpus. That is a real body of evidence about
+a real set of assessments, and it is not a survey of what every employer scores.
+
+The recommendation to spend the first sixth of the budget on evaluation is a
+judgement built on that reporting. The reporting says starting with evaluation
+matters; the fraction is the author's.

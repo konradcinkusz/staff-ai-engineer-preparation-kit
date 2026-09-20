@@ -1,0 +1,20 @@
+# Secret scanning configuration.
+#
+# This repository has no credentials and no runtime, so the scan is a
+# precaution rather than a control. It runs over the full history on every push
+# and weekly, because a secret committed once and removed in the next commit is
+# still in the history and is still leaked.
+
+title = "staff-ai-engineer-preparation-kit"
+
+[extend]
+useDefault = true
+
+# The allowlist is narrow on purpose, and by FILE rather than by directory.
+# A directory pattern turns every rule off for files nobody has written yet,
+# which is exactly the file somebody will paste a token into.
+[[rules]]
+id = "generic-token-in-prose"
+description = "A long opaque string in prose, which is usually a pasted token"
+regex = '''(?i)(token|secret|password|api[_-]?key)\s*[:=]\s*['"][A-Za-z0-9/+_\-]{24,}['"]'''
+tags = ["token"]

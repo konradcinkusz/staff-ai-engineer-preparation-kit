@@ -1,0 +1,122 @@
+\chapter{Operating it}
+\label{ch:operating}
+
+\section*{What this chapter is for}
+
+Observability, and testing a system that does not repeat. This chapter carries
+a warning the others do not: \textbf{whether these questions get asked is
+genuinely contested.}
+
+Within one corpus, one analysis describes observability as implicit and
+\reported{discussed but not heavily featured}{field-guide-system-design}, while
+another describes it as \reported{non-negotiable}{field-guide-get-hired}. Two
+files, one body of evidence, opposite conclusions.
+
+\judgement{The usable resolution is not to guess which is right. It is to treat
+this as material to raise unprompted rather than to wait to be asked \dash{}
+which is the correct handling for a subject that is sometimes assessed and
+always relevant.}
+
+\section*{The questions}
+
+\begin{bankq}{What would you instrument?}
+\qasked
+Asked as part of a design round, often near the end when the architecture is
+settled and somebody asks how you would run it.
+
+\qtested
+Whether you know what is different about observing this kind of system.
+
+\qstaff
+Everything you already instrument, plus three things.
+
+\textbf{The tokens.} Per request, input and output separately, because it is
+the cost driver and because a change in average context length is the earliest
+signal that something upstream changed.
+
+\textbf{The decisions.} Which tools were called, with what arguments, in what
+order, and how the turn ended. \judgement{This is the one that matters most and
+the one usually missing. Without it a production failure is a paragraph of
+prose and a shrug; with it, it is a trace you can replay, assert against, and
+turn into an evaluation case.}
+
+\textbf{The exact context.} What actually entered the model, not the identifiers
+of what you intended to send. Chapter~\ref{ch:retrieval}'s diagnosis is
+impossible without it, and it is the difference between debugging and guessing.
+
+Two operational details worth naming, because both silently destroy the value
+of the rest: sampling, which means most incidents have no trace at all; and
+attribute truncation, which quietly removes exactly the long fields \dash{}
+context, arguments \dash{} that you needed.
+
+\qsenior
+Latency, error rate, throughput, plus token counts. Correct and conventional,
+and missing the decisions and the context, which are the two things specific to
+this domain.
+
+\qcontested
+Whether the full context should be retained, given that it contains user data.
+\judgement{A real tension with no general answer. Retention windows and
+redaction at write time are the usual compromise, and the decision belongs to
+the product rather than to engineering.}
+
+\qdrill
+For a system you know, ask whether you could reconstruct exactly what the model
+saw on a request from last Tuesday. The answer is usually no.
+\end{bankq}
+
+\begin{bankq}{How do you regression-test something that does not repeat?}
+\qasked
+Sometimes asked directly. More often it arrives as \emph{how would you know if
+a prompt change made it worse}, which is the same question.
+
+\qtested
+Whether you have a structure or an aspiration. It is Chapter~\ref{ch:evals}
+from the operations side.
+
+\qstaff
+Two layers doing two jobs.
+
+A deterministic layer over the behaviour \dash{} tool calls, order, arguments,
+outcomes, absences \dash{} which needs no model, no credential and no network,
+which is exactly why it can gate every change. This is where a regression is
+caught.
+
+A measured layer over quality, run on a schedule rather than per change,
+compared against a recorded baseline. This is where a drift is noticed.
+
+The baseline is the part that needs care: it is only meaningful against the
+same cases and the same contract, so it records what it measured, and a
+comparison across a changed case set or a changed rubric should be refused
+rather than reported. \judgement{Silently comparing two numbers produced under
+different conditions is worse than having no baseline, because it produces a
+confident wrong answer.}
+
+And a change to a prompt is a change to behaviour. It should go through review
+with the same seriousness as a code change, and \judgement{it is worth having a
+mechanical rule \dash{} a prompt edit requires a change to the specification or
+the cases \dash{} because a behaviour change with no visible diff is otherwise
+invisible to every process you have.}
+
+\qsenior
+A set of cases run before release, with output compared by similarity. It is
+unstable, it cannot gate, and its failures cannot be attributed.
+
+\qcontested
+Whether a quality score should ever block a release.
+\judgement{Chapter~\ref{ch:evals}'s position: the deterministic layer blocks,
+the measured layer informs.}
+
+\qdrill
+For a model-driven feature you know, say what would go red if somebody changed
+its instruction and made it worse. If nothing would, that is the gap.
+\end{bankq}
+
+\section*{What this chapter does not claim}
+
+The contested status is stated at the top and is the most important thing in
+the chapter. Two analyses within one corpus disagree, and no independent source
+was found to settle it, so nothing here claims these questions will be asked.
+
+The instrumentation list and the two-layer structure are the author's judgement,
+consistent with the evaluation practice cited in Chapter~\ref{ch:evals}.

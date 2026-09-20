@@ -1,0 +1,137 @@
+\chapter{How to answer anything}
+\label{ch:answering}
+
+\section*{What this chapter is for}
+
+A method for answering a technical question you have not prepared for, which is
+most of them. It is four steps, it works on any question in this book's bank
+and on questions the bank does not contain, and it is the thing to practise
+rather than the answers.
+
+\section{Why a method rather than answers}
+
+A bank of answers has two failure modes. It runs out, at the first question
+nobody anticipated. And it produces recall, which sounds like recall \dash{}
+fluent, complete, and audibly unconnected to the situation in front of you.
+
+\judgement{The strongest tell that somebody is reciting is that the answer does
+not change when the question's constraints change. An interviewer who adds
+``and this runs on one machine with fifty users'' and gets the same answer has
+learnt that the answer was not about their system.}
+
+What survives is a method that produces an answer from the question's own
+constraints.
+
+\section{The four steps}
+
+\begin{kitmethod}
+\textbf{1. What does it change for the person using this?}
+
+Start at the consequence, not the mechanism. Not ``a B-tree index orders the
+keys'' but ``this query currently scans the table, so it gets slower as the
+table grows, and the person waiting on it will notice at about a million rows''.
+
+This step is what makes an answer sound like it came from somebody who has
+operated a system.
+
+\textbf{2. What does it cost to reverse?}
+
+Sort every option by how hard it is to undo. Adding an index is reversible in
+minutes. Choosing an identifier scheme is reversible after a migration.
+Publishing an API is reversible after everybody else's release cycle.
+
+\judgement{This step is where Staff-level judgement actually lives. Decisions
+that are cheap to reverse deserve a quick answer and a willingness to be wrong;
+decisions that are expensive deserve the time. Treating those two the same way
+\dash{} in either direction \dash{} is the most common judgement failure at
+this level.}
+
+\textbf{3. What is the boring default?}
+
+Name the obvious, well-understood option first and say why it is the default.
+Then say what would make you leave it.
+
+An answer that starts at the interesting option has skipped the argument.
+Starting at the boring one and departing from it deliberately \emph{is} the
+argument, and it takes one extra sentence.
+
+\textbf{4. What would change my mind?}
+
+Name the measurement, the constraint, or the fact that would move you to the
+other option.
+
+This is the strongest sentence in the method and the one people leave out. It
+converts a preference into a decision, it shows you know where the boundary is,
+and it invites the interviewer to supply the constraint \dash{} which is
+frequently what they were waiting to do.
+\end{kitmethod}
+
+\section{What it sounds like}
+
+The question: \emph{would you cache this?}
+
+Without the method: ``Yes, probably a distributed cache with a short expiry,
+though you have to be careful about invalidation.'' True, generic, could have
+been said before the question.
+
+With it: ``What it changes for the user is the tail latency, so first I would
+want to know whether the slow requests are the repeated ones \dash{} caching a
+long tail of unique requests buys nothing. Caching is cheap to add and
+expensive to remove, because things start depending on the latency it provides,
+so I would rather be slow and correct first. The boring default is no cache
+until the numbers say otherwise, and the number that would change my mind is a
+hit rate above roughly half on real traffic. If it is a tenth, the cache is
+complexity with no payoff.''
+
+Four steps, one paragraph, and it is about their system.
+
+\section{When you do not know}
+
+The method still applies, with one addition: say where the edge of your
+knowledge is, and then keep going from first principles.
+
+``I have not used that specific one. What I would want to know is whether it
+guarantees ordering, because the whole design changes at that fork \dash{} if
+it does, this becomes straightforward; if it does not, I need an idempotent
+consumer and that is a different piece of work.''
+
+\judgement{This is a strong answer, and candidates suppress it because earlier
+in their careers it was not. At Junior, not knowing is a gap. At Staff, knowing
+which question would resolve it is the skill being assessed, and admitting the
+boundary is what makes the rest of your answers credible.}
+
+\section{How the bank is structured}
+
+Every question in the chapters that follow has six parts, in the same order
+every time.
+
+\begin{kittable}{@{}lX@{}}
+\textbf{As asked} & the question in the words it usually arrives in \\
+\textbf{What is being tested} & which is rarely the topic named \\
+\textbf{The Staff answer} & not the correct answer \dash{} the one that assesses at this level \\
+\textbf{The Senior answer that falls short} & correct, and assessed a level lower \\
+\textbf{Where this is contested} & because most of these have a real disagreement in them \\
+\textbf{Drill} & a variant to answer out loud \\
+\end{kittable}
+
+\judgement{The fourth row is the most useful and the most unusual. Most
+preparation material gives the right answer; the difference between levels is
+rarely correctness, and seeing the good-but-not-senior version beside the
+senior one is the fastest way to hear the gap.}
+
+\begin{drill}
+Take the last technical question you were asked in any interview and answer it
+again, out loud, in four steps. Time it. If it runs past ninety seconds you are
+explaining the mechanism rather than the decision \dash{} the four steps should
+compress an answer, not extend it.
+\end{drill}
+
+\section*{What this chapter does not claim}
+
+The method is not measured and is not original in its parts \dash{} reversibility
+as a decision axis in particular is widely used. What is specific here is the
+ordering, and the claim that starting at the consequence rather than the
+mechanism is what makes an answer sound operational.
+
+It does not claim the method produces correct answers. It produces answers that
+are about the question asked, which is a different and more achievable thing.

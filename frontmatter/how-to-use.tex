@@ -1,0 +1,108 @@
+\chapter*{How to use this book}
+\addcontentsline{toc}{chapter}{How to use this book}
+\markboth{How to use this book}{}
+
+\section*{Who it is for}
+
+An experienced engineer who is not an AI Engineer by title and is aiming at
+Staff level. You have shipped things, you have operated them, and the gap you
+are closing is a domain gap and an evidence gap rather than an engineering one.
+
+If you are early in your career, or if you want to train models rather than
+build systems on top of them, this is the wrong book and
+Chapter~\ref{ch:three-jobs} says why in more detail.
+
+\section*{What is in it}
+
+\begin{kittable}{@{}llX@{}}
+\textbf{Part} & \textbf{Pages} & \textbf{Read it} \\
+\midrule
+I The map & short & first, and before you study anything \\
+II The evidence & short & before you apply \\
+III The process & medium & when a process starts \\
+IV The build rounds & long & when a build round is scheduled \\
+V The bank & long & in the order the chapters are in \\
+\end{kittable}
+
+Part~V is ordered by how often each surface is reported to be asked, not by
+how interesting it is. That ordering is itself the advice: study it in the
+order it is printed, and Chapter~\ref{ch:noise} says what to leave out.
+
+Alongside the book: \code{templates/} to copy and fill in per company,
+\code{onepagers/} to print before a call, and \code{drills/} for the rehearsal
+in Chapter~\ref{ch:rehearsal}. Appendices~\ref{app:templates}
+and~\ref{app:drills} index them.
+
+\section*{How claims are marked}
+
+Almost nothing in this subject can be measured, so the kind of every claim is
+marked on the page.
+
+\begin{itemize}
+  \item \reported{A statement about what the market does carries a key in the
+        margin of the sentence.}{field-guide} The key resolves in
+        \code{sources.json}, which records the URL, the date it was checked,
+        how good the source is, and whether it was read directly or through
+        somebody else's summary.
+  \item \reported[single]{A claim resting on a single source says so, in the
+        sentence, like this.}{kalra-transition} The book does not let you find
+        that out by opening a file.
+  \item \judgement{A statement marked like this is the author's opinion. It is
+        not sourced, because a citation on an opinion is borrowed authority,
+        and you are invited to disagree with it.}
+\end{itemize}
+
+Every chapter ends with \emph{What this chapter does not claim}. It is not
+modesty; it is the part that tells you how much weight the chapter will bear.
+
+\section*{What this book refuses to do}
+
+\textbf{No figures it cannot source.} No salary bands, no premiums, no pass
+rates. Those numbers are regional, they are stale within two quarters, and the
+versions in circulation are almost all unsourced. What is here instead is the
+method for measuring your own market, and a template to record it in.
+
+\textbf{No case study, and no company.} The method is general or it is not
+worth having. A build gate refuses any named employer, any individual, and any
+currency figure, so this cannot drift back.
+
+\textbf{No claims it could not trace.} Appendix~\ref{app:refused} lists the
+figures that every competing resource repeats, names each one, and says why it
+is not here. \judgement{That appendix is the most useful thing in the book, and
+if you read only one page of it, read that one.}
+
+\section*{If you have one week}
+
+\begin{kitmethod}
+\textbf{Day 1.} Chapters~\ref{ch:three-jobs} to \ref{ch:segment}, then the fit
+check in Chapter~\ref{ch:fit} for the role in front of you. If it comes back
+red, stop \dash{} you have saved the week.
+
+\textbf{Days 2--4.} Build one small thing end to end, deploy it, and put an
+evaluation harness on it (Chapters~\ref{ch:portfolio} and \ref{ch:evals}).
+Spend the last hour on the cost arithmetic, out loud.
+
+\textbf{Day 5.} Part~V, chapters \ref{ch:retrieval} to \ref{ch:cost}, in order.
+
+\textbf{Day 6.} The rehearsal in Chapter~\ref{ch:rehearsal}, full length, with
+another person. This is the highest-value day and it is the one that gets
+dropped, because it needs somebody else's diary.
+
+\textbf{Day 7.} The claim inventory and the banned-claims list
+(Chapter~\ref{ch:claims}), the interviewer briefs
+(Chapter~\ref{ch:person}), and print the cards.
+\end{kitmethod}
+
+\section*{A note on its own evidence}
+
+This book was assembled from a market survey with a stated method, published
+engineering ladders, practitioner writing, and one author's experience of
+running a process of this kind end to end.
+
+That last source is not a case study and does not appear as one. It is why
+certain chapters exist \dash{} the fit check, the evidence classes, the
+banned-claims list \dash{} and it is n{\kern0.08em=\kern0.08em}1, so nothing in
+this book rests on it. Where a chapter is the author's judgement, the chapter
+says so.
+
+\clearpage

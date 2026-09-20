@@ -1,0 +1,210 @@
+\chapter{Agents and tool use}
+\label{ch:agents}
+
+\section*{What this chapter is for}
+
+\reported{Agent and tool-use questions are very common and the category is
+growing, and agentic exercises are the second-largest group in analysed
+take-home assessments.}{field-guide} The questions are less standardised than
+retrieval's, which makes the method of Chapter~\ref{ch:answering} matter more
+here than anywhere else.
+
+\section*{The questions}
+
+\begin{bankq}{When is an agent the wrong solution?}
+\qasked
+The counterpart of retrieval's opening question, and asked for the same reason.
+
+\qtested
+Whether you default to the architecture that is currently fashionable.
+\reported{A candidate is recorded as receiving a negative assessment for
+repeatedly proposing model-based solutions to a problem that did not need
+one.}{field-guide-trends}
+
+\qstaff
+An agent is a loop that chooses its own next step. You are buying the ability
+to handle inputs you did not enumerate, and paying for it in non-determinism,
+latency and a much larger surface of things that can go wrong.
+
+So it is wrong whenever the steps are known. A fixed sequence of three calls is
+a function; implementing it as an agent means the model can decide not to make
+one of them, and now you have a reliability problem you constructed yourself.
+It is wrong when every path must be auditable in advance. It is wrong when
+latency is bounded tightly, because a loop has no upper bound you control
+without imposing one. And it is wrong when the cost of a mistaken action is
+high and the loop can act without a person \dash{} unless the boundary stops
+it, which is the next question.
+
+\judgement{The useful reframing is that an agent is a control-flow choice, not
+a capability. Asking ``would I write this as a loop with a dynamic branch, and
+would I let the branch be decided by something I cannot test exhaustively?''
+turns it into a question you already know how to answer.}
+
+\qsenior
+Naming cost and latency as the trade-off, correctly, and stopping there. It
+treats the decision as a performance question when it is a determinism
+question.
+
+\qcontested
+How much agency is useful is the live argument in this field, and the answer
+has moved more than once. \judgement{The durable part is not where the line is
+but that it is a line at all: anybody who says agents are always or never right
+is describing a preference.}
+
+\qdrill
+Take a workflow you have automated conventionally and say what making it
+agentic would buy and cost. If the answer is that it buys nothing, say why
+somebody might still propose it \dash{} that second half is the interesting one.
+\end{bankq}
+
+\begin{bankq}{How do you stop an agent doing something irreversible?}
+\qasked
+Sometimes as a design question, sometimes as a scenario about an action that
+should not have happened.
+
+\qtested
+Where you put the control. This question separates people who have operated one
+of these from people who have built one, in a single answer.
+
+\qstaff
+\textbf{The tool boundary is the security boundary; the agent's behaviour is
+user experience.} An instruction telling the model to ask before acting is a
+request, and it is subject to everything that can influence the model
+\dash{} including content that arrives inside the data the system itself
+fetched.
+
+So the confirmation lives in the tool. The write tool refuses to act without a
+token; the token is issued only when a person approves a specific action; it is
+bound to exactly what was shown to them, and it is single-use. An agent that is
+argued into calling the tool early then fails at the tool, which is a mechanism
+rather than a hope.
+
+\judgement{The design test is to ask what happens if the model does exactly the
+wrong thing on purpose. If the answer depends on the prompt, there is no
+control. If the answer is that the call is refused, there is.}
+
+That reasoning extends: least privilege per tool rather than one capable
+credential; a read tool that cannot write even by accident; and a blast radius
+you can state \dash{} the worst thing this loop can do without a person is a
+sentence you should be able to say about any system you have built.
+
+\qsenior
+A correct description of a confirmation step in the agent's flow, with the
+prompt instructing it to ask first. It works when nothing is adversarial and
+its failure mode is silent.
+
+\qcontested
+How much to enforce at the boundary versus in the loop is a real engineering
+trade-off, because boundary enforcement costs flexibility.
+\judgement{For irreversible actions there is no trade-off worth making. For
+reversible ones the loop is fine, and being able to say which class an action
+is in is most of the answer.}
+
+\qdrill
+Take a tool you would give an agent and write its refusal condition: the
+precise circumstance in which it declines, expressed without reference to the
+model's intentions.
+\end{bankq}
+
+\begin{bankq}{How would you design the tools themselves?}
+\qasked
+Often the most open question in the round, and the one where the method from
+Chapter~\ref{ch:answering} does the most work.
+
+\qtested
+Whether you can design an interface for a caller that is capable, literal and
+occasionally confidently wrong. This is API design with an unusual consumer,
+which is why it transfers so well from backend work.
+
+\qstaff
+Few tools, each doing one thing, named for the outcome rather than the
+implementation. A model choosing between fifteen overlapping tools chooses
+badly, and the fix is fewer tools rather than a longer description.
+
+Parameters that are hard to get wrong: enumerations over free strings,
+identifiers that came from a previous result rather than being constructed, and
+required fields that genuinely are required. \judgement{The single highest-value
+constraint is that an identifier passed to a write must have appeared in an
+earlier result in the same session. It makes a confidently invented identifier
+structurally impossible rather than something you hope to catch.}
+
+Errors that say what to do next. A tool returning ``invalid request'' gives the
+model nothing to act on; one returning ``that identifier was not found; call
+\code{list\_items} first'' produces a recovery. You are writing error messages
+for a reader who will act on them literally.
+
+And a description that says when \emph{not} to use it, which is the part
+everybody omits and the part that resolves most wrong-tool selection.
+
+\qsenior
+Clear names, good descriptions, typed parameters. Correct, and it is the
+answer for a human consumer. The literal-caller constraints are what makes it
+this domain.
+
+\qcontested
+Granularity is genuinely contested \dash{} many small tools against few
+composite ones \dash{} and it interacts with the model and the task in ways
+nobody has characterised well. \judgement{Start coarse. Splitting a tool is
+cheap; unpicking a model's habit of calling three tools where one would do is
+not.}
+
+\qdrill
+Take an API you have designed and rewrite three endpoints as tools. Then write
+the sentence saying when each should not be used. That sentence is usually the
+hardest one and it is the one that reveals whether the tool has a clear purpose.
+\end{bankq}
+
+\begin{bankq}{How do you know the agent is still behaving after a change?}
+\qasked
+Usually arrives as a question about testing, and is the bridge to
+Chapter~\ref{ch:evals}.
+
+\qtested
+Whether you test the behaviour or the text. The answer given here is what makes
+the evals chapter land.
+
+\qstaff
+Test what it \emph{did}, not what it said. The sequence of tool calls, their
+arguments, and the events emitted is a structure you can assert against; the
+reply text is prose that changes with every prompt edit and turns a rewording
+into a false regression.
+
+That reframing brings a second and less obvious point: half the assertions
+should be about what did \emph{not} happen. An agent that refuses politely and
+calls the tool anyway has passed a check that only looked for the refusal. Any
+scenario about declining to act needs both halves \dash{} the refusal, and the
+absence of the call.
+
+\qsenior
+A set of cases with expected outputs compared by similarity or by a model-based
+grader. It works, it is expensive, and it is unstable against changes that
+altered nothing important.
+
+\qcontested
+Whether behaviour testing is sufficient for systems whose output quality is the
+product. \judgement{It is not sufficient and it is the part that can be
+mechanical and cheap. The right structure is a deterministic layer that gates
+every change and a slower judged layer that does not \dash{}
+Chapter~\ref{ch:evals}.}
+
+\qdrill
+For an agent you know, write three assertions about a single turn that do not
+mention any text it produced. If you cannot get to three, the system is not
+emitting enough about what it did, which is an observability finding rather
+than a testing one.
+\end{bankq}
+
+\section*{What this chapter does not claim}
+
+The frequency and the negative-assessment anecdote come from one corpus. The
+anecdote is one interviewer's report of one candidate and is used to illustrate
+a position, not to establish one.
+
+The tool-boundary argument, the identifier-grounding constraint and the
+start-coarse recommendation are the author's judgement. The first is close to
+consensus among people who have operated these systems; the other two are
+positions.
+
+No protocol is named anywhere in this chapter. Protocol-specific questions
+appear in content-marketing material far more often than in any primary account
+of an interview, and Appendix~\ref{app:refused} says so.

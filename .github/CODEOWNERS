@@ -1,0 +1,28 @@
+# A book's trust boundary is not its code. It is the set of files that decide
+# what the book is allowed to say, so those are the ones that get a named
+# reviewer.
+
+*                           @konradcinkusz
+
+# Every claim's provenance. A change here can promote an unverified source to
+# strong, or delete an access date, and the page would carry the claim either
+# way. This is the file the sourcing discipline rests on.
+/sources.json               @konradcinkusz
+
+# The one thing that keeps the kit company-independent. A term removed from the
+# deny list is a term the build will accept forever after, silently.
+/tools/denylist.txt         @konradcinkusz
+/tools/check_generic.py     @konradcinkusz
+
+# The gates, and the harness that proves they can fail. A weakened check and a
+# passing build look identical from the outside.
+/tools/check_sources.py     @konradcinkusz
+/tools/test_gates.py        @konradcinkusz
+
+# Appendix C is the kit's refusal list. Adding a figure here is easy and
+# removing one should not be.
+/chapters/app-refused.tex   @konradcinkusz
+
+# Anything that runs with a token.
+/.github/workflows/         @konradcinkusz
+/.gitleaks.toml             @konradcinkusz

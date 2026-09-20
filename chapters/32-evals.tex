@@ -1,0 +1,210 @@
+\chapter{Evals}
+\label{ch:evals}
+
+\section*{What this chapter is for}
+
+Evaluation is the discriminator. \reported{Portfolio evidence of an evaluation
+harness is used by some employers specifically to separate people who have
+built something from people who have followed a
+tutorial}{field-guide-get-hired}, and \reported{not starting a take-home with
+evaluation is reported as a red flag}{field-guide-take-home}. It is also
+\reported{the steepest part of the curve for engineers arriving from backend
+work.}{field-guide-backend}
+
+\section*{The questions}
+
+\begin{bankq}{What is an eval, and how is it different from a test?}
+\qasked
+The opening question, and it sounds like a definition request. It is not.
+
+\qtested
+Whether you understand what non-determinism does to the instruments you
+already have.
+
+\qstaff
+A test asserts that a deterministic thing produced a specific result, and a
+failure means something changed. Neither half survives here. The same input
+produces different output, so an assertion on the output is either too loose to
+catch anything or too tight to stay green.
+
+What replaces it is a shift in what you assert about. Assert on \emph{structure
+and behaviour} rather than on text: which tools were called, in what order,
+with which arguments, what was emitted, what the outcome was. Those are
+stable across rewordings and they are the things that matter.
+
+Where the output itself is the product and must be judged, you move to a
+measured quantity rather than a boolean: a score over a set, compared against a
+recorded baseline, where the question is not ``did it pass'' but ``is it worse
+than it was''.
+
+\judgement{The sentence that makes this land in an interview: a test asks
+whether the code is correct, and an eval asks whether the system is still as
+good as it was. The second is a comparison, so it is meaningless without a
+baseline \dash{} and that is why the first thing an evaluation suite needs is
+not cases but a recorded previous state.}
+
+\qsenior
+``Evals are tests for non-deterministic systems, usually with a model grading
+the output.'' Not wrong, and it goes straight to the expensive, unstable
+mechanism while skipping the cheap deterministic one that should gate every
+change.
+
+\qcontested
+How much can be made deterministic is genuinely disputed and depends on the
+product. \judgement{Most systems have far more deterministic surface than their
+teams use, because the visible part is the prose and the prose is what gets
+graded.}
+
+\qdrill
+For a model-driven feature you know, list five things you could assert
+deterministically about one interaction. If you cannot reach five, the system
+is not telling you enough about what it did.
+\end{bankq}
+
+\begin{bankq}{How do you know your eval suite actually works?}
+\qasked
+The follow-up, and the best question in this chapter.
+
+\qtested
+Whether you have applied any scepticism to your own instrument. Most people
+have not, and this is the question where a prepared candidate is unmistakable.
+
+\qstaff
+\textbf{A suite that has never failed is a suite nobody has tested.} The way to
+know is to break the system deliberately and confirm the suite notices.
+
+Build variants with one thing wrong each: one that skips the confirmation, one
+that ignores a permission, one that leaks an internal identifier. Run the suite
+against each. A variant that survives has found a gap in your coverage, and
+that is the point of the exercise rather than an embarrassment.
+
+Two details that make it real rather than ceremonial. The broken variant must
+not announce itself \dash{} it differs only in the behaviour under test, or you
+are checking that you can detect a label. And you must confirm the case passes
+against the \emph{correct} system first, or a case that was broken some other
+way looks like a successful catch.
+
+\judgement{If you have done this and one of your variants survived, say so. It
+is the strongest sentence available on this subject, because it is the sentence
+of somebody who tested an instrument and reported what it did rather than what
+they hoped.}
+
+The general form is worth stating too: a check nobody has watched fail is not
+known to be checking anything. It applies well beyond this domain, and it is
+usually the most transferable thing a backend engineer brings.
+
+\qsenior
+Describing coverage \dash{} how many cases, how many categories, how broad. It
+answers how much the suite looks at, not whether looking works.
+
+\qcontested
+How many broken variants is enough. \judgement{Nobody knows. Three is enough to
+have the conversation; the number matters far less than having done it once.}
+
+\qdrill
+Take any test suite you own and break the thing it tests, in one line, without
+changing the test. Time how long until something goes red. If nothing does, you
+have learnt something about a suite you trusted this morning.
+\end{bankq}
+
+\begin{bankq}{You want a model to grade output. How do you keep that trustworthy?}
+\qasked
+About model-based grading, and usually sceptical in tone.
+
+\qtested
+Whether you treat the grader as another component with its own error rate, or
+as an oracle.
+
+\qstaff
+Anchor the rubric. ``Rate this one to ten'' produces a number with nothing to
+regress against, because nobody \dash{} including the grader \dash{} can say
+what six means. Every level has to name a behaviour a second reader could agree
+or disagree with. That is what makes the next step possible.
+
+Calibrate before it gates anything. Label a sample by hand, compare with the
+grader's labels, and compute agreement. Until agreement is established the
+grader reports and does not block. \judgement{And the labels have to be yours:
+a grader calibrated against labels produced by another model has been checked
+against itself.}
+
+Pin and record. The grader's model, its rubric and its prompt all go into the
+report \dash{} a hash is enough \dash{} so a run graded under different
+conditions is visible rather than inferred. Two scores from different rubric
+versions are not comparable and nothing will tell you.
+
+And structurally: the graded layer is slow, costs money and needs a credential,
+so it cannot gate every change. The deterministic layer does that. This layer
+runs on a schedule and answers a different question.\source{hamel-llm-judge}
+
+\qsenior
+A grader with a good prompt and a sensible scale, spot-checked occasionally. It
+is the common implementation, and the phrase ``spot-checked occasionally'' is
+where it stops being measurement.
+
+\qcontested
+Which agreement statistic, and what threshold, are genuinely contested and the
+choice is less important than reporting one. \judgement{More contested, and
+more interesting: whether model graders should gate at all. The defensible
+position is that they inform and the deterministic layer gates \dash{} a red
+build that nobody can reproduce teaches people to re-run it.}
+
+\qdrill
+Write one rubric level \dash{} say, a three out of five \dash{} for a quality
+you care about, such that two colleagues would assign it to the same outputs.
+It is harder than it looks and the difficulty is the finding.
+\end{bankq}
+
+\begin{bankq}{What do you assert, beyond the right answer?}
+\qasked
+Sometimes asked directly, more often reached by following the previous answer.
+
+\qtested
+Whether your idea of correct includes things that must not happen.
+
+\qstaff
+Roughly a fifth of assertions in a serious suite should be about absence: a
+tool that must not be called, an event that must not fire, an internal
+identifier that must not appear in user-facing output.
+
+The reason is specific. Consider a case where the system should decline. Assert
+only that it declined and you have tested half of it \dash{} an agent that
+refuses politely and calls the tool anyway passes. The pair \dash{} refusal
+issued, \emph{and} the call absent \dash{} is the whole assertion, and one
+without the other is a check with a hole in it shaped exactly like the failure
+you were worried about.
+
+\judgement{Absence assertions are also the cheapest thing in this chapter to
+add to an existing suite and the thing most likely to catch something on the
+day you add them.}
+
+Two more that pay for themselves: that the loop terminated by decision rather
+than by hitting its iteration cap, and that every identifier used in a write
+appeared in an earlier result rather than being constructed.
+
+\qsenior
+A thorough account of asserting correct outputs across categories. Complete on
+one side.
+
+\qcontested
+Little, on absence. What is contested is how much of this belongs in evaluation
+rather than in the system \dash{} and \judgement{the answer is both: the tool
+boundary enforces it, and the suite proves the boundary works.}
+
+\qdrill
+Take three cases from any suite you have and add the absence half to each. At
+least one will fail immediately, and that is the chapter's argument in one
+exercise.
+\end{bankq}
+
+\kitfig{two-layers}{\input{diagrams/two-layers}}{Two layers over one captured trace. Only the deterministic one can gate a change, because only it runs without a model, a credential or a network.}
+
+\section*{What this chapter does not claim}
+
+The reports about evaluation's role as a discriminator and as the steepest part
+of the transition come from one corpus, and the calibration practices are
+consistent with published practitioner writing.\source{hamel-evals-faq}
+\source{anthropic-agent-evals}
+
+The proportion of absence assertions, the position that graders should not
+gate, and the instruction to keep calibration labels human are the author's
+judgement. The first is a rule of thumb and not a measurement.

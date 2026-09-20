@@ -1,0 +1,123 @@
+\chapter{What is noise}
+\label{ch:noise}
+
+\section*{What this chapter is for}
+
+The chapter that saves the most time, because it is about what not to study.
+It has three parts: material that is real but rarely asked, material that is a
+rename of something you already know, and a test for deciding about a topic
+this book does not mention.
+
+\section{Real, and rarely asked}
+
+\begin{kittable}{@{}lXl@{}}
+\textbf{Topic} & \textbf{Why it draws attention} & \textbf{Status} \\
+\midrule
+Fine-tuning, LoRA, PEFT & every course leads with it & niche\source{field-guide} \\
+Transformer internals & it is what the field \emph{means} to outsiders & research-adjacent\source{field-guide} \\
+Attention arithmetic, KV cache & teachable and feels rigorous & rarely asked\source{field-guide} \\
+Quantisation, mixture-of-experts & it is in the news & rarely asked\source{field-guide} \\
+Training infrastructure & it is impressive & a different job (Ch.~\ref{ch:three-jobs}) \\
+\end{kittable}
+
+The rule that covers the whole table: \reported{if the posting does not mention
+fine-tuning, you are unlikely to be asked about it.}{field-guide} It
+generalises to every row.
+
+\begin{kittrap}
+This material is not worthless and the trap is not that it is wrong to learn.
+The trap is that it is the only part of the subject with a settled curriculum,
+so it is the part that has courses \dash{} and a course is what an engineer
+reaches for when starting something unfamiliar.
+
+The cost is specific and it compounds: a month spent here is a month not spent
+on retrieval failure modes, evaluation, or cost arithmetic, which are the three
+surfaces most likely to decide the round. And it produces a characteristic
+failure where a candidate can explain the mechanism of attention and cannot say
+what to check first when the answers are subtly wrong.
+\end{kittrap}
+
+\judgement{There is one good reason to learn some of it anyway, and it is not an
+interview reason: a rough model of how these systems work makes their failure
+modes less surprising. A day on the mechanism is well spent. A month is the
+error.}
+
+\section{Renamed, not new}
+
+The second category is harder to spot, because the material is genuinely useful
+and the name is genuinely current. Something you already know acquires a new
+label, an ecosystem of posts and courses grows around the label, and it appears
+to be a subject you have not learnt.
+
+Two examples that were traceable when this was written, and the point is the
+test rather than the examples.
+
+\textbf{Managing what goes into the context window} has a current name that
+makes it sound like a discipline. The material under it \dash{} what to
+retrieve, what to keep from earlier turns, how to spend a finite budget, where
+in the window to put what matters \dash{} is retrieval, prompt design and
+capacity planning, covered in Chapters~\ref{ch:retrieval}, \ref{ch:cost} and
+\ref{ch:model}. \reported[single]{The only sources found for it as a named
+interview topic were a newsletter selling a handbook on it and an
+interview-preparation site.}{kalra-transition}
+
+\textbf{Protocol standards for connecting models to tools} are real, useful,
+and worth understanding if a posting names one. As an interview topic, every
+source found was a content-marketing question list, with no practitioner or
+primary account. Chapter~\ref{ch:agents} covers tool design without naming a
+protocol, deliberately: the design questions are the same whatever the wire
+format, and the wire format is an afternoon.
+
+\section{The test}
+
+For any topic somebody tells you is essential:
+
+\begin{kitmethod}
+\textbf{1. Who says so?} A practitioner describing their own work, a company
+describing its own process, or a corpus with a stated method \dash{} against a
+site whose business is preparation material. The second category recycles
+itself and produces the appearance of consensus from one origin.
+
+\textbf{2. Does it appear in postings you are actually pursuing?} The most
+reliable signal available, and it is free.
+
+\textbf{3. Is it a new idea or a new word?} Write down what you would have to
+learn. If every line maps onto something you already know, it is a word.
+
+\textbf{4. Can you trace the claim to one origin?} Several sources repeating
+one leaked note, one person's account, or one vendor's post is one source. This
+is the commonest failure, and Appendix~\ref{app:refused} names the instances of
+it this book found.
+\end{kitmethod}
+
+\judgement{Applying this test costs about ten minutes per topic and is the
+highest-return habit in this book, because the field generates new essential
+topics faster than anybody can study them and most of them do not survive the
+first question.}
+
+\section{What to do with the time instead}
+
+The ordering from Chapter~\ref{ch:gap-map}, which this chapter exists to
+protect: something small built end to end and deployed; an evaluation harness
+on it; retrieval and its failure modes; the cost arithmetic, out loud; and only
+then anything in the table above, and only if a posting asks.
+
+\begin{drill}
+List everything you have studied or bookmarked for this transition. Mark each
+against the three categories: genuinely new, renamed, or noise. Then compare
+the time spent with the ordering above.
+
+Most people find the majority of their time in the third column, and the
+reason is not carelessness \dash{} it is that the third column is the part with
+courses.
+\end{drill}
+
+\section*{What this chapter does not claim}
+
+It does not claim the topics in the first table are unimportant to the field.
+It claims they are rarely assessed for this role, and that the strongest
+available evidence is the posting in front of you.
+
+The judgement about renamed topics is the author's, based on failing to find
+primary sources for either as a named interview subject. Absence of evidence
+here is weak evidence, and if a posting names one of them, prepare for it.

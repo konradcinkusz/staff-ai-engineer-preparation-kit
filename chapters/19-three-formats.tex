@@ -1,0 +1,132 @@
+\chapter{Three formats, and which you are in}
+\label{ch:formats}
+
+\section*{What this chapter is for}
+
+The round where you build something comes in three shapes, they are scored
+differently, and the most common preparation error is to assume one of them.
+This chapter is about finding out which you are in, and about what the three
+share so that preparing for all of them does not cost three times as much.
+
+\section{The three}
+
+\textbf{The AI-assisted live build.} One to three hours, shared screen, you
+choose your tooling, and how you use the model is explicitly part of what is
+being assessed. The clearest published description of the shape runs in three
+phases \dash{} \reported{a planning session in which the candidate drives the
+definition of what to build, then a two-hour build with free choice of tooling
+and freedom to change scope, then a review in which judgement and product
+thinking are graded alongside what actually
+works.}{sierra-ai-native-interview}
+
+\textbf{The take-home.} \reported{Two to three hours, present in about a third
+of disclosed loops, and usually replacing an on-site round rather than adding
+one.}{field-guide-process} Nobody is watching, which changes everything:
+Chapter~\ref{ch:takehome} is about the craft that replaces the watching.
+
+\textbf{The AI-free round.} Still common, and not going away.
+\reported{Several employers ban assistance explicitly, and in-person
+interviewing has been rising rather than falling.}{field-guide-trends} Here the
+assessment is closer to the conventional one, and the AI-specific preparation
+does not apply.
+
+\section{The split is genuine, so ask}
+
+There is no default to assume. \reported{One industry survey of hiring leaders
+reports roughly half permitting assistance, broadly or with constraints, a
+fifth deciding case by case, and the remainder not permitting
+it.}{coderpad-hiring-2026}
+
+Among those that permit it, the rules differ in ways that matter.
+\reported[single]{At least one large employer's round makes the assistant
+available in a chat panel but does not let it edit files, and scores prompt
+quality, output validation and debugging explicitly.}{google-code-comprehension}
+\reported[single]{At the same employer family, reporting suggests that at more
+senior levels the assisted round replaces the unassisted one rather than
+joining it.}{meta-ai-enabled-coding}
+
+\begin{kitnote}
+Both of those sentences say \emph{one source} because they rest on one, and the
+second is the more decision-relevant of the two. It is exactly the kind of
+specific, confident, widely-repeated claim that this book's Appendix~\ref{app:refused}
+refuses when it cannot be traced. It is included here, marked, because it
+changes what you would prepare \dash{} but do not plan a week around it without
+asking the company directly.
+\end{kitnote}
+
+\begin{kitmethod}
+Ask in the screen, in one message, and ask all four:
+
+\textbf{1.} Is there a build round, and is it live or a take-home?
+
+\textbf{2.} Is AI assistance permitted? If so, is it a specific tool, or my own
+choice?
+
+\textbf{3.} How long, and do you expect something running at the end?
+
+\textbf{4.} Is there a brief in advance?
+
+These are administrative questions with administrative answers. Not asking them
+is the expensive choice.
+\end{kitmethod}
+
+\section{What the three have in common}
+
+Most of Part~\ref{part:build} applies to all three, which is why preparing for
+all of them is cheaper than it looks.
+
+\begin{kittable}{@{}lccc@{}}
+& \textbf{Live AI} & \textbf{Take-home} & \textbf{AI-free} \\
+\midrule
+Discovery from a vague brief (Ch.~\ref{ch:discovery}) & yes & yes & yes \\
+Design that can be drawn (Ch.~\ref{ch:design}) & yes & written & yes \\
+Time-boxing with fallbacks (Ch.~\ref{ch:runsheet}) & yes & yes & yes \\
+Vertical slices (Ch.~\ref{ch:slices}) & yes & yes & yes \\
+Visible AI use (Ch.~\ref{ch:ai-visibly}) & \textbf{scored} & partly & no \\
+Decomposition (Ch.~\ref{ch:decomposition}) & yes & yes & partly \\
+Failure handling (Ch.~\ref{ch:breaks}) & yes & yes & yes \\
+\end{kittable}
+
+One row differs, and Chapter~\ref{ch:ai-visibly} is that row.
+
+\kitfig{three-formats}{\input{diagrams/three-formats}}{One question in the screening call decides which column you are in. Everything below the grey band is shared, which is why preparing for all three costs far less than three times as much.}
+
+\section{What each format is really testing}
+
+\textbf{The live build} tests how you behave under observation with an
+unfinished problem. Not whether you can build the thing \dash{} they know you
+can \dash{} but what you do when the clock is visible, what you cut, and
+whether your reasoning is available to somebody watching.
+
+\textbf{The take-home} tests what you do when nobody is watching: whether you
+scope yourself, whether you test without being asked, and what you choose to
+document. \reported{The defence conversation afterwards is reported to matter
+more than the code alone.}{field-guide-take-home}
+
+\textbf{The AI-free round} tests fluency, and it is the one where the recent
+habit of reaching for a model is a genuine liability if you have not practised
+without it.
+
+\judgement{If you have limited rehearsal time, rehearse the live build. It is
+the least forgiving of the three, its failure modes are the ones you cannot
+recover from afterwards, and the discipline it demands \dash{} scoping out
+loud, cutting deliberately, narrating decisions \dash{} improves the other two
+as a side effect.}
+
+\begin{drill}
+For the process you are in, write down which format you are facing and what you
+know about its rules. Every blank is a question for the coordinator. Then look
+at the table above and mark the rows you have never practised \dash{} that is
+your rehearsal list for Chapter~\ref{ch:rehearsal}.
+\end{drill}
+
+\section*{What this chapter does not claim}
+
+The survey figure is one vendor's survey of hiring leaders and the sample size
+was not available; the sentence citing it says it is one survey. The two
+single-source claims are marked in the text and should be verified with the
+company rather than relied on.
+
+No claim is made about which way the split is moving. Both directions are
+reported in the same corpus, and a confident prediction here would be exactly
+the kind of claim this book refuses elsewhere.

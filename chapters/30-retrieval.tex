@@ -1,0 +1,203 @@
+\chapter{Retrieval}
+\label{ch:retrieval}
+
+\section*{What this chapter is for}
+
+\reported{Retrieval is the most frequently asked surface in this domain, and it
+is the largest single category in analysed take-home
+assessments.}{field-guide} It is also the most tutorialised, which means the
+baseline answer is common and the differentiator is entirely in the failure
+modes.
+
+\section*{The questions}
+
+\begin{bankq}{When would you \emph{not} use retrieval?}
+\qasked
+Frequently the opening question, and phrased as the negative on purpose.
+\reported{Interviewers are reported to ask this form rather than asking what
+retrieval is.}{field-guide-get-hired}
+
+\qtested
+Whether you reach for it by default. The question is a test of judgement
+disguised as a test of knowledge, and answering it as though it were the
+second is the failure.
+
+\qstaff
+Name the conditions under which it is the wrong tool, and give the alternative
+for each. When the corpus is small enough to fit in the context window, put it
+there \dash{} retrieval adds a failure mode and a latency budget to solve a
+problem you do not have. When the question needs the whole corpus rather than
+part of it \dash{} counting, aggregating, comparing across everything \dash{} no
+top-$k$ will answer it, and the honest answer is a query against structured
+data. When the knowledge is stable and small, it belongs in the instructions.
+When the answer must be exact and auditable, a lookup beats a similarity
+search. When the user's question and the document's wording do not share
+vocabulary, plain semantic search will miss, and the fix is in the query or the
+index rather than in more retrieval.
+
+Then the summary that makes it one idea rather than a list: retrieval is for
+when the relevant subset is small, identifiable from the question, and changes
+often enough that you cannot bake it in.
+
+\qsenior
+A correct account of what retrieval is for \dash{} grounding, freshness,
+citation, avoiding retraining \dash{} followed by one exception, usually the
+context-window one. It is right. It answers the question that was not asked.
+
+\qcontested
+Where the boundary sits moves with context-window size and cost, and it has
+been moving. \judgement{The reasonable position is that the boundary is now
+economic rather than technical for a large class of corpora \dash{} you can
+often put everything in, and whether you should is a cost and latency question.
+Anybody who tells you the boundary is fixed is quoting a number from a
+different year.}
+
+\qdrill
+Answer for a specific system: a product's documentation, twelve hundred pages,
+updated weekly, questions from support staff. Then answer again with the corpus
+at twelve pages. The answer should change completely, and if it does not, step
+one of the method was skipped.
+\end{bankq}
+
+\begin{bankq}{How do you know your retrieval is any good?}
+\qasked
+Often the second question, and the one that separates candidates most sharply.
+
+\qtested
+Whether you have measured retrieval separately from generation. Most people
+have not, and the give-away is an answer about output quality.
+
+\qstaff
+Separate the two. Retrieval quality is measurable on its own: build a set of
+questions with the documents that should be found, and measure whether they
+are found and where they rank. That number is independent of the model and does
+not move when the prompt changes, which is what makes it useful \dash{} it is
+the only part of the system you can regress against reliably.
+
+Then the honest part: generation quality on top of good retrieval is a separate
+measurement, and conflating them is why teams spend weeks tuning a prompt when
+the document was never retrieved. \judgement{The first diagnostic question on
+any bad answer is whether the right document was in the context at all, and
+about half the time it was not.}
+
+Building the question set is the work. It comes from real user questions where
+you have them, and from documents read backwards where you do not \dash{} take
+a passage, write the question it answers, and you have a labelled pair.
+
+\qsenior
+An answer about evaluating end-to-end output quality, possibly with a
+model-based grader. It is not wrong and it measures the composition of two
+systems, so a regression cannot be attributed to either.
+
+\qcontested
+Which retrieval metric to use is genuinely contested and mostly does not
+matter. \judgement{Any rank-aware measure over a labelled set beats an
+unlabelled opinion by a wide margin, and the difference between the candidate
+metrics is much smaller than the difference between having a labelled set and
+not.}
+
+\qdrill
+Describe how you would build the question set for a corpus you know, in ten
+minutes of speech. Then say how many pairs you would want before believing the
+number.
+\end{bankq}
+
+\begin{bankq}{Your answers are subtly wrong and the documents look right. What do you check?}
+\qasked
+A debugging question, usually posed as a scenario.
+
+\qtested
+Whether you have a diagnostic order or produce a list of everything that could
+be wrong. The order is the answer.
+
+\qstaff
+Work from the outside in, because each step rules out a layer.
+
+Was the right document retrieved at all? If not, it is an indexing or query
+problem and nothing downstream matters. Was it retrieved but ranked below the
+cut-off? That is a $k$ or a re-ranking problem. Was it in the context but
+truncated at a chunk boundary, so the retrieved passage contains half the
+answer? This is the commonest cause of \emph{subtly} wrong, and it is invisible
+unless you look at the exact text that entered the context.
+
+Was the whole answer present but contradicted by something else in the context
+\dash{} an older document, a more specific one, a near-duplicate? Retrieval
+returning several passages that disagree is a ranking problem wearing a
+generation costume. And only when all of that is clean is it the model's
+handling of correct context.
+
+\judgement{The single most useful habit is logging the exact context as
+assembled. Teams debug retrieval by looking at document identifiers and miss
+that the passage was cut in half, because identifiers look right and text does
+not lie.}
+
+\qsenior
+Adjusting chunk size, adding a re-ranker, or rewriting the instruction to say
+``use only the provided context''. Each can work. Applied without the diagnosis
+they are guesses, and the tell is that they are proposed in parallel rather
+than in an order.
+
+\qcontested
+Chunking strategy is where most published advice lives and where the least
+agreement exists. \judgement{Chunk-size advice that does not mention the shape
+of the documents is worthless, and the only reliable method is to look at what
+actually entered the context for the queries that failed.}
+
+\qdrill
+Take a system you have built or used and say, out loud, what you would need to
+have logged to run this diagnosis. If the answer is ``more than I currently
+log'', that is the finding.
+\end{bankq}
+
+\begin{bankq}{How would you cite sources, and what breaks?}
+\qasked
+Usually framed as a product requirement rather than a technical one.
+
+\qtested
+Whether you understand that a citation is a claim the system makes about
+itself, and that it can be wrong independently of the answer.
+
+\qstaff
+The mechanism is straightforward: carry identifiers through with the passages
+and require the output to reference them. What is interesting is the two
+failure modes, both of which ship.
+
+A citation can be present and unrelated \dash{} the model produces a plausible
+answer and attaches a reference from the context that does not support it.
+Nothing about the output looks wrong. This is only detectable by checking
+whether the cited passage entails the sentence, which is itself an evaluation
+problem.
+
+And a citation can be correct while the answer is assembled from two passages
+that should not have been combined. Each fragment is supported; the composition
+is not.
+
+\judgement{The reason this matters more than it appears is that citations are
+sold to users as a trust mechanism. An unreliable citation is worse than none,
+because it converts a system people would check into one they will not.}
+
+\qsenior
+The mechanism, correctly, plus prompt instructions to cite accurately. That
+describes how to ask for citations rather than how to know you got them.
+
+\qcontested
+Whether citation accuracy should be checked automatically, and how.
+\judgement{This is genuinely open. Automatic checking is itself model-based and
+therefore has its own error rate, which puts you in a regress. The defensible
+position is to sample rather than to gate, and to be honest with users about
+what the citation means.}
+
+\qdrill
+Describe how you would measure citation accuracy on a system with no labels,
+in under two minutes, naming what your method would miss.
+\end{bankq}
+
+\section*{What this chapter does not claim}
+
+The frequency claim comes from one corpus with a stated method. It is the
+strongest evidence available and it is one measurement.
+
+The diagnostic order, the position on chunking, and the argument about
+citations as a trust mechanism are the author's judgement, marked as such where
+they appear. They are not consensus and the third in particular is a position
+some teams would reject.

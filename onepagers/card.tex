@@ -1,0 +1,45 @@
+% Shared preamble for the printable cards.
+%
+% Each card is a standalone document that must come out as ONE A4 side. That
+% constraint is the whole design: a card is consulted under pressure, and a
+% card that runs to two sides is a document, which is not what a desk needs.
+%
+% tools/check_links.py does not police this. The build does: check-cards in the
+% Makefile fails any card whose PDF has more than one page.
+\documentclass[10pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\IfFileExists{lmodern.sty}{\usepackage{lmodern}}{}
+\usepackage[a4paper,margin=14mm]{geometry}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{titlesec}
+
+\definecolor{kitink}{RGB}{31,78,121}
+\definecolor{kitwarn}{RGB}{150,30,30}
+\definecolor{kitgrey}{RGB}{110,110,110}
+
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{3pt}
+\setlist{itemsep=1pt, topsep=2pt, parsep=0pt, leftmargin=*}
+
+\titleformat{\section}{\bfseries\color{kitink}}{}{0pt}{}
+\titlespacing*{\section}{0pt}{7pt}{2pt}
+
+\newcommand{\cardtitle}[2]{%
+  {\LARGE\bfseries\color{kitink} #1\par}
+  {\color{kitgrey}\small #2\par}
+  \vspace{2pt}{\color{kitink}\rule{\linewidth}{1pt}}\par\vspace{4pt}}
+
+\newcommand{\cardfoot}[1]{%
+  \vfill{\color{kitink}\rule{\linewidth}{0.4pt}}\par\vspace{2pt}
+  {\scriptsize\color{kitgrey} #1\par}}
+
+\newcommand{\warn}[1]{\textcolor{kitwarn}{\textbf{#1}}}
+% Same spelling as the book's preamble. Defined again rather than shared,
+% because a card must build standalone -- somebody printing one should not
+% need the book's preamble on the path.
+\newcommand{\dash}{\,---\,}

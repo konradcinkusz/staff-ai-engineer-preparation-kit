@@ -1,0 +1,163 @@
+\chapter{Cost and latency}
+\label{ch:cost}
+
+\section*{What this chapter is for}
+
+\reported{Cost and latency are among the most frequently asked topics in this
+domain.}{field-guide} They are also the surface where a senior backend
+engineer has the largest unfair advantage, because the reasoning is capacity
+planning and almost nobody arriving from a data-science route has done it.
+
+\section*{The questions}
+
+\begin{bankq}{What does this cost to run?}
+\qasked
+Usually attached to a system just designed on a whiteboard, and often phrased
+casually.
+
+\qtested
+Whether you can do arithmetic out loud without a spreadsheet, and whether you
+know which quantities to ask for.
+
+\qstaff
+Ask for the three numbers, then multiply in front of them: how many users, how
+many interactions each, how much text per interaction. From those, tokens per
+day; from tokens per day and a unit price, a daily figure; from a daily figure,
+a monthly one \dash{} and the comparison that matters is against the revenue or
+the budget of the thing it is part of.
+
+\reported{The arithmetic is the expected form of the answer.}{field-guide-get-hired}
+
+Then the parts that separate levels. Input and output are priced differently
+and usually by a wide margin, so a system that reads a lot and writes a little
+has a different shape from one that does the reverse, and the retrieval
+decision in Chapter~\ref{ch:retrieval} moves this number more than the model
+choice does. The conversation history is re-sent every turn unless you do
+something about it, so a long conversation is quadratic in a way people do not
+expect. And a retry is a full second payment.
+
+\judgement{The sentence worth having ready: ``the number I would want first is
+average context length, because it multiplies everything else and it is the one
+nobody measures.''}
+
+\qsenior
+Naming the cost drivers correctly \dash{} model choice, context length,
+caching \dash{} without producing a figure. It is right and it does not answer
+the question, which was a number.
+
+\qcontested
+Unit prices move constantly and any figure in a book is wrong. \judgement{Which
+is precisely why the method is the answer: learn to ask for the three
+quantities and multiply, and the arithmetic survives every price change.}
+
+\qdrill
+Do it now, out loud, for a system you know: users, interactions, tokens, price,
+day, month. Under two minutes. It is much harder the first time than you expect
+and much easier the second, which is the whole reason to do it once before
+somebody asks.
+\end{bankq}
+
+\begin{bankq}{It is too slow. What do you do?}
+\qasked
+A scenario, usually with a target attached.
+
+\qtested
+Whether you have an order of attack or a list of ideas. Chapter~\ref{ch:answering}
+step one applies harder here than anywhere: which latency, for whom.
+
+\qstaff
+Establish what is being measured first. Time to first token and time to
+completion are different numbers with different fixes, and a streaming
+interface makes the first one most of what users perceive. Average and tail are
+different problems; a good average with a bad tail is the usual shape and the
+tail is what people remember.
+
+Then attack in order of what is free. Is the work necessary \dash{} can the
+answer be cached, or does the request need a model at all? Is it parallel
+\dash{} are there sequential calls that do not depend on each other? Is the
+output shorter than it is \dash{} generation time is roughly linear in output
+length and truncating the response is often the cheapest real win. Is a smaller
+model sufficient for this step \dash{} not for the product, for this step. And
+only then, is the prompt smaller.
+
+\judgement{The structural answer that reads as senior: the largest latency wins
+in these systems usually come from removing a call rather than from speeding
+one up. A pipeline of four sequential model calls has four times the tail risk
+of one, and the design question is whether it needs to be four.}
+
+\qsenior
+Caching, a smaller model, a shorter prompt, streaming. All correct, offered in
+parallel, with no measurement first.
+
+\qcontested
+Whether to route between models by difficulty is a real design fork with real
+adherents on both sides. \reported{It is reported as less prominent than the
+other cost topics and not a dedicated interview subject.}{field-guide-system-design}
+\judgement{Routing adds a classification step that has its own latency and its
+own error rate, and the error rate is what decides whether it pays.}
+
+\qdrill
+For a system you know, name the four latency numbers \dash{} first token and
+completion, average and tail \dash{} and say which one a user would complain
+about. If you cannot, that is what to instrument.
+\end{bankq}
+
+\begin{bankq}{Where would caching help, and where is it a trap?}
+\qasked
+Often follows the latency question.
+
+\qtested
+Whether you apply caching reasoning you already have, or treat this as a new
+subject.
+
+\qstaff
+It is the caching reasoning you already have, with one addition. The familiar
+part: a cache pays when requests repeat, and a long tail of unique requests
+gets you an eviction cost and no hits. Measure the repeat rate before building
+anything.
+
+The addition is that there are two distinct things to cache. Whole responses,
+keyed on the request \dash{} which works when questions genuinely repeat, and
+which has the same invalidation problem as any cache, with the wrinkle that a
+stale answer here is not obviously stale to the user. And the repeated
+\emph{prefix} of a request \dash{} the instructions, the retrieved documents,
+the conversation so far \dash{} which several providers support directly and
+which is nearly free to adopt because it does not change what the system
+returns.
+
+\judgement{The second is underused relative to how well it pays, because it
+does not feel like an architectural decision. For a system with a long fixed
+instruction and short user turns, it is frequently the single largest cost
+reduction available and it costs an afternoon.}
+
+The trap worth naming: caching a non-deterministic system freezes one sample of
+its behaviour. If the cached answer was bad, it is now consistently bad, and a
+user who tries again gets the same thing \dash{} which removes the one recovery
+mechanism users have.
+
+\qsenior
+Cache repeated queries with a sensible expiry and be careful about
+invalidation. Correct, and misses prefix caching entirely.
+
+\qcontested
+Semantic caching \dash{} serving a cached answer for a similar rather than
+identical question \dash{} is genuinely disputed. \judgement{It trades a
+correctness risk for a cost saving, and the risk is that similarity is not
+equivalence. Reasonable for suggestions, unreasonable for anything a person
+will act on.}
+
+\qdrill
+For a system you know, estimate what fraction of its request tokens are
+identical across requests. If it is most of them, you have just found the
+answer to the cost question two pages back.
+\end{bankq}
+
+\section*{What this chapter does not claim}
+
+No prices, no benchmarks, no figures. They date within a quarter, and a book
+carrying them would be actively misleading by the time it was read \dash{}
+which is why the arithmetic is the content.
+
+The ordering of latency attacks, the position on routing, and the claim about
+prefix caching being underused are the author's judgement. The last is the one
+most likely to become dated, as provider support and defaults change.

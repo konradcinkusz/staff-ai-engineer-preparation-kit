@@ -1,0 +1,115 @@
+\chapter{When it breaks}
+\label{ch:breaks}
+
+\section*{What this chapter is for}
+
+Something will not work, in front of somebody, with a clock running. What is
+assessed at that moment is not whether it broke but how long you spend on it
+and whether you decide or flounder. A decision tree written in advance turns
+that into an execution rather than an improvisation.
+
+\section{The budget rule}
+
+Every failure gets a time budget, decided before you start, and when it runs
+out you take the fallback whether or not you feel close.
+
+\judgement{``I am nearly there'' is the most expensive sentence in a timed
+build, because it is true roughly half the time and the other half it is the
+beginning of twenty minutes. You cannot tell which from the inside, which is
+exactly why the budget is set in advance rather than judged at the time.}
+
+\section{The tree}
+
+\begin{kittable}{@{}Xl>{\raggedright\arraybackslash}p{22mm}X@{}}
+\textbf{What broke} & \textbf{Budget} & \textbf{Fallback} & \textbf{Say} \\
+\midrule
+Tooling will not install & 2 min & do without it & ``not worth the time, going without'' \\
+Database will not start & 3 min & in-memory store & ``switching to in-memory; it stops being evidence about concurrency, and I will say so'' \\
+Container will not build & 3 min & run the process directly & ``running it directly; containerising is not what is being assessed'' \\
+External dependency is down & 2 min & a stub, named as a stub & ``stubbing this; the mapping is untested and that is a known gap'' \\
+Credential is missing & 2 min & the path that needs it is out of scope & ``I cannot exercise this path; here is what it would have proved'' \\
+A library does not behave as expected & 5 min & do it by hand & ``writing this by hand rather than debugging the abstraction'' \\
+Assistant is producing nonsense & 2 prompts & write it yourself & ``I will write this one'' \\
+The design is wrong & --- & change it, out loud & ``this boundary does not work, here is why, here is what I am doing instead'' \\
+\end{kittable}
+
+The last row has no budget because it is not a failure. Discovering that the
+design is wrong is the build doing its job, and Chapter~\ref{ch:design} put the
+sentence in place for it in advance.
+
+\section{The sentence matters as much as the fallback}
+
+Every row has a \emph{say} column, and it is not decoration. A silent fallback
+looks like the thing that was supposed to happen. A narrated one is a decision,
+with a stated cost, which is what the round is looking for.
+
+The structure is always the same three parts: what is not working, what you are
+doing instead, and \textbf{what that costs}. The third is the one people leave
+out, and it is the one that separates a fallback from a shortcut.
+
+\begin{kitnote}
+``Switching to in-memory'' is a shortcut. ``Switching to in-memory; note that
+the concurrency test now proves nothing, because this provider has no
+transactions'' is a decision with its consequence named. The second is a much
+stronger thing to say, and it takes four extra words.
+\end{kitnote}
+
+\section{What not to do}
+
+\textbf{Do not debug in silence.} Thirty seconds is fine. Two minutes of
+silent scrolling with somebody watching is dead time for both of you, and the
+fix is narration: what you think is wrong, what you are checking, what would
+confirm it.
+
+\textbf{Do not restart from scratch.} Under a clock it feels clean and it is
+never right. The second attempt is slower, because the first one had
+accumulated context.
+
+\textbf{Do not disable the check.} A failing assertion removed to make a build
+green is the one action in this round that changes an interviewer's assessment
+of your judgement rather than your luck. If a check is wrong, say it is wrong
+and say why.
+
+\textbf{Do not apologise repeatedly.} Once is human. Beyond that it consumes
+the time you were apologising for.
+
+\section{Recovering the session}
+
+If a failure has cost ten minutes and the run sheet is compromised, do not
+carry on as though it has not.
+
+\begin{kitmethod}
+\textbf{1. Say where you are against the plan.} ``I have lost about ten minutes
+on the database; I am cutting the second entity.'' Out loud, once.
+
+\textbf{2. Re-cut to the next checkpoint only.} Do not re-plan the whole
+session mid-session. One checkpoint ahead.
+
+\textbf{3. Protect the demonstration block.} It is the last thing to be given
+up, not the first. A session that ends mid-edit produces nothing to assess.
+\end{kitmethod}
+
+\judgement{A candidate who loses fifteen minutes to a genuine infrastructure
+failure, says so, cuts scope deliberately, and demonstrates something smaller
+on time has shown more of what the round is looking for than one whose session
+ran smoothly \dash{} because the second one was never observed making a
+decision under pressure.}
+
+\begin{drill}
+During the rehearsal in Chapter~\ref{ch:rehearsal}, have your partner break
+something without warning: disconnect the network at minute forty, or ask you
+to switch databases. The instruction for you is the hard one \dash{} do not
+stop the rehearsal. The whole purpose is to find out what you do, and you
+cannot find that out in a session that is halted when it gets uncomfortable.
+\end{drill}
+
+\section*{What this chapter does not claim}
+
+The budgets are the author's and are deliberately short. The argument for short
+budgets is that the cost of an unnecessary fallback is small and visible, and
+the cost of an overrun is large and invisible until it is too late. That is a
+judgement about asymmetry, not a measurement.
+
+No claim is made about how failures are actually weighted by interviewers. What
+is reported elsewhere is that reasoning is watched; this chapter assumes that
+extends to reasoning under failure.

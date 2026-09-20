@@ -1,0 +1,141 @@
+\chapter{Rehearsal}
+\label{ch:rehearsal}
+
+\section*{What this chapter is for}
+
+Reading Part~\ref{part:build} does not prepare you for a build round. One timed
+rehearsal with another person in the room does more than all of it, and this
+chapter is the protocol.
+
+\section{Why it cannot be done alone}
+
+The things that go wrong are interpersonal and time-bound: asking too few
+questions, not noticing a checkpoint, going silent under pressure, over-building
+before anything runs, failing to notice that the person has been trying to tell
+you something.
+
+None is observable from the inside. \judgement{A solo run measures whether you
+can build the thing, which is the one question the round is not asking.}
+
+\section{The protocol}
+
+\begin{kitmethod}
+\textbf{Find a person.} They do not need to be an engineer. They need to be
+able to answer questions in character and hold back what they have been told to
+hold back.
+
+\textbf{Give them a role brief in a domain you do not know.} Four are supplied
+in \code{drills/role-briefs/}. Not your own domain \dash{} the whole point is
+that you have to ask.
+
+\textbf{Full length, timed, screen shared, recorded.} Not a shortened version.
+The failure modes appear in the second half.
+
+\textbf{Do not stop when something breaks.} That is the most valuable part of
+the recording.
+
+\textbf{Do not watch it back for half an hour.} You will not be able to see it
+usefully before then.
+\end{kitmethod}
+
+\section{The role brief, and what makes it work}
+
+Each brief has four parts, and the third is what makes the rehearsal worth
+doing.
+
+\begin{itemize}
+  \item \textbf{What the owner knows} and will say when asked.
+  \item \textbf{How they behave} \dash{} vague about volumes, specific about
+        irritations, uninterested in technology.
+  \item \textbf{What they do not say until asked outright.} There is always a
+        second actor and a constraint they have not mentioned. If you do not
+        ask, you do not find out, and you build the wrong thing. This is the
+        instrument.
+  \item \textbf{Four timed interjections} they hold and you do not know about:
+        two changes of requirement and two challenges, at fixed points,
+        including one after the build has started.
+\end{itemize}
+
+\judgement{The mid-build interjection is the most informative sixty seconds of
+the whole rehearsal. What you do when a requirement changes at minute
+sixty-five \dash{} whether you absorb it, negotiate it, or quietly ignore it
+\dash{} is the thing a real session will find out about you, and most people
+have never observed themselves doing it.}
+
+\section{The scoring table}
+
+Score afterwards, from the recording, not from memory.
+
+\begin{kittable}{@{}lXl@{}}
+\textbf{\#} & \textbf{Measure} & \textbf{Target} \\
+\midrule
+1 & first ``why'' question & by minute 3 \\
+2 & questions asked before summarising & 6--9 \\
+3 & discovery closed & by the checkpoint \\
+4 & written scope artefact exists & yes \\
+5 & second actor discovered & yes \\
+6 & first line of real code & by the checkpoint \\
+7 & silences longer than 20 seconds & 0 \\
+8 & assistant outputs rejected aloud & $\geq 2$ \\
+9 & the hard case was built and checked & yes \\
+10 & demonstration in the product & yes \\
+11 & said what you were unsure about & yes \\
+12 & checkpoints passed without noticing & 0 \\
+\end{kittable}
+
+\begin{kitnote}
+One row matters more than the others: \textbf{row 3}. When discovery closed
+predicts most of the rest of the session, because everything downstream
+inherits its slippage \dash{} and unlike the others it is a single number you
+can read off the recording without judgement.
+
+If you only track one thing across several rehearsals, track that.
+\end{kitnote}
+
+\section{What to do with the result}
+
+Take the three worst rows. Drill those, twenty minutes each, in isolation
+\dash{} not by running the whole thing again.
+
+\begin{kittable}{@{}lX@{}}
+\textbf{Weak row} & \textbf{The isolated drill} \\
+\midrule
+1, 2 & ten minutes of discovery only, against a new brief, no building \\
+3 & the same, with a hard stop at the checkpoint \\
+7 & narrate a build you already know how to do, alone, watching for silences \\
+8 & thirty minutes of assisted building, counting rejections \\
+9 & build one hard case, end to end, with its check, nothing else \\
+10, 11 & the closing five minutes only, repeatedly \\
+\end{kittable}
+
+\judgement{Running the whole rehearsal again is the appealing option and the
+less useful one. A second full run mostly re-measures; twenty minutes on the
+weakest row changes it.}
+
+\section{Rehearsing the other two formats}
+
+\textbf{Take-home:} set a three-hour timer on an unfamiliar brief and keep to
+it. Score only two things: was there a failing check in the first half-hour,
+and did you stop on time.
+
+\textbf{AI-free:} build something small without assistance, timed. If you have
+been working with assistance daily, this is slower than you expect and the gap
+is not predictable from the inside.
+
+\begin{drill}
+Book the rehearsal before you finish this chapter. It is the single
+highest-value hour in the book and it is the one thing in it that requires
+somebody else's diary, which is why it is the thing that does not happen.
+\end{drill}
+
+\section*{What this chapter does not claim}
+
+The targets in the scoring table are the author's, set at values that a
+well-run session hits rather than derived from observed sessions. Treat them as
+a consistent yardstick across your own rehearsals rather than as a standard
+somebody else is applying.
+
+The claim that one rehearsal beats the rest of Part~\ref{part:build} is a
+judgement. It rests on the observation that the failure modes are
+interpersonal, and that reading about an interpersonal failure mode has never
+been a reliable way to stop having it.

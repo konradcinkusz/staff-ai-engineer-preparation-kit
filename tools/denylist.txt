@@ -1,0 +1,16 @@
+# Terms that must never appear in this kit.
+#
+# The kit is generic. It was assembled partly from real hiring processes, and
+# the pull back towards naming one of them is constant -- a specific example is
+# always more vivid than a general rule. This file is that constraint made
+# mechanical, so it cannot drift back quietly.
+#
+# One term per line, matched case-insensitively on word boundaries.
+# Add an employer, an individual, or a process here BEFORE writing about it.
+#
+# Nothing is listed by default: this is the author's own history and it does
+# not belong in a public file either. Whoever forks this kit adds their own.
+#
+# Public companies named as CITED SOURCES are allowed and are not listed here
+# -- check_generic.py reads sources.json for those. The rule is that a company
+# may be named as a source of published evidence and in no other way.

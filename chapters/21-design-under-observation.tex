@@ -1,0 +1,123 @@
+\chapter{Design under observation}
+\label{ch:design}
+
+\section*{What this chapter is for}
+
+Between discovery and building there is a drawing, and it is watched. The
+drawing is not assessed on being correct \dash{} it is assessed on whether you
+can think in front of somebody, build something incrementally, and stop.
+
+\section{One shape, one sentence}
+
+The technique that survives observation is to draw in phases, where each phase
+is one new shape and one sentence saying why it is there. Never a finished
+diagram appearing in silence, and never a shape drawn without being named.
+
+\begin{kitmethod}
+A phase is:
+
+\textbf{One shape} added to the picture \dash{} a box, an arrow, a boundary,
+a label.
+
+\textbf{One sentence} saying what it is and why it exists.
+
+\textbf{A pause}, short, in which somebody can interrupt.
+
+Ten to fifteen phases is a whole architecture. At roughly thirty to forty
+seconds each, that is under ten minutes.
+\end{kitmethod}
+
+The pause is doing the work. An interviewer who interrupts is telling you
+something is wrong or interesting, and that is the cheapest correction
+available. \judgement{A candidate who draws for six minutes in silence and then
+says ``any questions?'' has converted a conversation into a presentation, and
+presentations are not what this round is for.}
+
+\section{A phase order that generalises}
+
+Not a template to memorise \dash{} an order that works because each phase is
+answerable from the one before.
+
+\begin{kittable}{@{}llX@{}}
+\textbf{\#} & \textbf{Shape} & \textbf{The sentence} \\
+\midrule
+1 & the actor & who this is for \\
+2 & the thing they want & the one path that must work \\
+3 & the boundary & what is inside this system and what is not \\
+4 & the store & what has to survive a restart \\
+5 & the entities & the three or four nouns, and their relationships \\
+6 & the second actor & the one discovery found \\
+7 & the operation that can conflict & where two people collide \\
+8 & the external dependency & what you do not control \\
+9 & what happens when 8 fails & the degradation \\
+10 & the seam & where the next thing would attach \\
+\end{kittable}
+
+Phase 7 is the one that reads as senior, because it is the phase most
+candidates never reach. Every system has an operation where two actors can
+collide over one resource, naming it unprompted signals that you have operated
+something, and it gives you a concrete thing to build in the slice that follows.
+
+\section{Two scenes}
+
+Your screen is doing two jobs and they need different layouts. Decide in
+advance and rehearse the switch, because doing it live costs a minute and looks
+like fumbling.
+
+\textbf{The design scene:} the drawing surface large, the written artefact from
+discovery visible beside it, nothing else. No editor, no terminal, no
+notifications.
+
+\textbf{The build scene:} editor and terminal, with the design still reachable
+in one keystroke \dash{} you will return to it, and returning to it deliberately
+is a good moment.
+
+\judgement{Whatever you draw in cannot matter as much as being fluent in it.
+The failure mode is not an ugly diagram; it is four minutes lost to a tool you
+use twice a year, at the exact moment you are being watched.}
+
+\section{What to draw and what to skip}
+
+\begin{kittable}{@{}XX@{}}
+\textbf{Draw} & \textbf{Do not draw} \\
+\midrule
+The boundary of your system & every component inside it \\
+What survives a restart & the deployment topology \\
+The entities and their relationships & every field \\
+The one operation that can conflict & the happy path in sequence-diagram detail \\
+What you do not control & a class diagram \\
+\end{kittable}
+
+The rule underneath: draw what constrains the build. Anything that does not
+change what you write in the next hour is decoration, and decoration under a
+clock is a decision to spend time on the wrong thing in front of an audience.
+
+\section{The design is a claim, not a monument}
+
+You will change it. Say so while drawing \dash{} name the part you are least
+sure of, and what would make you change it. Then, when the build reveals it was
+wrong, changing it is the process working rather than a retreat.
+
+\begin{kitnote}
+``I am least confident about this boundary; if it turns out that the second
+actor needs to see this state, it moves'' is a strong sentence at minute
+twenty-five, and an even stronger one at minute seventy when it turns out the
+second actor did need to see that state.
+\end{kitnote}
+
+\begin{drill}
+Draw a system you know well in ten phases, out loud, timed, alone. Record it.
+Watch it back with one question: could somebody have interrupted you? If the
+phases run together and there is nowhere to break in, that is the defect, and
+it is invisible from the inside.
+\end{drill}
+
+\section*{What this chapter does not claim}
+
+The phase order is the author's, assembled from what an interviewer needs in
+order to follow a design they have not seen. It is not measured, and a
+different order that reaches phase 7 is as good.
+
+It makes no claim that the design will be assessed for correctness. Where the
+criteria are published they are about thinking and judgement, and this chapter
+is written for that.

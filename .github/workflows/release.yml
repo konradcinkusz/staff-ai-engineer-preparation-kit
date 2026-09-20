@@ -1,0 +1,74 @@
+# One `v*` tag attaches the handbook and all five cards.
+#
+# No asset carries its version in its name, which is what lets a link stay
+# current without being edited:
+#
+#   releases/latest/download/staff-ai-engineer-preparation-kit.pdf
+#
+# resolves to the newest, and releases/download/<tag>/... still pins an old
+# one. A README row naming a version is a claim that goes stale on the next
+# release.
+
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    permissions:
+      contents: write   # scoped to this job, which is the only one that writes
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      # Nothing ships that has not passed the gates and the mutation pass.
+      - name: Gates
+        run: make gates
+
+      - name: Every gate refuses its planted defect
+        run: make mutations
+
+      - name: Build the handbook
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: main.tex
+          args: -pdf -interaction=nonstopmode -file-line-error
+
+      - name: Build the cards
+        uses: xu-cheng/latex-action@v3
+        with:
+          working_directory: onepagers
+          root_file: |
+            run-sheet-card.tex
+            decision-method-card.tex
+            failure-tree-card.tex
+            pre-call-briefing-card.tex
+            banned-claims-card.tex
+          args: -pdf -interaction=nonstopmode -file-line-error
+
+      - name: Read the logs properly
+        run: python3 tools/checklog.py main.log onepagers/*.log
+
+      - name: Name the assets
+        run: |
+          mkdir -p release
+          cp main.pdf release/staff-ai-engineer-preparation-kit.pdf
+          for f in onepagers/*-card.pdf; do cp "$f" "release/$(basename "$f")"; done
+          ls -la release
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: release/*.pdf
+          fail_on_unmatched_files: true
+          generate_release_notes: true

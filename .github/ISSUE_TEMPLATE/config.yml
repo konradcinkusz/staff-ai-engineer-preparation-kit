@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: The architecture standard this repository follows
+    url: https://github.com/konradcinkusz/architecture-standards
+    about: The principles the tooling and the furniture here are built against.
+  - name: What this kit refuses to claim
+    url: https://github.com/konradcinkusz/staff-ai-engineer-preparation-kit/blob/main/chapters/app-refused.tex
+    about: Before reporting a missing figure, check whether it is missing on purpose. Appendix C names the common ones and says why each is absent.

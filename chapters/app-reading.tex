@@ -1,0 +1,97 @@
+\chapter{Reading, graded by source quality}
+\label{app:reading}
+
+Everything this book cites is in \code{sources.json}, with a URL, the date it
+was checked, a quality grade, and whether it was read directly or through
+somebody else's coverage. This appendix is the reading list, organised by what
+each source is good for.
+
+\section{How the grades work}
+
+\begin{kittable}{@{}lX@{}}
+\textbf{Grade} & \textbf{Means} \\
+\midrule
+\code{strong} & several independent sources, or one with a stated method over a named corpus \\
+\code{moderate} & one good source, corroborated in outline elsewhere \\
+\code{single-source} & one source; a claim citing it must say so, in the sentence \\
+\code{unverified} & traced only to content-marketing; usable only in Appendix~\ref{app:refused} \\
+\end{kittable}
+
+A second field records whether the source was read directly or through
+coverage. \judgement{That distinction is not decoration. Several primary
+sources for this book were unreachable from the machine it was written on, and
+a summary of a source is not the source \dash{} it is somebody else's reading
+of it, with their emphasis.}
+
+\section{Start here}
+
+\textbf{A field guide built from a scraped corpus of job descriptions,
+disclosed processes and take-home repositories.}\source{field-guide} The single
+most useful document available for this transition, and the backbone of
+Part~V's ordering. One author's methodology over a named corpus, which is more
+than anything else in this space offers. Its sub-files on the interview
+process, take-homes and the backend learning path are each worth reading
+directly.
+
+\textbf{The standard text on AI engineering as a
+discipline.}\source{aie-book} Used here for the boundary between this work
+and classical machine learning.
+
+\section{On the level}
+
+\textbf{Published engineering ladders.}\source{progression-fyi} Read two or
+three rather than one. The most cited of them\source{etsy-ladder} supplies the
+word Chapter~\ref{ch:staff} is built on.
+
+\textbf{The archetype taxonomy}\source{staff-archetypes} \textbf{and its two
+published rebuttals}\source{archetypes-rebuttal-goedecke}\source{archetypes-rebuttal-ewerlof}.
+Read all three. The disagreement is more useful than any of the three
+positions.
+
+\textbf{On work that is necessary and invisible to a ladder.}\source{being-glue}
+Short, and the clearest statement of why scope rather than effort is what gets
+assessed.
+
+\section{On evaluation}
+
+\textbf{Practitioner writing on evaluation and on model-based
+grading.}\source{hamel-evals-faq}\source{hamel-llm-judge} The second is the
+source for anchored rubrics and calibration in Chapter~\ref{ch:evals}.
+
+\textbf{A model provider's own account of evaluating
+agents.}\source{anthropic-agent-evals}
+
+\section{On the changing format}
+
+\textbf{One company's published account of an AI-native
+loop}\source{sierra-ai-native-interview} and \textbf{another's statement that
+assistance is expected}\source{canva-ai-interviews}. Both were unreachable
+directly and are recorded as read through coverage.
+
+\textbf{One industry survey of hiring leaders.}\source{coderpad-hiring-2026} A
+vendor's own survey, used only for the coarse split.
+
+\section{On safety}
+
+\textbf{On injection in tool-using systems and blast
+radius}\source{mcp-prompt-injection} \textbf{and on why agency makes it
+worse}\source{agentic-injection}.
+
+\section{The register, in full}
+
+Generated from \code{sources.json} rather than typed, so the list and the
+numbers in the margins of every claim cannot come apart. The number here is
+the number in the superscript.
+
+\kitsourcetable
+
+\section{What is deliberately not here}
+
+No preparation-vendor question lists. No aggregated ``top fifty questions''
+pages. Appendix~\ref{app:refused} explains why: that genre recycles itself, and
+several sources repeating one origin produce the appearance of consensus from a
+single post.
+
+\judgement{This list is seeded rather than complete, and it is the thinnest
+part of the book. The repository's own register says so, which is the habit
+Chapter~\ref{ch:ledger} is about, applied to the thing you are holding.}

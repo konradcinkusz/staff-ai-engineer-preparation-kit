@@ -1,0 +1,42 @@
+% ---------------------------------------------------------------------------
+%  Staff AI Engineer Preparation Kit
+%
+%  Build:  latexmk -pdf main.tex
+%  Gates:  see tools/ -- run them BEFORE this, they read the source and cost
+%          seconds against a LaTeX run that costs minutes.
+%
+%  This file is wiring and nothing else. The sequence is generated into
+%  structure.tex from manifest.json; the machinery is in preamble.tex; the
+%  prose is in chapters/. Anything added here is a fourth place to look.
+% ---------------------------------------------------------------------------
+\documentclass[12pt,a4paper,twoside,openright]{book}
+
+\input{preamble}
+
+% Computed by tools/ledger.py. Regenerate it rather than editing it.
+\IfFileExists{ledger.tex}{\input{ledger}}{}
+\IfFileExists{sources.tex}{\input{sources}}{}
+
+% \part carries a subtitle in this book, which the class has no slot for.
+% Defined here rather than in the preamble because it is wiring: it exists to
+% make the generated structure.tex compile, and nothing in chapters/ calls it.
+\newcommand{\partsubtitle}[1]{%
+  \begingroup
+  \clearpage
+  \vspace*{-2cm}
+  \begin{center}\large\itshape\color{kitgrey}#1\end{center}
+  \endgroup}
+
+\begin{document}
+
+\frontmatter
+\include{frontmatter/title}
+\include{frontmatter/how-to-use}
+\tableofcontents
+
+\mainmatter
+\input{structure}
+
+\backmatter
+
+\end{document}

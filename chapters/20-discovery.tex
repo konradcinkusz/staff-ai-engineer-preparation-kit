@@ -1,0 +1,127 @@
+\chapter{Discovery}
+\label{ch:discovery}
+
+\section*{What this chapter is for}
+
+Every build round starts with a brief that is too vague to build from, and that
+vagueness is deliberate. Turning it into something specified is the first thing
+scored and the thing most candidates rush past on their way to the part they
+are comfortable with.
+
+\section{Why the brief is vague on purpose}
+
+A brief that could be implemented directly would test implementation. The gap
+between what you are told and what you would need to know is the exercise, and
+it maps directly onto the level: Chapter~\ref{ch:staff} defined Staff by
+unscoped problems, and this is an unscoped problem with a clock on it.
+
+\judgement{An engineer who starts building in the first five minutes has
+answered the question ``can you implement?'' when the question was ``can you
+decide what to implement?''. The work may be excellent and it is evidence for
+the wrong thing.}
+
+\section{The trap: do not arrive with a data model}
+
+The strongest instinct, once you know roughly what domain the exercise is in,
+is to prepare the schema. It is a few hours' work, it removes the riskiest part
+of the session, and it is the single most expensive preparation mistake
+available.
+
+\begin{kittrap}
+A prepared data model destroys the first scored criterion. Requirements
+discovery cannot be demonstrated by somebody who arrives with the requirements
+already discovered, and producing a complete schema in minute three does not
+read as preparedness \dash{} it reads as a candidate who has stopped listening.
+
+Worse, it makes you brittle. A prepared model is a model of the problem you
+guessed at, and the brief will differ. Then you are either defending a design
+against a requirement it does not fit, or visibly abandoning it.
+\end{kittrap}
+
+\begin{kitmethod}
+\textbf{What you may prepare:} the method \dash{} what to ask and in what
+order. The vocabulary of the domain. Your tooling, project skeleton, and any
+standards you work to. A question list. A run sheet. Every one of these is
+about \emph{how} you work and exists independently of this exercise.
+
+\textbf{What you may not prepare:} the entities, the relationships, the
+endpoints, the acceptance criteria. Those are the answer, and they are what the
+session is for.
+\end{kitmethod}
+
+\section{The questions, in order}
+
+The order matters, because the early ones constrain the later ones and asking
+them in the wrong order produces answers you have to discard.
+
+\begin{kitmethod}
+\textbf{1. Who is this for, and what do they do today?} Everything else depends
+on it, and the answer is frequently surprising.
+
+\textbf{2. What is the one thing that has to work?} Forces a priority out of
+somebody who presented a list, and licenses everything you cut later.
+
+\textbf{3. What happens when it goes wrong?} The first question that produces
+domain knowledge rather than a restatement of the brief.
+
+\textbf{4. How many, and how often?} The scale question. The answer is often
+``not many'', which is licence to stop designing for a scale nobody has.
+
+\textbf{5. Who else touches this?} Finds the second actor, who is almost always
+in the brief implicitly and never named.
+
+\textbf{6. What is deliberately not in scope?} Get it said out loud. It is the
+thing you point back at when you cut something later.
+\end{kitmethod}
+
+Two more that are worth asking once each, in the domain this book is about:
+what happens when the model gets it wrong, and how anybody would know. If the
+brief involves a model, that pair separates a candidate who has operated one
+from a candidate who has built one.
+
+\section{What discovery has to produce}
+
+Not notes. A short written artefact, on the shared screen, that you and they
+can both point at: what is being built, for whom, the three or four acceptance
+criteria, and what is explicitly out of scope.
+
+\judgement{The out-of-scope list is the most valuable line in it, and it is the
+one people leave out. Written down at minute twenty, it is a decision you made
+together. Invoked at minute eighty without having been written down, it is an
+excuse.}
+
+Ten minutes on this, in a session of two hours, is proportionate. It also gives
+the review at the end something to be graded against that is not just the
+running code.
+
+\section{Closing discovery}
+
+Discovery ends. It does not taper.
+
+Say so explicitly \dash{} ``I have enough to start; I am going to build X
+first, and I will come back to Y'' \dash{} and then start. Two failure modes
+sit either side of that sentence: stopping too early, and building the wrong
+thing confidently; and never stopping, which produces a beautifully understood
+problem and nothing running.
+
+\judgement{Of the two, the second is more common in senior candidates and more
+damaging, because the round has an artefact in its criteria and interest in the
+problem is not a substitute for one.}
+
+\begin{drill}
+Take any one-sentence product brief \dash{} a friend's business, something you
+use \dash{} and run the six questions against somebody playing the owner, in
+ten minutes, ending with the written artefact. Then check: did you get a second
+actor out of them? Did you get an explicit out-of-scope line? Those two are the
+ones that go missing under time pressure.
+\end{drill}
+
+\section*{What this chapter does not claim}
+
+That requirements discovery is scored is reported for the loops that publish
+their criteria; the six questions and their order are the author's method, not
+a measured optimum.
+
+The instruction not to prepare a data model is a judgement, and a strong one.
+It follows from what the round says it is measuring rather than from any
+observation of candidates who did it.

@@ -1,0 +1,44 @@
+\input{card}
+\begin{document}
+\cardtitle{Answering anything}{Four steps. Works on questions nobody anticipated.}
+
+\section{1. What does it change for the person using this?}
+Start at the consequence, not the mechanism. Not \textit{``a B-tree orders the
+keys''} but \textit{``this scans the table, so it degrades as the table grows,
+and somebody is waiting''}.\\
+{\color{kitgrey}This is what makes an answer sound operational rather than
+learned.}
+
+\section{2. What does it cost to reverse?}
+Sort the options by how hard they are to undo. An index: minutes. An identifier
+scheme: a migration. A published API: everybody else's release cycle.\\
+{\color{kitgrey}Cheap-to-reverse deserves a quick answer and a willingness to
+be wrong. Expensive deserves the time. Treating them alike \dash\ either way
+round \dash\ is the judgement failure.}
+
+\section{3. What is the boring default?}
+Name the obvious, well-understood option first and say why it is the default.
+Then say what would make you leave it.\\
+{\color{kitgrey}Starting at the interesting option has skipped the argument.}
+
+\section{4. What would change my mind?}
+The measurement, the constraint, or the fact that moves you to the other
+option.\\
+{\color{kitgrey}The strongest sentence in the method, and the one people leave
+out. It turns a preference into a decision \dash\ and it invites them to supply
+the constraint, which is often what they were waiting to do.}
+
+\section{When you do not know}
+Say where the edge is, then keep going from first principles.
+\textit{``I have not used that one. What I would want to know is whether it
+guarantees ordering, because the design forks there.''}\\
+{\color{kitgrey}At Junior, not knowing is a gap. At Staff, knowing which
+question resolves it is the skill.}
+
+\section{The tell you are reciting}
+Your answer does not change when their constraints change. If they add
+``fifty users, one machine'' and the answer is the same, it was never about
+their system.
+
+\cardfoot{Staff AI Engineer Preparation Kit -- Chapter 29.}
+\end{document}
