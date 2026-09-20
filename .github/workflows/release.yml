@@ -32,6 +32,11 @@ jobs:
         with:
           python-version: '3.11'
 
+      # Same as build.yml and pages.yml: nothing derived is committed, so a
+      # fresh checkout generates before anything is gated or compiled.
+      - name: Generate what is derived from the manifests
+        run: make generate
+
       # Nothing ships that has not passed the gates and the mutation pass.
       - name: Gates
         run: make gates

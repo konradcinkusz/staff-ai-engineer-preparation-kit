@@ -36,14 +36,18 @@ jobs:
         with:
           python-version: '3.11'
 
-      # Regenerate first, then check. A stale generated file is a real failure
-      # and has to be reported as one -- but reporting it as "structure.tex is
-      # stale" is more useful than as a compile error two minutes later.
-      - name: Generated files are current
-        run: |
-          python3 tools/gen_structure.py --check
-          python3 tools/gen_sources.py --check
-          python3 tools/ledger.py --check
+      # Generate rather than check. structure.tex, sources.tex and ledger.tex
+      # are derived from manifest.json and sources.json and are not committed,
+      # so asking a fresh checkout whether they are current has no answer --
+      # the first run of this workflow failed exactly there, reporting
+      # "structure.tex is stale" about a file that was not in the tree.
+      #
+      # Generating unconditionally makes staleness impossible here rather than
+      # detectable. `make gates` still ends in `ledger.py --check`, which is a
+      # tautology on this runner and is the thing that catches a forgotten
+      # `make generate` in the local loop, where the files do persist.
+      - name: Generate what is derived from the manifests
+        run: make generate
 
       - name: The gates
         run: make gates
@@ -73,6 +77,12 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+
+      # This is a different runner from the gates job, with its own checkout,
+      # so it generates for itself. main.tex \includes structure.tex, and
+      # nothing derived is committed.
+      - name: Generate what is derived from the manifests
+        run: make generate
 
       - name: Build the handbook
         uses: xu-cheng/latex-action@v3

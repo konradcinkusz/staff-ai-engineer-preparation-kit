@@ -17,7 +17,12 @@ CARDS      := $(basename $(notdir $(wildcard onepagers/*-card.tex)))
 
 .PHONY: all gates generate mutations book cards check ledger hooks secrets watch clean help
 
-all: gates book cards check ## gates, then the book, then the cards, then the log
+all: generate gates book cards check ## generate, gate, build, then read the log
+# `generate` first, because structure.tex, sources.tex and ledger.tex are not
+# committed -- so on a fresh clone there is nothing for the gates to check and
+# nothing for LaTeX to \include. `gates` deliberately does NOT depend on it:
+# run alone while writing, its closing ledger --check is what tells you that
+# you edited manifest.json and forgot.
 
 help: ## list the targets
 # awk rather than `column`, which is bsdmainutils and is simply absent on a

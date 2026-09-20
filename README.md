@@ -64,7 +64,9 @@ The gates run **before** the build. They read the source, none of them needs a
 PDF, and they cost seconds against a LaTeX run that costs minutes.
 
 Nothing generated is committed: `structure.tex`, `sources.tex` and `ledger.tex`
-are written by `tools/`, and the PDFs are CI artefacts and release assets.
+are written by `tools/`, and the PDFs are CI artefacts and release assets. So a
+fresh clone runs `make generate` before anything else — which is why `make` on
+its own starts there, and why every CI job that gates or compiles does too.
 
 ## The gates
 
