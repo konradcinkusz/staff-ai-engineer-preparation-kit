@@ -1,5 +1,10 @@
 # Staff AI Engineer Preparation Kit
 
+[![Build](https://github.com/konradcinkusz/staff-ai-engineer-preparation-kit/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/konradcinkusz/staff-ai-engineer-preparation-kit/actions/workflows/build.yml)
+[![Handbook](https://img.shields.io/github/v/release/konradcinkusz/staff-ai-engineer-preparation-kit?label=handbook%20PDF&color=7a4b2a)](https://github.com/konradcinkusz/staff-ai-engineer-preparation-kit/releases/latest/download/staff-ai-engineer-preparation-kit.pdf)
+[![Prose: CC BY-NC-SA 4.0](https://img.shields.io/badge/prose-CC%20BY--NC--SA%204.0-lightgrey)](LICENSE-CONTENT)
+[![Tooling: MIT](https://img.shields.io/badge/tooling-MIT-lightgrey)](LICENSE)
+
 A book, a set of fill-in artefacts, and five cards you print before a call —
 for an experienced engineer who is **not** an AI Engineer by title and is
 aiming at Staff level.
@@ -30,12 +35,14 @@ page.
 
 ## Reading it
 
-There is no hosted copy yet, and no release, so this section says what works
-today rather than printing a link that does not resolve — which is the rule the
-book itself is built on.
+**[Download the handbook](https://github.com/konradcinkusz/staff-ai-engineer-preparation-kit/releases/latest/download/staff-ai-engineer-preparation-kit.pdf)**, and
+the five cards are on the [same release](https://github.com/konradcinkusz/staff-ai-engineer-preparation-kit/releases/latest). No asset
+carries its version in its name, so that link resolves to the newest one
+without ever being edited.
 
-**Build it.** You need a TeX distribution with `tikz`, `tcolorbox`, `xltabular`
-and `environ`, and Python 3.11. Nothing else — no `pip install`, no lock file.
+**Or build it.** You need a TeX distribution with `tikz`, `tcolorbox`,
+`xltabular` and `environ`, and Python 3.11. Nothing else — no `pip install`,
+no lock file.
 
 ```sh
 git clone https://github.com/konradcinkusz/staff-ai-engineer-preparation-kit
@@ -43,17 +50,10 @@ cd staff-ai-engineer-preparation-kit
 make
 ```
 
-**Or take it off a build.** Every push builds the handbook and the five cards
-and attaches them to the run as an artefact, under
-[Actions → Build](https://github.com/konradcinkusz/staff-ai-engineer-preparation-kit/actions/workflows/build.yml).
-You need a GitHub account to download one, and they expire after fourteen days.
-
-Two better routes exist in the repository and neither is switched on:
-`pages.yml` publishes a permanent copy and needs an admin to choose
-**Settings → Pages → Source → GitHub Actions** once — creating a Pages site is
-an administrative action no workflow token can perform. `release.yml` attaches
-the PDFs to a `v*` tag, and no tag has been pushed. **This paragraph is deleted
-the day either happens.**
+There is no hosted copy yet. `pages.yml` publishes one and is waiting on an
+admin choosing **Settings → Pages → Source → GitHub Actions**, once — creating
+a Pages site is an administrative action that no workflow token can perform.
+**This paragraph is deleted the day that happens.**
 
 ## What it refuses to do
 
