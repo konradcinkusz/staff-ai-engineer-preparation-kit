@@ -26,9 +26,9 @@ jobs:
     permissions:
       contents: write   # scoped to this job, which is the only one that writes
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.11'
 
@@ -45,13 +45,13 @@ jobs:
         run: make mutations
 
       - name: Build the handbook
-        uses: xu-cheng/latex-action@v3
+        uses: xu-cheng/latex-action@v4
         with:
           root_file: main.tex
           args: -pdf -interaction=nonstopmode -file-line-error
 
       - name: Build the cards
-        uses: xu-cheng/latex-action@v3
+        uses: xu-cheng/latex-action@v4
         with:
           working_directory: onepagers
           root_file: |
@@ -72,7 +72,7 @@ jobs:
           for f in onepagers/*-card.pdf; do cp "$f" "release/$(basename "$f")"; done
           ls -la release
 
-      - uses: softprops/action-gh-release@v2
+      - uses: softprops/action-gh-release@v3
         with:
           files: release/*.pdf
           fail_on_unmatched_files: true
